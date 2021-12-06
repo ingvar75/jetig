@@ -17,7 +17,7 @@ services:
       - 8090:8090
     volumes:
       - ./:/var/www
-      - ./docker/nginx/jetig_net.local.conf:/etc/nginx/conf.d/jetig_net.local.conf
+      - ./docker/nginx/jetig-net.local.conf:/etc/nginx/conf.d/jetig-net.local.conf
 
     depends_on:
       - app
@@ -43,4 +43,4 @@ services:
       - 26071:80
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=jetig.local
+      - PMA_HOST=2607.local
