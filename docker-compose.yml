@@ -17,7 +17,7 @@ services:
       - 8090:8090
     volumes:
       - ./:/var/www
-      - ./docker/nginx/jetig.local.conf:/etc/nginx/conf.d/jetig.local.conf
+      - ./docker/nginx/jetig_net.local.conf:/etc/nginx/conf.d/jetig_net.local.conf
 
     depends_on:
       - app
