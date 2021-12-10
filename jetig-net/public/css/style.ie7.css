@@ -1,0 +1,139 @@
+/* Created by Artisteer v4.1.0.60046 */
+
+.jet-header, #jet-header-bg, .jet-layout-cell, .jet-layout-wrapper, .jet-footer, .jet-nav, #jet-hmenu-bg, .jet-sheet,
+.clearfix {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+
+.jet-textblock > div {
+   display: block;
+   line-height: normal;
+   zoom: 1;
+}
+
+.jet-header
+{
+   z-index: 1;
+   background-image: [headerimage];
+   background-position: [headerposition];
+}
+
+#jet-header-bg 
+{
+   display: none;
+}
+
+.jet-hmenu>li, .jet-hmenu>li>a
+{
+   display: inline !important;
+   zoom: 1;
+   float: none !important;
+   vertical-align: top;
+}
+ul.jet-hmenu, ul.jet-hmenu ul {
+   zoom: expression(this.runtimeStyle.zoom="1", this.appendChild(document.createElement("br")).className="cleared");
+}
+#jet-hmenu-bg 
+{
+   display: none;
+}
+
+ul.jet-hmenu>li:first-child {
+   padding-right:13px;
+}
+ul.jet-hmenu>li{
+   zoom:expression(runtimeStyle.zoom=1,insertBefore(document.createElement('span'),firstChild).className='jet-hmenu-separator');
+}
+ul.jet-hmenu>li>span.jet-hmenu-separator
+{
+   position:absolute;
+   display: block;
+   top:0;
+   left:  -13px;
+   width: 13px;
+   height: 49px;
+   background: url('images/menuseparator.png') center center no-repeat;
+}
+ul.jet-hmenu>li:first-child>span.jet-hmenu-separator
+{
+   display:none;
+}
+
+ul.jet-hmenu ul, .desktop-nav ul.jet-hmenu>li.ext:hover>a{
+   background-color: rgba(119, 109, 80, 0.8) !important;
+}
+
+.jet-content-layout, .jet-content-layout-row, .jet-layout-cell 
+{
+   display: block;
+   zoom: 1;
+}
+.jet-layout-cell
+{
+   position:relative;
+   float: left;
+   clear: right;
+}
+
+input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+* html input[type="text"]
+{
+   margin :0;
+}
+
+form.jet-search>input[type="text"]
+{
+   margin:0 0 0 -3px;
+   zoom:expression(runtimeStyle.zoom = 1, parentNode.insertBefore(document.createElement('div'), this).appendChild(this));
+}
+
+form.jet-search div>input[type="text"]
+{
+   width: 100%;
+}
+
+* html form.jet-search>input[type="text"] 
+{
+   margin :0;
+}
+
+form.jet-search
+{
+   zoom: 1;
+}
+.jet-postmetadataheader{
+   zoom:1;
+}
+
+.jet-postheadericons span{
+   zoom: 1;
+}
+.jet-postcontent {
+   height: 1%;
+}
+
+.jet-postmetadatafooter{
+   zoom:1;
+}
+
+.jet-postfootericons span{
+   zoom: 1;
+}
+.close-alt, .arrow-right-alt, .arrow-left-alt {
+   display: block !important;
+}
+.cw, .ccw {
+   display: none !important;
+}
+
+.jet-sidebar1 
+{
+   width: auto;
+   float:none;
+}
+
