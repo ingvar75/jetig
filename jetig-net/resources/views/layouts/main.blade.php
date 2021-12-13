@@ -42,7 +42,19 @@
 
                     @yield('content')
 
-                    <div class="jet-layout-cell jet-sidebar1"><div class="jet-block clearfix">
+                    <div class="jet-layout-cell jet-sidebar1">
+                        <div class="jet-block clearfix">
+                            <div class="jet-blockheader">
+                                <h3 class="t">Авторизація</h3>
+                            </div>
+                            <div class="jet-blockcontent">
+                                <div>
+                                    @yield('content_login')
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jet-block clearfix">
                             <div class="jet-blockheader">
                                 <h3 class="t">Пошук</h3>
                             </div>
@@ -52,7 +64,8 @@
                                         <input type="submit" value="Search" name="search" class="jet-search-button" />
                                     </form>
                                 </div></div>
-                        </div><div class="jet-block clearfix">
+                        </div>
+                        <div class="jet-block clearfix">
                             <div class="jet-blockheader">
                                 <h3 class="t">Категорії</h3>
                             </div>
@@ -75,8 +88,10 @@
                                             <a href="#" title="Hovered link" class="hover">Hovered link</a> (6)
                                         </li>
                                     </ul>
-                                </div></div>
-                        </div><div class="jet-block clearfix">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="jet-block clearfix">
                             <div class="jet-blockheader">
                                 <h3 class="t">TODAY's Best</h3>
                             </div>
@@ -86,12 +101,14 @@
                                 <h3 class="t">Hottest Trends</h3>
                             </div>
                             <div class="jet-blockcontent"><p style="text-align:center;"><img width="181" height="181" alt="" src="images/blockimage1.jpg" class=""></p><p style="text-align: center;"><a href="#">Read more »</a></p></div>
-                        </div><div class="jet-block clearfix">
+                        </div>
+                        <div class="jet-block clearfix">
                             <div class="jet-blockheader">
                                 <h3 class="t">Поділитись</h3>
                             </div>
                             <div class="jet-blockcontent"><p><img width="51" height="51" alt="" src="images/1308560868_rss.png" class=""><img width="51" height="51" alt="" src="images/1308647898_facebook-2.png" class=""><img width="51" height="51" alt="" src="images/1308560877_flickr-2.png" class=""></p></div>
-                        </div></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div><footer class="jet-footer">
