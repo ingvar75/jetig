@@ -57,7 +57,7 @@
     {{ Form::label('repeatPassword', 'Repeat Password') }}
     {{ Form::password('repeatPassword', ['class' => 'form-control', 'placeholder' => 'Repeat Password']) }}
 
-    {{ Form::submit('Register', ['class' => 'btn btn-lg btn-primary mt-3']) }}
+    {{ Form::submit('Register', ['class' => 'jet-button']) }}
 
     {{ Form::close() }}
 

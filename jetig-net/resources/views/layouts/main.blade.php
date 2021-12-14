@@ -53,10 +53,12 @@
                                         <div class="alert alert-danger">
                                             <ul>
                                                 @foreach($errors->all() as $error)
-                                                    <li>{{ $error }}</li>
+                                                    <li style="color: #800000; /* Цвет текста */
+                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
                                                 @endforeach
                                             </ul>
                                         </div>
+                                        <br>
                                     @endif
                                     @yield('content_login')
                                 </div>
