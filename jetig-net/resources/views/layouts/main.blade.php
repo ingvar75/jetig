@@ -28,7 +28,7 @@
         <div class="jet-shapes">
         </div>
         <h1 class="jet-headline">
-            <a href="#">JetIG.net</a>
+            <a href="">JetIG.net</a>
         </h1>
         <h2 class="jet-slogan">Товари для активного відпочинку</h2>
 
