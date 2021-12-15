@@ -43,6 +43,25 @@
 @stop
 @section('content_login')
 
+    <div class="jet-layout-cell jet-sidebar1">
+        <div class="jet-block clearfix">
+            <div class="jet-blockheader">
+                <h3 class="t">Авторизація</h3>
+            </div>
+            <div class="jet-blockcontent">
+                <div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li style="color: #800000; /* Цвет текста */
+                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <br>
+                    @endif
+
     {{ Form::open(['url' => 'login', 'method' => 'post']) }}
     {{ Form::label('email', 'Email') }}
     {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}

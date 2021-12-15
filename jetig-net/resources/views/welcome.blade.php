@@ -43,16 +43,30 @@
 @stop
 
 @section('content_login')
-    {{ Form::open(['url' => 'login', 'method' => 'post']) }}
-    {{ Form::label('email', 'Email') }}
-    {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
 
-    {{ Form::label('password', 'Password') }}
-    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+    <div class="jet-layout-cell jet-sidebar1">
+        <div class="jet-block clearfix">
+            <div class="jet-blockheader">
+                <h3 class="t">Кабінет</h3>
+            </div>
+            <div class="jet-blockcontent">
+                <div>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li style="color: #800000; /* Цвет текста */
+                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <br>
+                    @endif
 
-    {{ Form::submit('Login', ['class' => 'btn btn-lg btn-primary mt-3']) }}
+
+    {{ Form::submit('Вийти', ['class' => 'jet-button']) }}
 
     {{ Form::close() }}
 
-    <p>or <a href="/register">Register</a></p>
+    <p>or <a href="/register">Інший вихід</a></p>
 @stop
