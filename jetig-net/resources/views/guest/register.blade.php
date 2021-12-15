@@ -76,9 +76,9 @@
     {{ Form::label('repeatPassword', 'Repeat Password') }}
     {{ Form::password('repeatPassword', ['class' => 'form-control', 'placeholder' => 'Repeat Password']) }}
 
-    {{ Form::submit('Register', ['class' => 'jet-button']) }}
+                        <p><br> {{ Form::submit('Реєстрація', ['class' => 'jet-button']) }}</p>
 
     {{ Form::close() }}
 
-    <p>or <a href="/login">Login</a></p>
+    <p><a href="/login">Вхід</a></p>
 @stop

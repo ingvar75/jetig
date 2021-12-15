@@ -69,9 +69,9 @@
     {{ Form::label('password', 'Password') }}
     {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
 
-    {{ Form::submit('Login', ['class' => 'jet-button']) }}
+                        <p><br>{{ Form::submit('Вхід', ['class' => 'jet-button']) }}</p>
 
     {{ Form::close() }}
 
-    <p>or <a href="/register">Register</a></p>
+    <p><a href="/register">Реєстрація</a></p>
 @stop
