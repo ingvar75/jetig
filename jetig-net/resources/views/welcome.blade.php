@@ -64,9 +64,5 @@
                     @endif
 
 
-    {{ Form::submit('Вийти', ['class' => 'jet-button']) }}
-
-    {{ Form::close() }}
-
-    <p>or <a href="/register">Запасний вихід</a></p>
+    <p><a href="/logout" class="jet-button">Вийти</a></p>
 @stop
