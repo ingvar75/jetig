@@ -7,12 +7,6 @@
             <li><a href="new-page-2-2.html">Категорії товарів</a></li>
             <li><a href="new-page-2.html">Контакти</a></li>
             <li><a href="кошик.html">Кошик</a></li>
-            <li><a href="авторизація.html">Авторизація</a>
-                <ul>
-                    <li><a href="авторизація/вхід.html">Вхід</a></li>
-                    <li><a href="авторизація/реєстрація.html">Реєстрація</a></li>
-                </ul>
-            </li>
         </ul>
     </nav>
 @stop
