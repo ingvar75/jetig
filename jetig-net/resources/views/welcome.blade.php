@@ -68,5 +68,5 @@
 
     {{ Form::close() }}
 
-    <p>or <a href="/register">Інший вихід</a></p>
+    <p>or <a href="/register">Запасний вихід</a></p>
 @stop
