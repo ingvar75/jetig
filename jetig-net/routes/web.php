@@ -29,5 +29,5 @@ Route::middleware('auth')->group(static function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/', function () {
         return view('welcome');
-    });
+    })->name('home');
 });
