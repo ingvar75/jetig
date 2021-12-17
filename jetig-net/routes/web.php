@@ -16,18 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
 Route::middleware('guest')->group(static function () {
-    Route::get('register', fn () => view('guest.register'));
-    Route::get('login', fn () => view('guest.login'))->name('login');
+    Route::get('register', fn() => view('guest.register'));
+    Route::get('login', fn() => view('guest.login'))->name('login');
+    Route::get('contacts', fn() => view('contacts'))->name('contacts');
 
     Route::post('register', [GuestController::class, 'register']);
     Route::post('login', [GuestController::class, 'login']);
+
+
 });
 
 Route::middleware('auth')->group(static function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    Route::get('/', fn() => view('welcome'))->name('home');
+    Route::get('contacts', fn() => view('contacts'))->name('contacts');
 });

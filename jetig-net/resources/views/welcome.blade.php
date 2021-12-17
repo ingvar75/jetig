@@ -1,16 +1,5 @@
 @extends('layouts.main')
 
-@section('nav')
-    <nav class="jet-nav">
-        <ul class="jet-hmenu">
-            <li><a href="{{route('home')}}" class="active">Домівка</a></li>
-            <li><a href="new-page-2-2.html">Категорії товарів</a></li>
-            <li><a href="new-page-2.html">Контакти</a></li>
-            <li><a href="кошик.html">Кошик</a></li>
-        </ul>
-    </nav>
-@stop
-
 @section('content')
     <div class="jet-layout-cell jet-content">
         <article class="jet-post jet-article">

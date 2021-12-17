@@ -1,5 +1,6 @@
 @extends('layouts.main')
 
+
 @section('content')
     <div class="jet-layout-cell jet-content">
         <article class="jet-post jet-article">
@@ -7,22 +8,13 @@
                 <div class="jet-content-layout">
                     <div class="jet-content-layout-row">
                         <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                            <h3 style="border-bottom: 1px solid #776D50; padding-bottom: 5px">Welcome</h3>
-                            <div class="image-caption-wrapper" style="width: 60%; float: left"><img
-                                    src="images/97067.jpg" style="width: 100%; max-width: 398px; " alt="an image"
-                                    class="jet-lightbox">
-                                <p>Image by Flickr/mark roy</p></div>
-                            <p><span style="font-weight: bold;">Libero mauris sodales nisi posuere consectetuer arcu imperdiet dui.</span>
-                            </p>
-                            <p>Ac ligula felis lacus ligula pellentesque nisl tortor. Magna aenean nisi metus tincidunt
-                                suspendisse class. Convallis elit non. Felis erat suscipit tortor ac aenean lobortis id
-                                praesent in. Tristique ipsum in. Vitae egestas odio posuere velit per bibendum blandit
-                                fusce nec sem. Praesent lorem a turpis quis tincidunt nisl. Ipsum sed non sapien
-                                ultrices et eu ac nisl ut. Vestibulum ullamcorper quis cras viverra gravida ut. Velit
-                                curabitur. Ac eu ligula nec dignissim suspendisse. In nulla vel ante donec ut nunc
-                                vestibulum commodo potenti etiam felis. A dictum vivamus erat etiam eros at vitae fusce
-                                augue.</p>
-                            <p><a href="#" class="jet-button">Еще</a></p>
+                            <h3 style="border-bottom: 1px solid #776D50; padding-bottom: 5px">Контакти</h3>
+                            <p><span style="font-weight: bold; color: #0a53be;">Пн-Пт 10:00-18:00:</span></p>
+                            <p>+380679185706</p>
+                            <p>+380733059806</p>
+                            <p><span style="font-weight: bold; color: #0a53be">Email:</span></p>
+                            <p>mail@jetig.net</p>
+                            <p><a href="#" class="jet-button">Відправити повідомлення</a></p>
                         </div>
                     </div>
                 </div>
@@ -53,12 +45,13 @@
         </article>
     </div>
 @stop
+
 @section('content_login')
 
     <div class="jet-layout-cell jet-sidebar1">
         <div class="jet-block clearfix">
             <div class="jet-blockheader">
-                <h3 class="t">Авторизація</h3>
+                <h3 class="t">Кабінет</h3>
             </div>
             <div class="jet-blockcontent">
                 <div>
@@ -67,23 +60,13 @@
                             <ul>
                                 @foreach($errors->all() as $error)
                                     <li style="color: #800000; /* Цвет текста */
-                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                         <br>
                     @endif
 
-                    {{ Form::open(['url' => 'login', 'method' => 'post']) }}
-                    {{ Form::label('email', 'Email') }}
-                    {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
 
-                    {{ Form::label('password', 'Password') }}
-                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
-
-                    <p><br>{{ Form::submit('Вхід', ['class' => 'jet-button']) }}</p>
-
-                    {{ Form::close() }}
-
-                    <p><a href="/register">Реєстрація</a></p>
+                    <p><a href="/logout" class="jet-button">Вийти</a></p>
 @stop
