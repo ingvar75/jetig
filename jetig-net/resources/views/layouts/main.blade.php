@@ -62,8 +62,6 @@
                 <div class="jet-content-layout-row">
 
                     @yield('content')
-
-
                     @yield('content_login')
                 </div>
             </div>
