@@ -81,7 +81,7 @@
                 <div>
                     <form action="#" class="jet-search" method="get" name="searchform">
                         <input type="text" value="" name="s"/>
-                        <input type="submit" value="Search" name="search" class="jet-search-button"/>
+                        <input type="submit" value="Search" name="search" class="jet-search-button" style="color: #B8AE94;"/>
                     </form>
                 </div>
             </div>

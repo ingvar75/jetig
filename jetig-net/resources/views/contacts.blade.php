@@ -67,6 +67,16 @@
                         <br>
                     @endif
 
-
+                    <div class="jet-blockcontent">
+                        <div>
+                            <p>Імпорт товарів excel</p>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
                     <p><a href="/logout" class="jet-button">Вийти</a></p>
 @stop

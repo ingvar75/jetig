@@ -3,6 +3,7 @@
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,7 @@ Route::middleware('auth')->group(static function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/', fn() => view('welcome'))->name('home');
     Route::get('contacts', fn() => view('contacts'))->name('contacts');
+    Route::get('excel/view', [ExcelController::class, 'index'])->name('index');
+    Route::get('excel/export', [ExcelController::class, 'export'])->name('export');
+    Route::post('excel/import', [ExcelController::class, 'import'])->name('import');
 });
