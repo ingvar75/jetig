@@ -20,7 +20,7 @@ use App\Http\Controllers\ExcelController;
 Route::middleware('guest')->group(static function () {
     Route::get('register', fn() => view('guest.register'));
     Route::get('login', fn() => view('guest.login'))->name('login');
-    Route::get('contacts', fn() => view('contacts'))->name('contacts');
+    Route::get('contacts', fn() => view('guest.contacts'))->name('contacts');
 
     Route::post('register', [GuestController::class, 'register']);
     Route::post('login', [GuestController::class, 'login']);

@@ -13,6 +13,7 @@
                                     <div class="col-12">
                                         <form action="{{ route('import') }}" method="post"
                                               enctype="multipart/form-data">
+                                            @csrf
                                             <p>
                                                 <label for="excel" class="form-label"></label>
                                                 <input type="file" name="excel" class="form-control">

@@ -18,29 +18,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="jet-content-layout-br layout-item-0">
-                </div>
-                <div class="jet-content-layout">
-                    <div class="jet-content-layout-row">
-                        <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                            <div class="image-caption-wrapper" style="width: 60%; float: left"><img
-                                    src="images/1bcdf.jpg" style="width: 100%; max-width: 399px;" alt="an image"
-                                    class="jet-lightbox">
-                                <p>Image by Flickr/Richard Taylor</p></div>
-                            <p><span style="font-weight: bold;">Nullam quis tempus libero justo eleifend nunc vel ut cursus neque.</span>
-                            </p>
-                            <p>cursus conubia ipsum eget nec in mi sem sem felis nec. Molestie aliquet imperdiet in leo
-                                feugiat nunc metus. Nec metus ultricies. Condimentum ut ad volutpat sit odio in nunc
-                                blandit ut nibh. Cubilia magna id. Orci ultrices in hendrerit aliquam malesuada proin mi
-                                nullam luctus. Nam urna curae nunc eleifend faucibus turpis. In at nam ut consectetuer
-                                vestibulum vivamus nec. Elit quisque eu leo eget dictum ligula euismod pede. Nisl aenean
-                                diam. Vestibulum magna blandit pretium etiam. At amet ante ac vitae orci fusce velit
-                                pellentesque vel orci tortor id. Pellentesque iaculis amet rhoncus sed vehicula magna
-                                ut.</p>
-                            <p><a href="#">Еще</a></p>
-                        </div>
-                    </div>
-                </div>
+
+
             </div>
         </article>
     </div>
