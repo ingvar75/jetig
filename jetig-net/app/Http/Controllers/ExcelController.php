@@ -65,7 +65,7 @@ class ExcelController extends Controller
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load("$file");
-        var_dump($spreadsheet);exit;
+        var_dump($spreadsheet->getActiveSheet()->toArray());exit;
 
         return back();
     }
