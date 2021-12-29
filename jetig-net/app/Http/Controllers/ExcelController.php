@@ -8,6 +8,7 @@ use App\Exports\UsersExport;
 use App\Imports\CategoriesImport;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -61,8 +62,7 @@ class ExcelController extends Controller
     public function import(Request $request): \Illuminate\Http\RedirectResponse
     {
         $file = $request->file('excel');
-        $filename = $file->getClientOriginalName(); // image.jpg
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+        $reader = new Xls();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load("$file");
         var_dump($spreadsheet->getActiveSheet()->toArray());exit;
