@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelController;
@@ -17,10 +18,11 @@ use App\Http\Controllers\ExcelController;
 */
 
 
+
 Route::middleware('guest')->group(static function () {
     Route::get('register', fn() => view('guest.register'));
     Route::get('login', fn() => view('guest.login'))->name('login');
-    Route::get('contacts', fn() => view('guest.contacts'))->name('contacts');
+    Route::get('contacts', [MenuController::class, 'contacts'])->name('contacts');
 
     Route::post('register', [GuestController::class, 'register']);
     Route::post('login', [GuestController::class, 'login']);
@@ -31,7 +33,7 @@ Route::middleware('guest')->group(static function () {
 Route::middleware('auth')->group(static function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/', fn() => view('welcome'))->name('home');
-    Route::get('contacts', fn() => view('contacts'))->name('contacts');
+
     Route::get('excel/view', [ExcelController::class, 'index'])->name('index');
     Route::get('excel/export', [ExcelController::class, 'export'])->name('export');
     Route::post('excel/import', [ExcelController::class, 'import'])->name('import');

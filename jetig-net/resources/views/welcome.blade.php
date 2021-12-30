@@ -55,7 +55,6 @@
 @stop
 
 @section('content_login')
-
     <div class="jet-layout-cell jet-sidebar1">
         <div class="jet-block clearfix">
             <div class="jet-blockheader">
