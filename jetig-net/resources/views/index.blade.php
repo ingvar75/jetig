@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('navigation')
 
 @section('content')
     <div class="jet-layout-cell jet-content">

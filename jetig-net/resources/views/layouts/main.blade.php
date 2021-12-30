@@ -53,14 +53,7 @@
         </h1>
         <h2 class="jet-slogan">Товари для активного відпочинку</h2>
 
-        <nav class="jet-nav">
-            <ul class="jet-hmenu">
-                <li><a href="{{route('home')}}" class="active">Домівка</a></li>
-                <!--<li><a href="new-page-2-2.html">Категорії товарів</a></li>-->
-                <li><a href="{{route('contacts')}}">Контакти</a></li>
-                <!--<li><a href="кошик.html">Кошик</a></li>-->
-            </ul>
-        </nav>
+        @yield('nav')
 
     </header>
     <div class="jet-sheet clearfix">
@@ -83,7 +76,8 @@
                 <div>
                     <form action="#" class="jet-search" method="get" name="searchform">
                         <input type="text" value="" name="s"/>
-                        <input type="submit" value="Search" name="search" class="jet-search-button" style="color: #B8AE94;"/>
+                        <input type="submit" value="Search" name="search" class="jet-search-button"
+                               style="color: #B8AE94;"/>
                     </form>
                 </div>
             </div>
