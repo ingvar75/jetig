@@ -25,12 +25,18 @@
     </div>
 @stop
 
+<?php
+use Illuminate\Support\Facades\Auth;
 
+$user = Auth::user();
+if (isset($user)){
+?>
 @section('content_login')
+
     <div class="jet-layout-cell jet-sidebar1">
         <div class="jet-block clearfix">
             <div class="jet-blockheader">
-                <h3 class="t">Авторизація</h3>
+                <h3 class="t">Кабінет</h3>
             </div>
             <div class="jet-blockcontent">
                 <div>
@@ -39,26 +45,71 @@
                             <ul>
                                 @foreach($errors->all() as $error)
                                     <li style="color: #800000; /* Цвет текста */
-                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
                                 @endforeach
                             </ul>
                         </div>
                         <br>
                     @endif
 
-                    {{ Form::open(['url' => 'login', 'method' => 'post']) }}
-                    {{ Form::label('email', 'Email') }}
-                    {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
 
-                    {{ Form::label('password', 'Password') }}
-                    {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+                    <div class="jet-blockcontent">
+                        <div>
+                            <p>Імпорт товарів excel</p>
+                            <ul>
+                                <li>
+                                    <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
+                    <p><a href="/logout" class="jet-button">Вийти</a></p>
+                    @stop
+                    <?php
+                    }else {
+                    ?>
+                    @section('content_login')
 
-                    <p><br>{{ Form::submit('Вхід', ['class' => 'jet-button']) }}</p>
+                        <div class="jet-layout-cell jet-sidebar1">
+                            <div class="jet-block clearfix">
+                                <div class="jet-blockheader">
+                                    <h3 class="t">Авторизація</h3>
+                                </div>
+                                <div class="jet-blockcontent">
+                                    <div>
+                                        @if ($errors->any())
+                                            <div class="alert alert-danger">
+                                                <ul>
+                                                    @foreach($errors->all() as $error)
+                                                        <li style="color: #800000; /* Цвет текста */
+                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <br>
+                                        @endif
 
-                    {{ Form::close() }}
+                                        {{ Form::open(['url' => 'login', 'method' => 'post']) }}
+                                        {{ Form::label('email', 'Email') }}
+                                        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
 
-                    <p><a href="/register">Реєстрація</a></p>
+                                        {{ Form::label('password', 'Password') }}
+                                        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+
+                                        <p><br>{{ Form::submit('Вхід', ['class' => 'jet-button']) }}</p>
+
+                                        {{ Form::close() }}
+
+                                        <p><a href="/register">Реєстрація</a></p>
 @stop
+
+<?php
+}
+
+
+?>
+
 
 
 

@@ -18,11 +18,12 @@ use App\Http\Controllers\ExcelController;
 */
 
 
+Route::get('contacts', [MenuController::class, 'contacts'])->name('contacts');
 
 Route::middleware('guest')->group(static function () {
     Route::get('register', fn() => view('guest.register'));
     Route::get('login', fn() => view('guest.login'))->name('login');
-    Route::get('contacts', [MenuController::class, 'contacts'])->name('contacts');
+
 
     Route::post('register', [GuestController::class, 'register']);
     Route::post('login', [GuestController::class, 'login']);
