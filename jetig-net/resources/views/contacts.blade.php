@@ -52,17 +52,37 @@ if (isset($user)){
                         <br>
                     @endif
 
-
-                    <div class="jet-blockcontent">
-                        <div>
-                            <p>Імпорт товарів excel</p>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
-                                </li>
-                            </ul>
+                        <?php
+                        if ($user['name'] == 'admin'){ ?>
+                        <div class="jet-blockcontent">
+                            <div>
+                                <p>Вітаю, <?=$user['name']?></p>
+                                <p>Імпорт товарів excel</p>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                        <?php }else{ ?>
+                        <div class="jet-blockcontent">
+                            <div>
+                                <p style="color: #cbae57">Вітаю, <?=$user['name']?> !</p>
+                                <ul>
+                                    <li>
+                                        <a href="{{ route('home') }}" title="Ваш кошик">Кошик</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('home') }}" title="Ваші замовлення">Історія замовлень</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('home') }}" title="Ваші дані">Керувати даними</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <?php } ?>
                     <br>
                     <p><a href="/logout" class="jet-button">Вийти</a></p>
                     @stop
