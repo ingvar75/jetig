@@ -17,7 +17,7 @@ $action = $nav->navigation();
 @section('nav')
     <nav class="jet-nav">
         <ul class="jet-hmenu">
-            <?php if($action == '/' || $action == '/excel/view'){?>
+            <?php if($action == '/' || $action == '/excel/view'|| $action == '/login'|| $action == '/register'){?>
             <li><a href="{{route('home')}}" class="active">Домівка</a></li>
             <?php }else{?>
             <li><a href="{{route('home')}}">Домівка</a></li><?php }?>
