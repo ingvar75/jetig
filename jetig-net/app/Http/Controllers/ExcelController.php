@@ -4,10 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use Illuminate\Http\Request;
-use App\Exports\UsersExport;
-use App\Imports\CategoriesImport;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
