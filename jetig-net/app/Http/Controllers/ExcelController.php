@@ -55,6 +55,7 @@ class ExcelController extends Controller
     /**
      * @param $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
     public function import(Request $request): \Illuminate\Http\RedirectResponse
     {
@@ -62,7 +63,26 @@ class ExcelController extends Controller
         $reader = new Xls();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load("$file");
-        var_dump($spreadsheet->getActiveSheet()->toArray());exit;
+        $allSheets=$spreadsheet->getAllSheets();
+
+        foreach ($allSheets as $rew => $sheet){
+            $namePage=$spreadsheet->getSheetNames();
+
+            var_dump($namePage[$rew]);
+            if ($namePage[$rew] == 'Export Products Sheet'){
+                $page=$sheet->toArray();
+                $pageCount=count($page);
+                var_dump($pageCount);
+            }
+            if ($namePage[$rew] == 'Export Groups Sheet'){
+                $page=$sheet->toArray();
+                $pageCount=count($page);
+                var_dump($pageCount);
+            }
+        }
+
+
+        exit;
 
         return back();
     }

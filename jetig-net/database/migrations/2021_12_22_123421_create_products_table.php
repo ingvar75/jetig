@@ -15,17 +15,17 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->integer('Код_товара')->unique();
-            $table->string('Название_позиции');
-            $table->string('Описание');
-            $table->integer('Цена');
-            $table->string('Валюта');
-            $table->string('Единица_измерения');
-            $table->string('Ссылка_изображения');
-            $table->boolean('Наличие');
-            $table->string('Производитель');
-            $table->integer('Уникальный_идентификатор')->unique();
-            $table->integer('Идентификатор_группы');
+            $table->integer('product_code')->unique();
+            $table->string('item_name');
+            $table->string('description');
+            $table->integer('price');
+            $table->string('currency');
+            $table->string('unit_of_measurement');
+            $table->string('image_link');
+            $table->boolean('availability');
+            $table->string('manufacturer_tramp');
+            $table->integer('unique_identifier')->unique();
+            $table->integer('id_group');
             $table->timestamps();
         });
     }
