@@ -47,7 +47,7 @@ class ExcelController extends Controller
         });
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         $response->headers->set('Content-Disposition', "attachment;filename=categoriesEXP.xlsx");
-        $response->headers->set('Cache-Control','max-age=0');
+        $response->headers->set('Cache-Control', 'max-age=0');
 
         return $response;
     }
@@ -63,21 +63,28 @@ class ExcelController extends Controller
         $reader = new Xls();
         $reader->setReadDataOnly(true);
         $spreadsheet = $reader->load("$file");
-        $allSheets=$spreadsheet->getAllSheets();
+        $allSheets = $spreadsheet->getAllSheets();
 
-        foreach ($allSheets as $rew => $sheet){
-            $namePage=$spreadsheet->getSheetNames();
+        foreach ($allSheets as $rew => $sheet) {
+            $namePage = $spreadsheet->getSheetNames();
 
             var_dump($namePage[$rew]);
-            if ($namePage[$rew] == 'Export Products Sheet'){
-                $page=$sheet->toArray();
-                $pageCount=count($page);
-                var_dump($pageCount);
+            if ($namePage[$rew] == 'Export Groups Sheet') {
+                $page = $sheet->toArray();
+                $pageCount = count($page);
+                for ($i = 1; $i < $pageCount; $i++) {
+                    $in_db_categories = [$page[$i][1], $page[$i][2], $page[$i][4]];
+                    var_dump($in_db_categories);
+                }
+
             }
-            if ($namePage[$rew] == 'Export Groups Sheet'){
-                $page=$sheet->toArray();
-                $pageCount=count($page);
-                var_dump($pageCount);
+            if ($namePage[$rew] == 'Export Products Sheet') {
+                $page = $sheet->toArray();
+                $pageCount = count($page);
+                for ($i = 1; $i < $pageCount; $i++) {
+                    $in_db_product = [$page[$i][0], $page[$i][1], $page[$i][3], $page[$i][5], $page[$i][6], $page[$i][7], $page[$i][11], $page[$i][12], $page[$i][14], $page[$i][22], $page[$i][24]];
+                    var_dump($in_db_product);
+                }
             }
         }
 

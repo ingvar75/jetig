@@ -16,9 +16,9 @@ class Categories extends Model
     //
     public $table = "categories";
     protected array $categories = [
-        'Название_группы',
-        'Идентификатор_группы',
-        'Идентификатор_родителя',
+        'name_group',
+        'id_group',
+        'id_group_parent',
     ];
     protected $casts = [
         'created_at' => 'datetime',
