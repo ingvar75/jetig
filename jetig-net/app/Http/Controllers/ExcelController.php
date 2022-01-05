@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categories;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Reader\Xls;
@@ -70,19 +71,45 @@ class ExcelController extends Controller
 
             var_dump($namePage[$rew]);
             if ($namePage[$rew] == 'Export Groups Sheet') {
+                DB::table('categories')->truncate();
                 $page = $sheet->toArray();
                 $pageCount = count($page);
                 for ($i = 1; $i < $pageCount; $i++) {
-                    $in_db_categories = [$page[$i][1], $page[$i][2], $page[$i][4]];
+                    if ($page[$i][4] == null) $page[$i][4] = 0;
+                    $in_db_categories = [
+                        'name_group' => $page[$i][1],
+                        'id_group' => $page[$i][2],
+                        'id_group_parent' => $page[$i][4],
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s"),
+                    ];
+                    Categories::query()->insert($in_db_categories);
                     var_dump($in_db_categories);
                 }
 
             }
             if ($namePage[$rew] == 'Export Products Sheet') {
+                DB::table('products')->truncate();
                 $page = $sheet->toArray();
                 $pageCount = count($page);
                 for ($i = 1; $i < $pageCount; $i++) {
-                    $in_db_product = [$page[$i][0], $page[$i][1], $page[$i][3], $page[$i][5], $page[$i][6], $page[$i][7], $page[$i][11], $page[$i][12], $page[$i][14], $page[$i][22], $page[$i][24]];
+                    if ($page[$i][12] == "+") $page[$i][12] = 1; //є в наявності
+                    $in_db_product = [
+                        'product_code' => $page[$i][0],
+                        'item_name' => $page[$i][1],
+                        'description' =>$page[$i][3],
+                        'price' =>$page[$i][5],
+                        'currency' =>$page[$i][6],
+                        'unit_of_measurement' =>$page[$i][7],
+                        'image_link' =>$page[$i][11],
+                        'availability' =>$page[$i][12],
+                        'manufacturer_tramp' =>$page[$i][14],
+                        'unique_identifier' =>$page[$i][22],
+                        'id_group'=>$page[$i][24],
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'updated_at' => date("Y-m-d H:i:s"),
+                        ];
+                    Products::query()->insert($in_db_product);
                     var_dump($in_db_product);
                 }
             }
