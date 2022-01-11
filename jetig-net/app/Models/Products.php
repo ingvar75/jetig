@@ -28,6 +28,7 @@ class Products extends Model
         'manufacturer_tramp',
         'unique_identifier',
         'id_group',
+        'images_home',
     ];
     protected $casts = [
         'created_at' => 'datetime',

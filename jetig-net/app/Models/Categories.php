@@ -19,6 +19,8 @@ class Categories extends Model
         'name_group',
         'id_group',
         'id_group_parent',
+        'images_pars',
+        'images_home',
     ];
     protected $casts = [
         'created_at' => 'datetime',

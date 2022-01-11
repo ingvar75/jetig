@@ -142,7 +142,7 @@
     <div style="position:relative;text-align:center;"><a title="RSS" class="jet-rss-tag-icon"
                                                          style="position: absolute; bottom: -10px; left: -6px; line-height: 32px;"
                                                          href="#"></a>
-        <p><a href="#">Новини</a>|<a href="#">Галерея</a>|<a href="#">Контакти</a>|<a
+        <p><a href="#">Новини</a>|<a href="#">Галерея</a>|<a href="{{route('contacts')}}">Контакти</a>|<a
                 href="http://www.iconfinder.com/search/?q=iconset:web2badges">Icon set</a> A. <a href="#">IG</a></p>
         <p>Авторське право © 2021. Всі права захищені.</p></div>
 </footer>

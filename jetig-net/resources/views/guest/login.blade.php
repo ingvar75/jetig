@@ -7,47 +7,116 @@
                 <div class="jet-content-layout">
                     <div class="jet-content-layout-row">
                         <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                            <h3 style="border-bottom: 1px solid #776D50; padding-bottom: 5px">Welcome</h3>
-                            <div class="image-caption-wrapper" style="width: 60%; float: left"><img
-                                    src="images/97067.jpg" style="width: 100%; max-width: 398px; " alt="an image"
-                                    class="jet-lightbox">
-                                <p>Image by Flickr/mark roy</p></div>
-                            <p><span style="font-weight: bold;">Libero mauris sodales nisi posuere consectetuer arcu imperdiet dui.</span>
-                            </p>
-                            <p>Ac ligula felis lacus ligula pellentesque nisl tortor. Magna aenean nisi metus tincidunt
-                                suspendisse class. Convallis elit non. Felis erat suscipit tortor ac aenean lobortis id
-                                praesent in. Tristique ipsum in. Vitae egestas odio posuere velit per bibendum blandit
-                                fusce nec sem. Praesent lorem a turpis quis tincidunt nisl. Ipsum sed non sapien
-                                ultrices et eu ac nisl ut. Vestibulum ullamcorper quis cras viverra gravida ut. Velit
-                                curabitur. Ac eu ligula nec dignissim suspendisse. In nulla vel ante donec ut nunc
-                                vestibulum commodo potenti etiam felis. A dictum vivamus erat etiam eros at vitae fusce
-                                augue.</p>
+
+
+                            <?php
+                            use Illuminate\Support\Facades\DB;
+                            $CatParent = DB::table('categories')->where('id_group_parent', 0)->first();
+                            //суперкатегорія
+                            ?>
+                            <h3
+                                style="border-bottom: 1px solid #776D50; padding-bottom: 5px"><?=$CatParent->name_group?></h3>
+                            <!--назва суперкатегорії-->
+                            <?php
+
+
+                            $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent->id_group)->get();
+                            //пакунок головних категорій
+
+                            $CatIdParents = $CatIdParents->toArray();
+                            for ($i = 0; $i < count($CatIdParents); $i++) {
+                            //var_dump($CatIdParents);exit;
+                            ?>
+                                <h3
+                                style="border-bottom: 1px solid #776D50; padding-bottom: 5px"><?=$CatIdParents[$i]->name_group?></h3>
+                            <!--назва головної категорії-->
+                            <?php
+
+                                foreach ($CatIdParents[$i] as $itemCat => $idCat) {
+
+                                    if ($itemCat == "id_group") {
+
+                                    //echo $itemCat . "=>" . $idCat . "<br>";
+
+                                    $podCat = DB::table('categories')->where('id_group_parent', $idCat)->get();
+                                    //пакунок підкатегорій які належать головній категорії
+                                    //var_dump($podCat);exit;
+
+                                        for ($j = 0; $j < count($podCat); $j++) {
+
+                                            foreach ($podCat[$j] as $key => $value) {
+
+                                            if ($key == 'id_group') {
+
+                                            //echo $key . "=>" . $value . "<br>";
+
+                                            $allProductsOfCat = DB::table('products')->where('id_group', $value)->get();
+                                            //пакунок товарів які належать підкатегорії
+                                                //var_dump($allProductsOfCat);exit;
+                                                if (count($allProductsOfCat)>0) {
+                                                ?> <h4
+                                                    style="border-bottom: 1px solid #776D50; padding-bottom: 5px"><?=$podCat[$j]->name_group?></h4>
+                                                <!--назва підкатегорії-->
+                                                <?php
+                                                }
+                                                    for ($k = 0; $k < count($allProductsOfCat); $k++) {
+                                                    $images_array = explode(',', $allProductsOfCat[$k]->image_link);
+                                                    $descriptions = strip_tags($allProductsOfCat[$k]->description);
+                                                        for ($n = 0; $n < count($images_array); $n++) {
+                                                            ?>
+                                                            <div class="image-caption-wrapper" style="width: 10%; float: left">
+                                                                <img
+                                                                    src="<?=$images_array[$n]?>" style="width: 100%; max-width: 100px; " alt="an image"
+                                                                    class="jet-lightbox">
+                                                            </div>
+                                                            <?php
+                                                        }
+                                                    ?>
+                                                    <div>
+                                                        <p><span style="font-weight: bold;"><?=$allProductsOfCat[$k]->item_name?></span><br>
+                                                            <span><?=$allProductsOfCat[$k]->product_code?></span>
+                                                        </p>
+                                                    </div>
+
+                                                    <div>
+                                                        <p><span><?=$descriptions?></span><br>
+                                                            <span><?=$allProductsOfCat[$k]->product_code?></span>
+                                                        </p>
+                                                    </div>
+                                                    <?php
+                                                    echo $allProductsOfCat[$k]->price . "<br>";
+                                                    echo $allProductsOfCat[$k]->currency . "<br>";
+                                                    echo $allProductsOfCat[$k]->availability . "<br>";
+                                                    echo $allProductsOfCat[$k]->manufacturer_tramp . "<br>";
+                                                    echo $allProductsOfCat[$k]->updated_at . "<br>";
+                                                    echo "<hr>";
+                                                    }
+
+                                            //var_dump($allProductsOfCat);
+                                            //exit;
+
+
+                                            }
+
+                                            $images_group = DB::table('products')->where('id_group', $idCat)->get('image_link');
+                                            $images_group = $images_group->toArray();
+
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            //exit();
+                            ?>
+
                             <p><a href="#" class="jet-button">Еще</a></p>
+
+
                         </div>
                     </div>
                 </div>
                 <div class="jet-content-layout-br layout-item-0">
-                </div>
-                <div class="jet-content-layout">
-                    <div class="jet-content-layout-row">
-                        <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                            <div class="image-caption-wrapper" style="width: 60%; float: left"><img
-                                    src="images/1bcdf.jpg" style="width: 100%; max-width: 399px;" alt="an image"
-                                    class="jet-lightbox">
-                                <p>Image by Flickr/Richard Taylor</p></div>
-                            <p><span style="font-weight: bold;">Nullam quis tempus libero justo eleifend nunc vel ut cursus neque.</span>
-                            </p>
-                            <p>cursus conubia ipsum eget nec in mi sem sem felis nec. Molestie aliquet imperdiet in leo
-                                feugiat nunc metus. Nec metus ultricies. Condimentum ut ad volutpat sit odio in nunc
-                                blandit ut nibh. Cubilia magna id. Orci ultrices in hendrerit aliquam malesuada proin mi
-                                nullam luctus. Nam urna curae nunc eleifend faucibus turpis. In at nam ut consectetuer
-                                vestibulum vivamus nec. Elit quisque eu leo eget dictum ligula euismod pede. Nisl aenean
-                                diam. Vestibulum magna blandit pretium etiam. At amet ante ac vitae orci fusce velit
-                                pellentesque vel orci tortor id. Pellentesque iaculis amet rhoncus sed vehicula magna
-                                ut.</p>
-                            <p><a href="#">Еще</a></p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </article>

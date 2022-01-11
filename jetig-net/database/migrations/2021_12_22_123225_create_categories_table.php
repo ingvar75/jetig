@@ -18,6 +18,8 @@ class CreateCategoriesTable extends Migration
             $table->string('name_group');
             $table->integer('id_group');
             $table->integer('id_group_parent');
+            $table->string('images_pars');
+            $table->string('images_home');
             $table->timestamps();
         });
     }
