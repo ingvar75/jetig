@@ -3,122 +3,148 @@
 @section('content')
     <div class="jet-layout-cell jet-content">
         <article class="jet-post jet-article">
+            <?php
+            use Illuminate\Support\Facades\DB;
+            $CatParent = DB::table('categories')->where('id_group_parent', 0)->first();
+            //суперкатегорія
+            ?>
+            <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$CatParent->name_group?></span></h2>
             <div class="jet-postcontent jet-postcontent-0 clearfix">
-                <div class="jet-content-layout">
-                    <div class="jet-content-layout-row">
-                        <div class="jet-layout-cell layout-item-1" style="width: 100%">
+                <?php ////////////////////визначимо та виведемо кількість головних категорій//////////////////////////
+                $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent->id_group)->get();
+                //пакунок головних категорій
+                $CatIdParents = $CatIdParents->toArray();
+                if (count($CatIdParents) > 0){
+                    $row = count($CatIdParents)/5;
+                    if ($row <= 1) $row = 1;
+                    if ($row <= 2) $row = 2;
+                    if ($row <= 3) $row = 3;
 
-
+                for ($k=1; $k < $row; $k++){
+                ?>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
                             <?php
-                            use Illuminate\Support\Facades\DB;
-                            $CatParent = DB::table('categories')->where('id_group_parent', 0)->first();
-                            //суперкатегорія
+                            $rew = array_slice($CatIdParents, ($k-1)*5, 5);
+
+                            for ($i = 0; $i < count($rew); $i++) {
                             ?>
-                            <h3
-                                style="border-bottom: 1px solid #776D50; padding-bottom: 5px"><?=$CatParent->name_group?></h3>
-                            <!--назва суперкатегорії-->
+                            <div class="jet-layout-cell layout-item-4" style="width: 20%">
+                                <p style="text-align: center;"><img width="99" height="99" alt="" class="jet-lightbox"
+                                                                    src="<?=$CatIdParents[$i+($k-1)*5]->images_pars?>"><br></p>
+                                <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ">
+                                               <?=$CatIdParents[$i+($k-1)*5]->name_group?></a></p>
+                            </div>
                             <?php
-
-
-                            $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent->id_group)->get();
-                            //пакунок головних категорій
-
-                            $CatIdParents = $CatIdParents->toArray();
-                            for ($i = 0; $i < count($CatIdParents); $i++) {
-                            //var_dump($CatIdParents);exit;
-                            ?>
-                                <h3
-                                style="border-bottom: 1px solid #776D50; padding-bottom: 5px"><?=$CatIdParents[$i]->name_group?></h3>
-                            <!--назва головної категорії-->
-                            <?php
-
-                                foreach ($CatIdParents[$i] as $itemCat => $idCat) {
-
-                                    if ($itemCat == "id_group") {
-
-                                    //echo $itemCat . "=>" . $idCat . "<br>";
-
-                                    $podCat = DB::table('categories')->where('id_group_parent', $idCat)->get();
-                                    //пакунок підкатегорій які належать головній категорії
-                                    //var_dump($podCat);exit;
-
-                                        for ($j = 0; $j < count($podCat); $j++) {
-
-                                            foreach ($podCat[$j] as $key => $value) {
-
-                                            if ($key == 'id_group') {
-
-                                            //echo $key . "=>" . $value . "<br>";
-
-                                            $allProductsOfCat = DB::table('products')->where('id_group', $value)->get();
-                                            //пакунок товарів які належать підкатегорії
-                                                //var_dump($allProductsOfCat);exit;
-                                                if (count($allProductsOfCat)>0) {
-                                                ?> <h4
-                                                    style="border-bottom: 1px solid #776D50; padding-bottom: 5px"><?=$podCat[$j]->name_group?></h4>
-                                                <!--назва підкатегорії-->
-                                                <?php
-                                                }
-                                                    for ($k = 0; $k < count($allProductsOfCat); $k++) {
-                                                    $images_array = explode(',', $allProductsOfCat[$k]->image_link);
-                                                    $descriptions = strip_tags($allProductsOfCat[$k]->description);
-                                                        for ($n = 0; $n < count($images_array); $n++) {
-                                                            ?>
-                                                            <div class="image-caption-wrapper" style="width: 10%; float: left">
-                                                                <img
-                                                                    src="<?=$images_array[$n]?>" style="width: 100%; max-width: 100px; " alt="an image"
-                                                                    class="jet-lightbox">
-                                                            </div>
-                                                            <?php
-                                                        }
-                                                    ?>
-                                                    <div>
-                                                        <p><span style="font-weight: bold;"><?=$allProductsOfCat[$k]->item_name?></span><br>
-                                                            <span><?=$allProductsOfCat[$k]->product_code?></span>
-                                                        </p>
-                                                    </div>
-
-                                                    <div>
-                                                        <p><span><?=$descriptions?></span><br>
-                                                            <span><?=$allProductsOfCat[$k]->product_code?></span>
-                                                        </p>
-                                                    </div>
-                                                    <?php
-                                                    echo $allProductsOfCat[$k]->price . "<br>";
-                                                    echo $allProductsOfCat[$k]->currency . "<br>";
-                                                    echo $allProductsOfCat[$k]->availability . "<br>";
-                                                    echo $allProductsOfCat[$k]->manufacturer_tramp . "<br>";
-                                                    echo $allProductsOfCat[$k]->updated_at . "<br>";
-                                                    echo "<hr>";
-                                                    }
-
-                                            //var_dump($allProductsOfCat);
-                                            //exit;
-
-
-                                            }
-
-                                            $images_group = DB::table('products')->where('id_group', $idCat)->get('image_link');
-                                            $images_group = $images_group->toArray();
-
-
-                                            }
-                                        }
-                                    }
+                            }
+                            $kol = 5 - count($rew);
+                            if ($kol > 0) {   // пустая ячейка если нет категории
+                                for ($n=1; $n<=$kol; $n++){
+                                ?>
+                                <div style="width: 20%">
+                                    <p style="text-align: center;"></p>
+                                    <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ"></a></p>
+                                </div>
+                                <?php
                                 }
                             }
-                            //exit();
                             ?>
-
-                            <p><a href="#" class="jet-button">Еще</a></p>
-
-
                         </div>
                     </div>
                 </div>
-                <div class="jet-content-layout-br layout-item-0">
+                <?php
+                }
+                ////////////////////////////////////////////////////////////////////////////////
+                ?>
+
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <div class="jet-layout-cell layout-item-4" style="width: 100%">
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p style="text-align: center;"><img width="250" height="169" alt="" class="jet-lightbox"
+                                                                    src="images/shutterstock_26254903.jpg"><br></p>
+                                <p style="text-align: justify;"><span style="font-size: 14px; color: #D4CEBF;">Баскетбольное кольцо MR 0555, кольцо 39 см</span><br>
+                                </p>Код продукта: 4241864<br>Артикул: YO-MR 0555<br><br><span
+                                    style="font-size: 11px; color: #69BDBF;">В наличии</span><br><span
+                                    style="color: #EB9705;">582.00 грн.<br><br><a href=""
+                                                                                  class="jet-button">Детальніше</a>&nbsp;</span><br>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 34%">
+                                <p style="text-align: center;"><img width="250" height="169"
+                                                                    style="margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; border-top-style: solid; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-top-color: rgb(119, 109, 80); border-right-color: rgb(119, 109, 80); border-bottom-color: rgb(119, 109, 80); border-left-color: rgb(119, 109, 80); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; "
+                                                                    alt="" class="jet-lightbox"
+                                                                    src="images/5ccba998-c458-4a62-8baa-c8bccf3f0868.png">
+                                </p>
+                                <p style="text-align: justify;"><span
+                                        style="font-size: 14px; color: rgb(212, 206, 191);">Баскетбольное кольцо MR 0555, кольцо 39 см</span><br>
+                                </p>Код продукта: 4241864<br>Артикул: YO-MR 0555<br><br><span
+                                    style="font-size: 11px; color: rgb(105, 189, 191);">В наличии</span><br><span
+                                    style="color: rgb(235, 151, 5);">582.00 грн.<br><br><a href="" class="jet-button">Детальніше</a>&nbsp;</span>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 34%">
+                                <p><br></p>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 34%">
+                                <p><br></p>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 34%">
+                                <p><br></p>
+                            </div>
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p><br></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <?php }?>
+                <p>Нажаль в даному розділі категорії товарів відсутні.</p>
         </article>
     </div>
 @stop

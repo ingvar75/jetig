@@ -18,28 +18,13 @@
     <script src="/js/script.responsive.js"></script>
     <meta name="description" content="Description">
     <meta name="keywords" content="Keywords">
-    <style>.jet-content .jet-postcontent-0 .layout-item-0 {
-            border-top-width: 1px;
-            border-top-style: solid;
-            border-top-color: #776D50;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-        .jet-content .jet-postcontent-0 .layout-item-1 {
-            padding-right: 10px;
-            padding-left: 10px;
-        }
-
-        .ie7 .jet-post .jet-layout-cell {
-            border: none !important;
-            padding: 0 !important;
-        }
-
-        .ie6 .jet-post .jet-layout-cell {
-            border: none !important;
-            padding: 0 !important;
-        }
+    <style>.jet-content .jet-postcontent-0 .layout-item-0 { margin-bottom: 5px;  }
+        .jet-content .jet-postcontent-0 .layout-item-1 { border-spacing: 10px 0px; border-collapse: separate;  }
+        .jet-content .jet-postcontent-0 .layout-item-2 { border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-color:#312D21; padding-right: 10px;padding-left: 10px;  }
+        .jet-content .jet-postcontent-0 .layout-item-3 { border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-width:1px;border-color:#312D21; padding-right: 10px;padding-left: 10px;  }
+        .jet-content .jet-postcontent-0 .layout-item-4 { border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid;border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-top-color:#312D21;border-right-color:#312D21;border-bottom-color:#312D21;border-left-color:#312D21; padding-right: 10px;padding-left: 10px;  }
+        .ie7 .jet-post .jet-layout-cell {border:none !important; padding:0 !important; }
+        .ie6 .jet-post .jet-layout-cell {border:none !important; padding:0 !important; }
 
     </style>
 </head>
