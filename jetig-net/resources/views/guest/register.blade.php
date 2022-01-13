@@ -4,53 +4,140 @@
 @section('content')
     <div class="jet-layout-cell jet-content">
         <article class="jet-post jet-article">
+            <?php
+            use Illuminate\Support\Facades\DB;
+            $CatParent = DB::table('categories')->where('id_group_parent', 0)->first();
+            //суперкатегорія
+            ?>
+            <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$CatParent->name_group?></span></h2>
             <div class="jet-postcontent jet-postcontent-0 clearfix">
-                <div class="jet-content-layout">
-                    <div class="jet-content-layout-row">
-                        <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                            <h3 style="border-bottom: 1px solid #776D50; padding-bottom: 5px">Welcome</h3>
-                            <div class="image-caption-wrapper" style="width: 60%; float: left"><img
-                                    src="images/97067.jpg" style="width: 100%; max-width: 398px; " alt="an image"
-                                    class="jet-lightbox">
-                                <p>Image by Flickr/mark roy</p></div>
-                            <p><span style="font-weight: bold;">Libero mauris sodales nisi posuere consectetuer arcu imperdiet dui.</span>
-                            </p>
-                            <p>Ac ligula felis lacus ligula pellentesque nisl tortor. Magna aenean nisi metus tincidunt
-                                suspendisse class. Convallis elit non. Felis erat suscipit tortor ac aenean lobortis id
-                                praesent in. Tristique ipsum in. Vitae egestas odio posuere velit per bibendum blandit
-                                fusce nec sem. Praesent lorem a turpis quis tincidunt nisl. Ipsum sed non sapien
-                                ultrices et eu ac nisl ut. Vestibulum ullamcorper quis cras viverra gravida ut. Velit
-                                curabitur. Ac eu ligula nec dignissim suspendisse. In nulla vel ante donec ut nunc
-                                vestibulum commodo potenti etiam felis. A dictum vivamus erat etiam eros at vitae fusce
-                                augue.</p>
-                            <p><a href="#" class="jet-button">Еще</a></p>
+                <?php ////////////////////визначимо та виведемо кількість головних категорій//////////////////////////
+                $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent->id_group)->get();
+                //пакунок головних категорій
+                $CatIdParents = $CatIdParents->toArray();
+                if (count($CatIdParents) > 0){
+                $row = count($CatIdParents)/5;
+                if ($row <= 1) $row = 1;
+                if ($row <= 2) $row = 2;
+                if ($row <= 3) $row = 3;
+
+                for ($k=1; $k < $row; $k++){
+                ?>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <?php
+                            $rew = array_slice($CatIdParents, ($k-1)*5, 5);
+
+                            for ($i = 0; $i < count($rew); $i++) {
+                            ?>
+                            <div class="jet-layout-cell layout-item-4" style="width: 20%">
+                                <p style="text-align: center;"><img width="99" height="99" alt="" class="jet-lightbox"
+                                                                    src="<?=$CatIdParents[$i+($k-1)*5]->images_pars?>"><br></p>
+                                <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ">
+                                        <?=$CatIdParents[$i+($k-1)*5]->name_group?></a></p>
+                            </div>
+                            <?php
+                            }
+                            $kol = 5 - count($rew);
+                            if ($kol > 0) {   // пустая ячейка если нет категории
+                            for ($n=1; $n<=$kol; $n++){
+                            ?>
+                            <div style="width: 20%">
+                                <p style="text-align: center;"></p>
+                                <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ"></a></p>
+                            </div>
+                            <?php
+                            }
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
-                <div class="jet-content-layout-br layout-item-0">
-                </div>
-                <div class="jet-content-layout">
-                    <div class="jet-content-layout-row">
-                        <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                            <div class="image-caption-wrapper" style="width: 60%; float: left"><img
-                                    src="images/1bcdf.jpg" style="width: 100%; max-width: 399px;" alt="an image"
-                                    class="jet-lightbox">
-                                <p>Image by Flickr/Richard Taylor</p></div>
-                            <p><span style="font-weight: bold;">Nullam quis tempus libero justo eleifend nunc vel ut cursus neque.</span>
-                            </p>
-                            <p>cursus conubia ipsum eget nec in mi sem sem felis nec. Molestie aliquet imperdiet in leo
-                                feugiat nunc metus. Nec metus ultricies. Condimentum ut ad volutpat sit odio in nunc
-                                blandit ut nibh. Cubilia magna id. Orci ultrices in hendrerit aliquam malesuada proin mi
-                                nullam luctus. Nam urna curae nunc eleifend faucibus turpis. In at nam ut consectetuer
-                                vestibulum vivamus nec. Elit quisque eu leo eget dictum ligula euismod pede. Nisl aenean
-                                diam. Vestibulum magna blandit pretium etiam. At amet ante ac vitae orci fusce velit
-                                pellentesque vel orci tortor id. Pellentesque iaculis amet rhoncus sed vehicula magna
-                                ut.</p>
-                            <p><a href="#">Еще</a></p>
+                <?php
+                }
+                /////////////////////////відобразимо пустий блок//////////////////////////
+
+                ?>
+
+
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <div class="jet-layout-cell layout-item-4" style="width: 100%">
+                                <p><br></p>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <?php
+                ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
+                $podCat = [];
+                while (count($podCat) == 0){ //шукаємо не пусті категорії
+                    $rand = array_rand($CatIdParents, 1);
+                    //var_dump($CatIdParents[$rand]->id_group);
+                    $podCat = DB::table('categories')->where('id_group_parent', $CatIdParents[$rand]->id_group)->get();
+                }
+                $podCat = $podCat->toArray();
+                //var_dump($podCat);
+                $allProductsOfCat = [];
+                while (count($allProductsOfCat) < 3){  //шукаємо товари не меньше 3
+                    $rand1 = array_rand($podCat, 1);
+                    //var_dump($podCat[$rand1]);
+                    $allProductsOfCat = DB::table('products')->where('id_group', $podCat[$rand1]->id_group)->limit(12)->get();
+                }
+                //var_dump($allProductsOfCat);
+                // exit;
+                    ?>
+                    <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$podCat[$rand1]->name_group?></span></h4>
+                    <?php
+
+                for ($m=1; $m < 5; $m++){   //кількість рядків
+                ?>
+                <div class="jet-content-layout-wrapper layout-item-0">
+                    <div class="jet-content-layout layout-item-1">
+                        <div class="jet-content-layout-row">
+                            <?php
+                            $res = array_slice($allProductsOfCat->toArray(), ($m-1)*3, 3);
+                            for ($j=0; $j < count($res); $j++){
+                            $image_array = explode(',', $allProductsOfCat[$j+($m-1)*3]->image_link);
+                            $rmdImg = array_rand($image_array, 1);
+                            ?>
+                            <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                <p style="text-align: center;"><img width="250" height="250" alt="" class="jet-lightbox"
+                                                                    src="<?=$image_array[$rmdImg]?>"><br></p>
+                                <p style="text-align: justify;"><span style="font-size: 14px; color: #D4CEBF;"><?=$allProductsOfCat[$j+($m-1)*3]->item_name?></span><br></p>
+                                Артикул: <?=$allProductsOfCat[$j+($m-1)*3]->product_code?><br><br><span
+                                    style="font-size: 11px; color: #69BDBF;">В наявності</span><br><span
+                                    style="color: #EB9705;"><?=$allProductsOfCat[$j+($m-1)*3]->price?><?=$allProductsOfCat[$j+($m-1)*3]->currency?><br><br><a href=""
+                                                                                                                                                              class="jet-button">Детальніше</a>&nbsp;</span><br>
+                            </div>
+                            <?php
+                            }
+                            $kol = 3 - count($res);
+                            if ($kol > 0) {   // пустая ячейка если нет категории
+                            for ($n=1; $n<=$kol; $n++){
+                            ?>
+                            <div style="width: 33%">
+                                <p style="text-align: center;"></p>
+                                <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ"></a></p>
+                            </div>
+                            <?php
+                            }
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
             </div>
+
+            <?php }else{
+                echo "<p>Нажаль в даному розділі категорії товарів відсутні.</p>";
+            }?>
+
         </article>
     </div>
 @stop
