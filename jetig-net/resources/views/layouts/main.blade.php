@@ -14,6 +14,7 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu&amp;subset=latin">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <script src="/js/jquery-3.6.min.js"></script>
+    <script src="/js/jquery.js"></script>
     <script src="/js/script.js"></script>
     <script src="/js/script.responsive.js"></script>
     <meta name="description" content="Description">

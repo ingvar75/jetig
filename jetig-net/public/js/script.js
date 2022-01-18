@@ -1,4 +1,4 @@
-/* Created by Artisteer v4.1.0.60046 */
+/* Created by Artisteer v4.3.0.60745 */
 /*jshint forin:true, noarg:true, noempty:true, eqeqeq:true, bitwise:true, strict:true, undef:true, curly:false, browser:true, jquery:false */
 /*global jQuery BackgroundHelper */
 
@@ -1224,6 +1224,42 @@ jQuery(function () {
 
 
 
+if (typeof window.resizeData === 'undefined') window.resizeData = {};
+window.resizeData.headerPageWidth = false;
+if (typeof window.defaultResponsiveData === 'undefined') window.defaultResponsiveData = [false, true, true, true, true, ];
+
+resizeData['headline'] = {
+   responsive: [
+                  { left: 0.04, top: 0.19, visible: true }, 
+                  { left: 0.04, top: 0.19, visible: true }, 
+                  { left: 0.04, top: 0.19, visible: true }, 
+                  { left: 0.04, top: 0.19, visible: true }, 
+                  { left: 0.04, top: 0.19, visible: true }, 
+               ],
+   area: {
+       x: 0,
+       y: 0
+   },
+   width: 144,
+   height: 43,
+   autoWidth: true};
+
+resizeData['slogan'] = {
+   responsive: [
+                  { left: 0.04, top: 0.86, visible: true }, 
+                  { left: 0.04, top: 0.86, visible: true }, 
+                  { left: 0.04, top: 0.86, visible: true }, 
+                  { left: 0.04, top: 0.86, visible: true }, 
+                  { left: 0.04, top: 0.86, visible: true }, 
+               ],
+   area: {
+       x: 0,
+       y: 0
+   },
+   width: 172,
+   height: 11,
+   autoWidth: true};
+
 // used to apply compicated values in style like '!important!
 function applyCss(object, param, value) {
     var rg = new RegExp(param + '\s*:\s*[^;]+;', "i");
@@ -1298,7 +1334,7 @@ var headerObjectResizer = {
             var cleanUpStyles = false;
             // when use default respo so while in desktop mode always use 0-type, in other case cleanup our styles
             if (typeof responsiveDesign !== 'undefined' && 
-                    defaultResponsiveData &&
+                    defaultResponsiveData[responsiveDesign.responsiveTypeIdx] &&
                     responsiveDesign.isResponsive) {
                 cleanUpStyles = true;
             }
@@ -1342,7 +1378,7 @@ var headerObjectResizer = {
                     if (val.indexOf(cssPrefix) !== 0) return;
 
                     val = val.substring(cssPrefix.length);
-                    var data = resizeData;
+                    var data = resizeData[val];
                     if (typeof data === 'undefined') return;
 
                     if (cleanUpStyles) {
@@ -1351,7 +1387,7 @@ var headerObjectResizer = {
                         object.css('margin-left', '');
                     }
 
-                    var respData = data.responsive;
+                    var respData = data.responsive[responsiveType];
                     if (respData.visible) {
                         object.css('display', '');
                     } else {
@@ -1404,7 +1440,7 @@ var headerObjectResizer = {
                 slide.css('background-size', '');
 
                 var bgImage = slide.css('background-image') ? slide.css('background-image').split(',') : [];
-                var bgPosition = slide.css('background-position') && (slide.css('background-position').replace(/[^\d]+/gi, '')).length > 0 ?
+                var bgPosition = slide.css('background-position') && (slide.css('background-position').replace(/[0][^\d]+/gi, '')).length > 0 ?
                     slide.css('background-position').split(',') :
                     [];
                 if (bgImage.length !== bgPosition.length) {
@@ -1422,10 +1458,10 @@ var headerObjectResizer = {
 
                     var name = val.substring(findImageIdx + 7, findDotIdx);
 
-                    var data = resizeData;
+                    var data = resizeData[name];
                     if (typeof data === 'undefined') return;
 
-                    var respData = data.responsive;
+                    var respData = data.responsive[responsiveType];
                     // big default coordinates for hiding
                     var x = 9999, y = 9999;
                     if (respData.visible) {
@@ -1436,7 +1472,7 @@ var headerObjectResizer = {
                         y += data.area.y;
                     }
 
-                    bgPosition = x + 'px ' + y + 'px';
+                    bgPosition[idx] = x + 'px ' + y + 'px';
                 });
 
                 slide.css('background-position', bgPosition.join(','));
@@ -1475,3 +1511,6 @@ jQuery(function ($) {
         "positions": ""
     });
 });
+if (typeof window.resizeData === 'undefined') window.resizeData = {};
+
+window.resizeData.pageSliderPageWidth = false;
