@@ -19,6 +19,9 @@ use App\Http\Controllers\ExcelController;
 
 
 Route::get('contacts', [MenuController::class, 'contacts'])->name('contacts');
+Route::get('categories', [MenuController::class, 'categories'])->name('categories');
+Route::get('subcategories', [MenuController::class, 'categories'])->name('subcategories');
+Route::get('products', [MenuController::class, 'products'])->name('products');
 
 Route::middleware('guest')->group(static function () {
     Route::get('register', fn() => view('guest.register'));

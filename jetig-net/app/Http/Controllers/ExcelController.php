@@ -71,7 +71,7 @@ class ExcelController extends Controller
 
             var_dump($namePage[$rew]);
             if ($namePage[$rew] == 'Export Groups Sheet') {
-                DB::table('categories')->truncate();
+                //DB::table('categories')->truncate();//очистить базу категорий
                 $page = $sheet->toArray();
                 $pageCount = count($page);
                 for ($i = 1; $i < $pageCount; $i++) {
@@ -89,7 +89,7 @@ class ExcelController extends Controller
 
             }
             if ($namePage[$rew] == 'Export Products Sheet') {
-                DB::table('products')->truncate();
+                //DB::table('products')->truncate();//очистить базу товаров
                 $page = $sheet->toArray();
                 $pageCount = count($page);
                 for ($i = 1; $i < $pageCount; $i++) {
@@ -109,7 +109,7 @@ class ExcelController extends Controller
                         'created_at' => date("Y-m-d H:i:s"),
                         'updated_at' => date("Y-m-d H:i:s"),
                         ];
-                    Products::query()->insert($in_db_product);
+                    Products::query()->insertOrIgnore($in_db_product);// вставка с игнорированием дубликата или ошибки вставки
                     var_dump($in_db_product);
                 }
             }

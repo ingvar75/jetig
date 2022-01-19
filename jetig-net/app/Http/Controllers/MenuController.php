@@ -13,4 +13,16 @@ class MenuController extends Controller
     {
         return view('contacts');
     }
+    public function categories(Request $request)
+    {
+        return view('categories');
+    }
+    public function subcategories(Request $request)
+    {
+        return view('subcategories');
+    }
+    public function products(Request $request)
+    {
+        return view('products');
+    }
 }

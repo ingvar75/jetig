@@ -27,24 +27,24 @@ $action = $nav->navigation();
             <li><a href="{{route('home')}}">Домівка</a></li><?php }?>
 
             <?php
-                if($action == 'categories'){?>
-            <li><a href="{{route('home')}}" class="active">Категорії</a>
+                if($action == '/categories'){?>
+            <li><a href="{{route('categories')}}" class="active">Категорії</a>
                 <ul class="active">
                     <?php
                     if (count($CatParent) > 0){
                     for ($i=0; $i<count($CatParent); $i++){?>
-                    <li><a href="авторизація/вхід.html"><?=$CatParent[$i]->name_group?></a></li>
+                    <li><a href="{{route('home')}}"><?=$CatParent[$i]->name_group?></a></li>
                     <?php
                     }}?>
                 </ul>
             </li>
             <?php }else{?>
-            <li><a href="{{route('home')}}" class="link">Категорії</a>
+            <li><a href="{{route('categories')}}" class="link">Категорії</a>
                 <ul>
                     <?php
                     if (count($CatParent) > 0){
                     for ($i=0; $i<count($CatParent); $i++){?>
-                    <li><a href="авторизація/вхід.html"><?=$CatParent[$i]->name_group?></a></li>
+                    <li><a href="{{route('home')}}"><?=$CatParent[$i]->name_group?></a></li>
                     <?php
                     }}?>
                 </ul>

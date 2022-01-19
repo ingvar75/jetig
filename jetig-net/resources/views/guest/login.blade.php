@@ -14,6 +14,7 @@
                 $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent->id_group)->get();
                 //пакунок головних категорій
                 $CatIdParents = $CatIdParents->toArray();
+                //var_dump($CatIdParents);exit;
                 if (count($CatIdParents) > 0){
                 $row = count($CatIdParents) / 5;
                 if ($row <= 1) $row = 1;
@@ -34,7 +35,7 @@
                                 <p style="text-align: center;"><img width="99" height="99" alt="" class="jet-lightbox"
                                                                     src="<?=$CatIdParents[$i + ($k - 1) * 5]->images_pars?>"><br>
                                 </p>
-                                <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ">
+                                <p style="text-align: center;"><a href="{{'subcategories'}}" target="_self" title="Перейти у розділ">
                                         <?=$CatIdParents[$i + ($k - 1) * 5]->name_group?></a></p>
                             </div>
                             <?php
@@ -82,7 +83,7 @@
                 $podCat = $podCat->toArray();
                 //var_dump($podCat);
                 $allProductsOfCat = [];
-                while (count($allProductsOfCat) < 3) {  //шукаємо товари не меньше 3
+                while (count($allProductsOfCat) < 12) {  //шукаємо товари не меньше 12
                     $rand1 = array_rand($podCat, 1);
                     //var_dump($podCat[$rand1]);
                     $allProductsOfCat = DB::table('products')->where('id_group', $podCat[$rand1]->id_group)->limit(12)->get();
