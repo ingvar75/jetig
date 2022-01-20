@@ -11,10 +11,27 @@
             <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$CatParent->name_group?></span></h2>
             <div class="jet-postcontent jet-postcontent-0 clearfix">
                 <?php ////////////////////визначимо та виведемо кількість головних категорій//////////////////////////
-                $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent->id_group)->get();
-                //пакунок головних категорій
+                function CatIdParent($CatParent): \Illuminate\Support\Collection   //пакунок головних категорій
+                {
+                    return $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent)->get();
+                }
+
+
+                $CatIdParents = CatIdParent($CatParent->id_group);
                 $CatIdParents = $CatIdParents->toArray();
-                //var_dump($CatIdParents);exit;
+
+                //////////////////////////////////////Delete emtpty categories///////////////
+                foreach ($CatIdParents as $key=>$item) {
+                    $emptyCat = DB::table('categories')->where('id_group_parent', $item->id_group)->get();
+                    $arrayCat = (array)$emptyCat;
+                    if (count($emptyCat) <= 0){
+                        echo 'Deleted!!!'. $item->name_group. $item->id_group;
+                        DB::table('categories')->where('id_group', $item->id_group)->delete();
+                        var_dump($arrayCat);
+                    }
+                }
+                ////////////////////////////////////////////////////////////////////////////
+
                 if (count($CatIdParents) > 0){
                 $row = count($CatIdParents) / 5;
                 if ($row <= 1) $row = 1;
@@ -30,15 +47,35 @@
                             $rew = array_slice($CatIdParents, ($k - 1) * 5, 5);
 
                             for ($i = 0; $i < count($rew); $i++) {
+
+                            //завантажимо картинку для підкатегорії якщо її немає
+                            do {
+                                $IdGroupsPodcat = DB::table('categories')
+                                    ->inRandomOrder()
+                                    ->where('id_group_parent', $CatIdParents[$i + ($k - 1) * 5]->id_group)
+                                    ->first();
+
+                                $imagesOfGroups = DB::table('products')
+                                    ->inRandomOrder('image_link')
+                                    ->where('id_group', $IdGroupsPodcat->id_group)
+                                    ->first();
+
+                            } while (!is_object($imagesOfGroups));
+
+                            $image_array = explode(',', $imagesOfGroups->image_link);
+                            $imageLink = $image_array[array_rand($image_array, 1)];
+
                             ?>
                             <div class="jet-layout-cell layout-item-4" style="width: 20%">
                                 <p style="text-align: center;"><img width="99" height="99" alt="" class="jet-lightbox"
-                                                                    src="<?=$CatIdParents[$i + ($k - 1) * 5]->images_pars?>"><br>
+                                                                    src="<?=$imageLink?>"><br>
                                 </p>
-                                <p style="text-align: center;"><a href="{{'subcategories'}}" target="_self" title="Перейти у розділ">
+                                <p style="text-align: center;"><a href="{{'subcategories'}}" target="_self"
+                                                                  title="Перейти у розділ">
                                         <?=$CatIdParents[$i + ($k - 1) * 5]->name_group?></a></p>
                             </div>
                             <?php
+                //var_dump(count($rew), $imagesOfGroups, $CatIdParents, $CatIdParents[$i + ($k - 1) * 5],$IdGroupsPodcat);exit;
                             }
                             $kol = 5 - count($rew);
                             if ($kol > 0) {   // пустая ячейка если нет категории
@@ -75,7 +112,7 @@
                 <?php
                 ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
                 $podCat = [];
-                while (count($podCat) == 0) { //шукаємо не пусті категорії
+                while (count($podCat) < 1) { //шукаємо не пусті категорії
                     $rand = array_rand($CatIdParents, 1);
                     //var_dump($CatIdParents[$rand]->id_group);
                     $podCat = DB::table('categories')->where('id_group_parent', $CatIdParents[$rand]->id_group)->get();

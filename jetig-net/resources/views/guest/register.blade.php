@@ -81,7 +81,7 @@
                 $podCat = $podCat->toArray();
                 //var_dump($podCat);
                 $allProductsOfCat = [];
-                while (count($allProductsOfCat) < 3){  //шукаємо товари не меньше 3
+                while (count($allProductsOfCat) < 12){  //шукаємо товари не меньше 12
                     $rand1 = array_rand($podCat, 1);
                     //var_dump($podCat[$rand1]);
                     $allProductsOfCat = DB::table('products')->where('id_group', $podCat[$rand1]->id_group)->limit(12)->get();
