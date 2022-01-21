@@ -114,7 +114,34 @@ class ExcelController extends Controller
                 }
             }
         }
+        //////////////////////знайдемо та приберемо пусті категорії//////////////////////////////////
 
+        $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
+        //суперкатегорія random
+        var_dump($CatParent);
+        foreach ($CatParent as $k => $superCat){
+            echo '//////////////////////////////////////////////'.$superCat->name_group;
+            $categories = DB::table('categories')->where('id_group_parent', $superCat->id_group)->get();
+            var_dump($categories);
+
+            foreach ($categories as $key=>$obj){
+                echo '///////////////////////////////'.$obj->name_group;
+                $underCat = DB::table('categories')->where('id_group_parent', $obj->id_group)->get();
+                if (count($underCat) <= 0) {
+                    echo "<br>"."<p style='color: red;'>Deleted!!! Empty undercategory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>";
+                    DB::table('categories')->where('id_group', $obj->id_group)->delete();
+                }
+                foreach ($underCat as $m=>$prod){
+                    $products = DB::table('products')->where('id_group', $prod->id_group)->get();
+                    if (count($products) <= 0) {
+                        echo "<br>$prod->name_group".":". count($products);
+                        DB::table('categories')->where('id_group', $prod->id_group)->delete();
+                    }
+                }
+
+                var_dump($underCat);
+            }
+        }
 
         exit;
 
