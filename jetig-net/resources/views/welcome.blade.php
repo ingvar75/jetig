@@ -83,24 +83,19 @@
                 </div>
                 <?php
                 ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
-                $podCat = [];
-                while (count($podCat) < 1) { //шукаємо не пусті категорії
-                    $rand = array_rand($CatIdParents, 1);
-                    //var_dump($CatIdParents[$rand]->id_group);
-                    $podCat = DB::table('categories')->where('id_group_parent', $CatIdParents[$rand]->id_group)->get();
-                }
-                $podCat = $podCat->toArray();
-                //var_dump($podCat);
-                $allProductsOfCat = [];
-                while (count($allProductsOfCat) < 12) {  //шукаємо товари не меньше 12
-                    $rand1 = array_rand($podCat, 1);
-                    //var_dump($podCat[$rand1]);
-                    $allProductsOfCat = DB::table('products')->where('id_group', $podCat[$rand1]->id_group)->limit(12)->get();
-                }
-                //var_dump($allProductsOfCat);
-                // exit;
+                    $CatParent = DB::table('categories')->inRandomOrder()->where('id_group_parent', 0)->first();
+                    $CatIdParents = DB::table('categories')->inRandomOrder()->where('id_group_parent', $CatParent->id_group)->first();
+                    $allProductsOfCat = [];
+                    while (count($allProductsOfCat) < 6) {  //шукаємо товари не меньше 6
+                        $podCat = DB::table('categories')->inRandomOrder()->where('id_group_parent', $CatIdParents->id_group)->first();
+
+                        $allProductsOfCat = DB::table('products')->where('id_group', $podCat->id_group)->limit(12)->get();
+                        //var_dump($podCat, $allProductsOfCat);
+                        //exit;
+                    }
+
                 ?>
-                <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$podCat[$rand1]->name_group?></span></h4>
+                <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$podCat->name_group?></span></h4>
                 <?php
                 for ($m = 1; $m < 5; $m++){   //кількість рядків
                 ?>
