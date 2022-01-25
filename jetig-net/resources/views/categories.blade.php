@@ -4,13 +4,15 @@
 @section('content')
     <div class="jet-layout-cell jet-content">
         <article class="jet-post jet-article">
-            <h2 class="jet-postheader"><span class="jet-postheadericon">Категорії товарів</span></h2>
+
             <?php
             use Illuminate\Support\Facades\DB;
+
             $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
             if (count($CatParent) > 0){
 
             ?>
+            <h2 class="jet-postheader"><span class="jet-postheadericon">Категорії товарів</span></h2>
             <div class="jet-postcontent jet-postcontent-0 clearfix">
             <div class="jet-content-layout-wrapper layout-item-0">
                 <div class="jet-content-layout layout-item-1">

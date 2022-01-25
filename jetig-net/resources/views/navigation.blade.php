@@ -27,7 +27,7 @@ $action = $nav->navigation();
             <li><a href="{{route('home')}}">Домівка</a></li><?php }?>
 
             <?php
-                if($action == '/categories'){?>
+                if($action == '/categories' || isset($_GET['IdParent'])){?>
             <li><a href="{{route('categories')}}" class="active">Категорії</a>
                 <ul class="active">
                     <?php
@@ -44,7 +44,7 @@ $action = $nav->navigation();
                     <?php
                     if (count($CatParent) > 0){
                     for ($i=0; $i<count($CatParent); $i++){?>
-                    <li><a href="{{route('home')}}"><?=$CatParent[$i]->name_group?></a></li>
+                    <li><a href="/subcategories?IdParent=<?=$CatParent[$i]->id_group?>"><?=$CatParent[$i]->name_group?></a></li>
                     <?php
                     }}?>
                 </ul>

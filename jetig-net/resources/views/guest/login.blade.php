@@ -36,8 +36,6 @@
                                     ->inRandomOrder()
                                     ->where('id_group', $IdGroupsPodcat->id_group)
                                     ->first();
-//                            var_dump($IdGroupsPodcat);
-//                            var_dump($imagesOfGroups);exit;
                             $image_array = explode(',', $imagesOfGroups->image_link);
                             $imageLink = $image_array[array_rand($image_array, 1)];
                                 }
