@@ -22,7 +22,7 @@
                         ?>
                         <div class="jet-layout-cell layout-item-4" style="width: 30%">
                             <p style="text-align: left;">
-                                <a href="/subcategories?IdParent=<?=$CatParent[$k]->id_group?>">
+                                <a href="/subcategories?IdParent=<?=$CatParent[$k]->id_group?>" title="Перейти на сторінку">
                                 <img width="250" height="250" alt="" class="jet-lightbox"
                                                                 src="<?=$CatParent[$k]->images_pars?>">
                                 </a>
@@ -35,7 +35,8 @@
                             $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent[$k]->id_group)->get();
                             foreach ($CatIdParents as $key => $obj){
                             ?>
-                            <p style="text-align: left;"><a href="/subcategories?IdCat=<?=$obj->id_group?>" target="_self" title="Перейти у розділ">
+                            <p style="text-align: left;">
+                                <a href="/subcategories?IdCat=<?=$obj->id_group?>" target="_self" title="Перейти у розділ">
                                 <?=$obj->name_group?></a></p>
                             <?php
                             }
