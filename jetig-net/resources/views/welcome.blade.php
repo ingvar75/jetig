@@ -42,14 +42,18 @@
                                 $imageLink = $image_array[array_rand($image_array, 1)];
                             }
                             ?>
-                            <div class="jet-layout-cell layout-item-4" style="width: 20%">
-                                <p style="text-align: center;"><img width="99" height="99" alt="" class="jet-lightbox"
-                                                                    src="<?=$imageLink?>"><br>
-                                </p>
-                                <p style="text-align: center;"><a href="{{'subcategories'}}" target="_self"
-                                                                  title="Перейти у розділ">
-                                        <?=$value->name_group?></a></p>
-                            </div>
+                                <div class="jet-layout-cell layout-item-4" style="width: 20%">
+                                    <p style="text-align: center;">
+                                        <a href="subcategories?IdCat=<?=$value->id_group?>" target="_self" title="Перейти у розділ">
+                                            <img width="99" height="99" alt="" class="jet-lightbox"
+                                                 src="<?=$imageLink?>">
+                                        </a><br>
+                                    </p>
+                                    <p style="text-align: center;">
+                                        <a href="subcategories?IdCat=<?=$value->id_group?>" target="_self" title="Перейти у розділ">
+                                            <?=$value->name_group?></a>
+                                    </p>
+                                </div>
                             <?php
                             }
                             $kol = 5 - count($rew);

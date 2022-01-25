@@ -38,11 +38,16 @@
 
                             ?>
                             <div class="jet-layout-cell layout-item-4" style="width: 20%">
-                                <p style="text-align: center;"><img width="99" height="99" alt="" class="jet-lightbox"
+                                <p style="text-align: center;">
+                                    <a href="?IdCat=<?=$value->id_group?>" target="_self" title="Перейти у розділ">
+                                    <img width="99" height="99" alt="" class="jet-lightbox"
                                                                     src="<?=$imageLink?>"><br>
+                                    </a>
                                 </p>
-                                <p style="text-align: left;"><a href="" target="_self" title="Перейти у розділ">
-                                        <?=$value->name_group?></a></p>
+                                <p style="text-align: left;">
+                                    <a href="?IdCat=<?=$value->id_group?>" target="_self" title="Перейти у розділ">
+                                        <?=$value->name_group?></a>
+                                </p>
                             </div>
                             <?php
                             }

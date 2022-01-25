@@ -33,7 +33,7 @@ $action = $nav->navigation();
                     <?php
                     if (count($CatParent) > 0){
                     for ($i=0; $i<count($CatParent); $i++){?>
-                    <li><a href="{{route('home')}}"><?=$CatParent[$i]->name_group?></a></li>
+                    <li><a href="/subcategories?IdParent=<?=$CatParent[$i]->id_group?>"><?=$CatParent[$i]->name_group?></a></li>
                     <?php
                     }}?>
                 </ul>

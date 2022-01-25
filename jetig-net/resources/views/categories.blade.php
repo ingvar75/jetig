@@ -21,8 +21,12 @@
                         for ($k = 0; $k < count($CatParent); $k++){
                         ?>
                         <div class="jet-layout-cell layout-item-4" style="width: 30%">
-                            <p style="text-align: left;"><img width="250" height="250" alt="" class="jet-lightbox"
-                                                                src="<?=$CatParent[$k]->images_pars?>"><br>
+                            <p style="text-align: left;">
+                                <a href="/subcategories?IdParent=<?=$CatParent[$k]->id_group?>">
+                                <img width="250" height="250" alt="" class="jet-lightbox"
+                                                                src="<?=$CatParent[$k]->images_pars?>">
+                                </a>
+                                <br>
                             </p>
                             <p style="text-align: justify;"><span
                                     style="font-size: 14px; color: #D4CEBF;  text-decoration: underline;"><?=$CatParent[$k]->name_group?></span><br>
@@ -31,7 +35,7 @@
                             $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent[$k]->id_group)->get();
                             foreach ($CatIdParents as $key => $obj){
                             ?>
-                            <p style="text-align: left;"><a href="" target="_self" title="Перейти у розділ">
+                            <p style="text-align: left;"><a href="/subcategories?IdCat=<?=$obj->id_group?>" target="_self" title="Перейти у розділ">
                                 <?=$obj->name_group?></a></p>
                             <?php
                             }
