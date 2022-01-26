@@ -27,7 +27,7 @@ $action = $nav->navigation();
             <li><a href="{{route('home')}}">Домівка</a></li><?php }?>
 
             <?php
-                if($action == '/categories' || isset($_GET['IdParent'])){?>
+                if($action == '/categories' || isset($_GET['IdParent']) || isset($_GET['IdCat'])){?>
             <li><a href="{{route('categories')}}" class="active">Категорії</a>
                 <ul class="active">
                     <?php

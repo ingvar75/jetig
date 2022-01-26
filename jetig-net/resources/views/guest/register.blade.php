@@ -114,16 +114,23 @@
                             $rmdImg = array_rand($image_array, 1);
                             ?>
                             <div class="jet-layout-cell layout-item-4" style="width: 33%">
-                                <p style="text-align: center;"><img width="250" height="250" alt="" class="jet-lightbox"
-                                                                    src="<?=$image_array[$rmdImg]?>"><br></p>
+                                <p style="text-align: center;">
+                                    <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>">
+                                        <img width="250" height="250" alt="" class="jet-lightbox"
+                                             src="<?=$image_array[$rmdImg]?>">
+                                    </a><br>
+                                </p>
                                 <p style="text-align: justify;"><span
                                         style="font-size: 14px; color: #D4CEBF;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->item_name?></span><br>
                                 </p>
                                 Артикул: <?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?><br><br><span
-                                    style="font-size: 11px; color: #69BDBF;">В наявності</span><br><span
-                                    style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?><?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?><br><br><a
-                                        href=""
-                                        class="jet-button">Детальніше</a>&nbsp;</span><br>
+                                    style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
+                                <span
+                                    style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?><?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?><br><br>
+                                    <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>"
+                                       class="jet-button">Детальніше</a>
+                                </span><br>
+
                             </div>
                             <?php
                             }

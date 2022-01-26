@@ -40,8 +40,8 @@
                             <div class="jet-layout-cell layout-item-4" style="width: 20%">
                                 <p style="text-align: center;">
                                     <a href="?IdCat=<?=$value->id_group?>" target="_self" title="Перейти у розділ">
-                                    <img width="99" height="99" alt="" class="jet-lightbox"
-                                                                    src="<?=$imageLink?>"><br>
+                                        <img width="99" height="99" alt="" class="jet-lightbox"
+                                             src="<?=$imageLink?>"><br>
                                     </a>
                                 </p>
                                 <p style="text-align: left;">
@@ -71,70 +71,74 @@
 
                 <?php
                 }
-                    ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
-                    $CatIdParents = DB::table('categories')->inRandomOrder()->where('id_group_parent', $_GET['IdParent'])->first();
-                    $allProductsOfCat = [];
-                    while (count($allProductsOfCat) < 6) {  //шукаємо товари не меньше 6
-                        $podCat = DB::table('categories')->inRandomOrder()->where('id_group_parent', $CatIdParents->id_group)->first();
+                ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
+                $CatIdParents = DB::table('categories')->inRandomOrder()->where('id_group_parent', $_GET['IdParent'])->first();
+                $allProductsOfCat = [];
+                while (count($allProductsOfCat) < 6) {  //шукаємо товари не меньше 6
+                    $podCat = DB::table('categories')->inRandomOrder()->where('id_group_parent', $CatIdParents->id_group)->first();
 
-                        $allProductsOfCat = DB::table('products')->where('id_group', $podCat->id_group)->limit(12)->get();
-                    }
-                    ?>
-                    <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$podCat->name_group?></span></h4>
-                    <?php
-                    for ($m = 1; $m < 5; $m++){   //кількість рядків
-                    ?>
-                    <div class="jet-postcontent jet-postcontent-0 clearfix">
-                        <div class="jet-content-layout-wrapper layout-item-0">
-                            <div class="jet-content-layout layout-item-1">
-                                <div class="jet-content-layout-row">
-                                    <?php
-                                    $res = array_slice($allProductsOfCat->toArray(), ($m - 1) * 3, 3);
-                                    for ($j = 0; $j < count($res); $j++){
-                                    $image_array = explode(',', $allProductsOfCat[$j + ($m - 1) * 3]->image_link);
-                                    $rmdImg = array_rand($image_array, 1);
-                                    ?>
-                                    <div class="jet-layout-cell layout-item-4" style="width: 33%">
-                                        <p style="text-align: center;"><img width="250" height="250" alt=""
-                                                                            class="jet-lightbox"
-                                                                            src="<?=$image_array[$rmdImg]?>"><br></p>
-                                        <p style="text-align: justify;"><span
-                                                style="font-size: 14px; color: #D4CEBF;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->item_name?></span><br>
-                                        </p>
-                                        Артикул: <?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?><br><br><span
-                                            style="font-size: 11px; color: #69BDBF;">В наявності</span><br><span
-                                            style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?><?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?><br><br><a
-                                                href=""
-                                                class="jet-button">Детальніше</a>&nbsp;</span><br>
-                                    </div>
-                                    <?php
-                                    }
-                                    $kol = 3 - count($res);
-                                    if ($kol > 0) {   // пустая ячейка если нет категории
-                                    for ($n = 1; $n <= $kol; $n++){
-                                    ?>
-                                    <div style="width: 33%">
-                                        <p style="text-align: center;"></p>
-                                        <p style="text-align: center;"><a href="#" target="_self"
-                                                                          title="Перейти у розділ"></a>
-                                        </p>
-                                    </div>
-                                    <?php
-                                    }
-                                    }
-                                    ?>
+                    $allProductsOfCat = DB::table('products')->where('id_group', $podCat->id_group)->limit(12)->get();
+                }
+                ?>
+                <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$podCat->name_group?></span></h4>
+                <?php
+                for ($m = 1; $m < 5; $m++){   //кількість рядків
+                ?>
+                <div class="jet-postcontent jet-postcontent-0 clearfix">
+                    <div class="jet-content-layout-wrapper layout-item-0">
+                        <div class="jet-content-layout layout-item-1">
+                            <div class="jet-content-layout-row">
+                                <?php
+                                $res = array_slice($allProductsOfCat->toArray(), ($m - 1) * 3, 3);
+                                for ($j = 0; $j < count($res); $j++){
+                                $image_array = explode(',', $allProductsOfCat[$j + ($m - 1) * 3]->image_link);
+                                $rmdImg = array_rand($image_array, 1);
+                                ?>
+                                <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                    <p style="text-align: center;">
+                                        <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>">
+                                        <img width="250" height="250" alt=""
+                                                                        class="jet-lightbox"
+                                                                        src="<?=$image_array[$rmdImg]?>">
+                                        </a><br>
+                                    </p>
+                                    <p style="text-align: justify;"><span
+                                            style="font-size: 14px; color: #D4CEBF;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->item_name?></span><br>
+                                    </p>
+                                    Артикул: <?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?><br><br><span
+                                        style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
+                                    <span style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?><?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?>
+                                        <br><br>
+                                        <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>"
+                                            class="jet-button">Детальніше</a>&nbsp;
+                                    </span><br>
                                 </div>
+                                <?php
+                                }
+                                $kol = 3 - count($res);
+                                if ($kol > 0) {   // пустая ячейка если нет категории
+                                for ($n = 1; $n <= $kol; $n++){
+                                ?>
+                                <div style="width: 33%">
+                                    <p style="text-align: center;"></p>
+                                    <p style="text-align: center;"><a href="#" target="_self"
+                                                                      title="Перейти у розділ"></a>
+                                    </p>
+                                </div>
+                                <?php
+                                }
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
-                    <?php
-                    }
+                </div>
+                <?php
+                }
                 }elseif (isset($_GET['IdCat'])) {
                 ///////////////////////якщо не визначена суперкатегорія а передана головна категорія///////////////////////////////////
-
-                    $CatIdParents = DB::table('categories')->where('id_group', $_GET['IdCat'])->first();
-
-                    ?>
+                $CatIdParents = DB::table('categories')->where('id_group', $_GET['IdCat'])->first();
+                ?>
                 <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$CatIdParents->name_group?></span></h2>
                 <div class="jet-postcontent jet-postcontent-0 clearfix">
                     <?php ////////////////////визначимо та виведемо кількість головних категорій///////////////////////
@@ -163,12 +167,20 @@
 
                                 ?>
                                 <div class="jet-layout-cell layout-item-4" style="width: 20%">
-                                    <p style="text-align: center;"><img width="99" height="99" alt=""
-                                                                        class="jet-lightbox"
-                                                                        src="<?=$imageLink?>"><br>
+                                    <p style="text-align: center;">
+                                        <a href="?IdCatGroup=<?=$value->id_group?>" target="_self"
+                                           title="Перейти у розділ">
+                                            <?=$value->name_group?>
+                                            <img width="99" height="99" alt=""
+                                                 class="jet-lightbox"
+                                                 src="<?=$imageLink?>"><br>
+                                        </a>
                                     </p>
-                                    <p style="text-align: left;"><a href="" target="_self" title="Перейти у розділ">
-                                            <?=$value->name_group?></a></p>
+                                    <p style="text-align: left;">
+                                        <a href="?IdCatGroup=<?=$value->id_group?>" target="_self"
+                                           title="Перейти у розділ">
+                                            <?=$value->name_group?></a>
+                                    </p>
                                 </div>
                                 <?php
                                 }
@@ -191,18 +203,16 @@
                         </div>
                     </div>
                     <?php
-                        }
-
+                    }
                     ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
                     $CatIdParents = DB::table('categories')->inRandomOrder()->where('id_group_parent', $_GET['IdCat'])->first();
                     $allProductsOfCat = [];
                     while (count($allProductsOfCat) < 6) {  //шукаємо товари не меньше 6
                         $allProductsOfCat = DB::table('products')->where('id_group', $CatIdParents->id_group)->limit(12)->get();
-
                     }
-
                     ?>
-                    <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$CatIdParents->name_group?></span></h4>
+                    <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$CatIdParents->name_group?></span>
+                    </h4>
                     <?php
                     for ($m = 1; $m < 5; $m++){   //кількість рядків
                     ?>
@@ -213,8 +223,8 @@
                                     <?php
                                     $res = array_slice($allProductsOfCat->toArray(), ($m - 1) * 3, 3);
                                     foreach ($res as $key=>$value) {
-                                        $image_array = explode(',', $value->image_link);
-                                        $imageLink = $image_array[array_rand($image_array, 1)];
+                                    $image_array = explode(',', $value->image_link);
+                                    $imageLink = $image_array[array_rand($image_array, 1)];
                                     ?>
                                     <div class="jet-layout-cell layout-item-4" style="width: 33%">
                                         <p style="text-align: center;"><img width="250" height="250" alt=""
@@ -249,9 +259,103 @@
                             </div>
                         </div>
                     </div>
+                    <?php
+                    }
+                    }elseif (isset($_GET['IdCatGroup'])) {
+                    ///////////////////////////відобразимо товари групи підкатегорії//////////////////////////
+                    $CatIdParents = DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->first();
+                    $allProductsOfCat = DB::table('products')->where('id_group', $CatIdParents->id_group)->limit(12)->get();
+                    if (isset($_GET['ProdCode'])){
+                    $ProdInfo = DB::table('products')->where('product_code', $_GET['ProdCode'])->get();
+                    ?>
+                        <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$ProdInfo[0]->item_name?></span></h2>
+                        <div class="jet-postcontent jet-postcontent-0 clearfix">
+                            <div class="jet-content-layout-wrapper layout-item-0">
+                                <div class="jet-content-layout layout-item-1">
+                                    <div class="jet-content-layout-row">
+                                        <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                            <p style="text-align: left;">
+                                                <img width="250" height="250" alt=""
+                                                     class="jet-lightbox"
+                                                     src="<?=$ProdInfo[0]->image_link?>">
+                                            </p>
+                                            <p style="font-size: 16px;">Артикул: <?=$ProdInfo[0]->product_code?></p>
+                                            <p>
+                                                <span style="font-size: 11px; color: #69BDBF;">В наявності</span>
+                                            </p>
+                                            <p style="font-size: 14px; color: #EB9705;"><?=$ProdInfo[0]->price?> <?=$ProdInfo[0]->currency?>
+                                                &nbsp;<a href="?ProdCode=<?=$ProdInfo[0]->product_code?>"
+                                                   class="jet-button">Додати у кошик</a>&nbsp;
+                                            </p>
+                                            <p style="font-size: 16px; line-height: 1.3; text-align: justify;"><?=strip_tags($ProdInfo[0]->description)?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <?php
+                        }
+                        ?>
+                        <h4 class="jet-postheader"><span
+                                class="jet-postheadericon"><?=$CatIdParents->name_group?></span>
+                        </h4>
+                        <?php
+                        for ($m = 1; $m < 5; $m++){   //кількість рядків
+                        ?>
+                        <div class="jet-postcontent jet-postcontent-0 clearfix">
+                            <div class="jet-content-layout-wrapper layout-item-0">
+                                <div class="jet-content-layout layout-item-1">
+                                    <div class="jet-content-layout-row">
+                                        <?php
+                                        $res = array_slice($allProductsOfCat->toArray(), ($m - 1) * 3, 3);
+                                        foreach ($res as $key=>$value) {
+                                        $image_array = explode(',', $value->image_link);
+                                        $imageLink = $image_array[array_rand($image_array, 1)];
+                                        ?>
+                                        <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                            <p style="text-align: center;">
+                                                <a href="?IdCatGroup=<?=$CatIdParents->id_group?>&ProdCode=<?=$value->product_code?>"
+                                                   title="<?=$value->item_name?>">
+                                                    <img width="250" height="250" alt=""
+                                                         class="jet-lightbox"
+                                                         src="<?=$imageLink?>">
+                                                </a>
+                                                <br></p>
+                                            <p style="text-align: justify;"><span
+                                                    style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
+                                            </p>
+                                            Артикул: <?=$value->product_code?><br><br><span
+                                                style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
+                                            <span
+                                                style="color: #EB9705;"><?=$value->price?><?=$value->currency?><br><br>
+                                            <a href="?IdCatGroup=<?=$CatIdParents->id_group?>&ProdCode=<?=$value->product_code?>"
+                                               class="jet-button">Детальніше</a>&nbsp;
+                                        </span><br>
+                                        </div>
+                                        <?php
+                                        }
+                                        $kol = 3 - count($res);
+                                        if ($kol > 0) {   // пустая ячейка если нет категории
+                                        for ($n = 1; $n <= $kol; $n++){
+                                        ?>
+                                        <div style="width: 33%">
+                                            <p style="text-align: center;"></p>
+                                            <p style="text-align: center;"><a href="#" target="_self"
+                                                                              title="Перейти у розділ"></a>
+                                            </p>
+                                        </div>
+                                        <?php
+                                        }
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
             <?php
             }
-                }
+            }
             ?>
 
         </article>
