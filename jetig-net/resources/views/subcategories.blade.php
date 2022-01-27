@@ -44,7 +44,7 @@
                                              src="<?=$imageLink?>"><br>
                                     </a>
                                 </p>
-                                <p style="text-align: left;">
+                                <p style="text-align: center;">
                                     <a href="?IdCat=<?=$value->id_group?>" target="_self" title="Перейти у розділ">
                                         <?=$value->name_group?></a>
                                 </p>
@@ -107,7 +107,7 @@
                                     </p>
                                     Артикул: <?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?><br><br><span
                                         style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
-                                    <span style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?><?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?>
+                                    <span style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?> <?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?>
                                         <br><br>
                                         <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>"
                                             class="jet-button">Детальніше</a>&nbsp;
@@ -170,13 +170,12 @@
                                     <p style="text-align: center;">
                                         <a href="?IdCatGroup=<?=$value->id_group?>" target="_self"
                                            title="Перейти у розділ">
-                                            <?=$value->name_group?>
                                             <img width="99" height="99" alt=""
                                                  class="jet-lightbox"
                                                  src="<?=$imageLink?>"><br>
                                         </a>
                                     </p>
-                                    <p style="text-align: left;">
+                                    <p style="text-align: center;">
                                         <a href="?IdCatGroup=<?=$value->id_group?>" target="_self"
                                            title="Перейти у розділ">
                                             <?=$value->name_group?></a>
@@ -227,17 +226,25 @@
                                     $imageLink = $image_array[array_rand($image_array, 1)];
                                     ?>
                                     <div class="jet-layout-cell layout-item-4" style="width: 33%">
-                                        <p style="text-align: center;"><img width="250" height="250" alt=""
-                                                                            class="jet-lightbox"
-                                                                            src="<?=$imageLink?>"><br></p>
-                                        <p style="text-align: justify;"><span
-                                                style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
+                                        <p style="text-align: center;">
+                                            <a href="?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>">
+                                                <img width="250" height="250" alt=""
+                                                     class="jet-lightbox"
+                                                     src="<?=$imageLink?>">
+                                            </a>
+                                            <br>
                                         </p>
-                                        Артикул: <?=$value->product_code?><br><br><span
-                                            style="font-size: 11px; color: #69BDBF;">В наявності</span><br><span
-                                            style="color: #EB9705;"><?=$value->price?><?=$value->currency?><br><br><a
-                                                href=""
-                                                class="jet-button">Детальніше</a>&nbsp;</span><br>
+                                        <p style="text-align: justify;">
+                                            <span style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
+                                        </p>
+                                        Артикул: <?=$value->product_code?><br><br>
+                                        <span style="font-size: 11px; color: #69BDBF;">В наявності</span>
+                                        <br>
+                                        <span
+                                            style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
+                                            <a href="?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>"
+                                                class="jet-button">Детальніше</a>&nbsp;
+                                        </span><br>
                                     </div>
                                     <?php
                                     }
@@ -263,6 +270,8 @@
                     }
                     }elseif (isset($_GET['IdCatGroup'])) {
                     ///////////////////////////відобразимо товари групи підкатегорії//////////////////////////
+                        if (DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->doesntExist() == true) {
+                        header('location: '.'/login');exit();}//якщо товарів у категорії немає, або переданий помилковий запрос
                     $CatIdParents = DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->first();
                     $allProductsOfCat = DB::table('products')->where('id_group', $CatIdParents->id_group)->limit(12)->get();
                     if (isset($_GET['ProdCode'])){
@@ -275,9 +284,16 @@
                                     <div class="jet-content-layout-row">
                                         <div class="jet-layout-cell layout-item-4" style="width: 33%">
                                             <p style="text-align: left;">
-                                                <img width="250" height="250" alt=""
-                                                     class="jet-lightbox"
-                                                     src="<?=$ProdInfo[0]->image_link?>">
+                                                <?php
+                                                $image_array = explode(',',$ProdInfo[0]->image_link);
+                                                foreach ($image_array as $key=>$link){
+                                                if ($key == 0) {
+                                                    echo "<img width=\"250\" height=\"250\" class=\"jet-lightbox\" src=\"$link\">";
+                                                }else{
+                                                    echo "<img width=\"99\" height=\"99\" class=\"jet-lightbox\" src=\"$link\">";
+                                                    }
+                                                }
+                                                    ?>
                                             </p>
                                             <p style="font-size: 16px;">Артикул: <?=$ProdInfo[0]->product_code?></p>
                                             <p>
@@ -328,7 +344,7 @@
                                             Артикул: <?=$value->product_code?><br><br><span
                                                 style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
                                             <span
-                                                style="color: #EB9705;"><?=$value->price?><?=$value->currency?><br><br>
+                                                style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
                                             <a href="?IdCatGroup=<?=$CatIdParents->id_group?>&ProdCode=<?=$value->product_code?>"
                                                class="jet-button">Детальніше</a>&nbsp;
                                         </span><br>
@@ -355,7 +371,9 @@
                         </div>
             <?php
             }
-            }
+            }else {
+                    header('Location: '.'/login');
+                }
             ?>
 
         </article>

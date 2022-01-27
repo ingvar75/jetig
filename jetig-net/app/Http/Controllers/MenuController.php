@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 class MenuController extends Controller
 {
 
+    public function basket(Request $request)
+    {
+        return view('basket');
+    }
     public function contacts(Request $request)
     {
         return view('contacts');

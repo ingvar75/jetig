@@ -56,10 +56,10 @@ $action = $nav->navigation();
             <?php }else{?>
             <li><a href="{{route('contacts')}}">Контакти</a></li><?php }?>
 
-            <?php if($action == '/contacts') {?>
-            <li><a href="{{route('contacts')}}" class="active">Кошик</a></li>
+            <?php if($action == '/basket') {?>
+            <li><a href="{{route('basket')}}" class="active">Кошик</a></li>
             <?php }else{?>
-            <li><a href="{{route('contacts')}}">Кошик</a></li><?php }?>
+            <li><a href="{{route('basket')}}">Кошик</a></li><?php }?>
 
         </ul>
     </nav>
