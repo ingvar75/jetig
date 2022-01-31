@@ -97,9 +97,9 @@
                                 <div class="jet-layout-cell layout-item-4" style="width: 33%">
                                     <p style="text-align: center;">
                                         <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>">
-                                        <img width="250" height="250" alt=""
-                                                                        class="jet-lightbox"
-                                                                        src="<?=$image_array[$rmdImg]?>">
+                                            <img width="250" height="250" alt=""
+                                                 class="jet-lightbox"
+                                                 src="<?=$image_array[$rmdImg]?>">
                                         </a><br>
                                     </p>
                                     <p style="text-align: justify;"><span
@@ -107,10 +107,11 @@
                                     </p>
                                     Артикул: <?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?><br><br><span
                                         style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
-                                    <span style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?> <?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?>
+                                    <span
+                                        style="color: #EB9705;"><?=$allProductsOfCat[$j + ($m - 1) * 3]->price?> <?=$allProductsOfCat[$j + ($m - 1) * 3]->currency?>
                                         <br><br>
                                         <a href="/subcategories?IdCatGroup=<?=$allProductsOfCat[$j + ($m - 1) * 3]->id_group?>&ProdCode=<?=$allProductsOfCat[$j + ($m - 1) * 3]->product_code?>"
-                                            class="jet-button">Детальніше</a>&nbsp;
+                                           class="jet-button">Детальніше</a>&nbsp;
                                     </span><br>
                                 </div>
                                 <?php
@@ -243,7 +244,7 @@
                                         <span
                                             style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
                                             <a href="?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>"
-                                                class="jet-button">Детальніше</a>&nbsp;
+                                               class="jet-button">Детальніше</a>&nbsp;
                                         </span><br>
                                     </div>
                                     <?php
@@ -270,110 +271,146 @@
                     }
                     }elseif (isset($_GET['IdCatGroup'])) {
                     ///////////////////////////відобразимо товари групи підкатегорії//////////////////////////
-                        if (DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->doesntExist() == true) {
-                        header('location: '.'/login');exit();}//якщо товарів у категорії немає, або переданий помилковий запрос
+                    if (DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->doesntExist() == true) {
+                        header('location: ' . '/login');
+                        exit();
+                    }//якщо товарів у категорії немає, або переданий помилковий запрос
                     $CatIdParents = DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->first();
                     $allProductsOfCat = DB::table('products')->where('id_group', $CatIdParents->id_group)->limit(12)->get();
                     if (isset($_GET['ProdCode'])){
                     $ProdInfo = DB::table('products')->where('product_code', $_GET['ProdCode'])->get();
                     ?>
-                        <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$ProdInfo[0]->item_name?></span></h2>
-                        <div class="jet-postcontent jet-postcontent-0 clearfix">
-                            <div class="jet-content-layout-wrapper layout-item-0">
-                                <div class="jet-content-layout layout-item-1">
-                                    <div class="jet-content-layout-row">
-                                        <div class="jet-layout-cell layout-item-4" style="width: 33%">
-                                            <p style="text-align: left;">
-                                                <?php
-                                                $image_array = explode(',',$ProdInfo[0]->image_link);
-                                                foreach ($image_array as $key=>$link){
+                    <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$ProdInfo[0]->item_name?></span></h2>
+                    <div class="jet-postcontent jet-postcontent-0 clearfix">
+                        <div class="jet-content-layout-wrapper layout-item-0">
+                            <div class="jet-content-layout layout-item-1">
+                                <div class="jet-content-layout-row">
+                                    <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                        <p style="text-align: left;">
+                                            <?php
+                                            $image_array = explode(',', $ProdInfo[0]->image_link);
+                                            foreach ($image_array as $key => $link) {
                                                 if ($key == 0) {
                                                     echo "<img width=\"250\" height=\"250\" class=\"jet-lightbox\" src=\"$link\">";
-                                                }else{
+                                                } else {
                                                     echo "<img width=\"99\" height=\"99\" class=\"jet-lightbox\" src=\"$link\">";
-                                                    }
                                                 }
-                                                    ?>
-                                            </p>
-                                            <p style="font-size: 16px;">Артикул: <?=$ProdInfo[0]->product_code?></p>
-                                            <p>
-                                                <span style="font-size: 11px; color: #69BDBF;">В наявності</span>
-                                            </p>
-                                            <p style="font-size: 14px; color: #EB9705;"><?=$ProdInfo[0]->price?> <?=$ProdInfo[0]->currency?>
-                                                &nbsp;<a href="?ProdCode=<?=$ProdInfo[0]->product_code?>"
-                                                   class="jet-button">Додати у кошик</a>&nbsp;
-                                            </p>
-                                            <p style="font-size: 16px; line-height: 1.3; text-align: justify;"><?=strip_tags($ProdInfo[0]->description)?></p>
-                                        </div>
+                                            }
+                                            ?>
+                                        </p>
+                                        <p style="font-size: 16px;">Артикул: <?=$ProdInfo[0]->product_code?></p>
+                                        <p>
+                                            <span style="font-size: 11px; color: #69BDBF;">В наявності</span>
+                                        </p>
+                                        <p style="font-size: 14px; color: #EB9705;"><?=$ProdInfo[0]->price?> <?=$ProdInfo[0]->currency?>
+                                        </p>
+                                        <p>
+                                        <form action="" name="Sel">
+                                            <input type="button" value="+" onclick="Plus()">
+                                            <label>
+                                                <input type="text" style="width: 5%; text-align: center;" name="Count"
+                                                       value="0">
+                                            </label>
+                                            <input type="button" value="-" onclick="Minus()">
+                                        </form>
+                                        <script>
+                                            function Plus() {
+                                                let num = document.Sel.Count.value;
+                                                if (num < 100) {
+                                                    ++num;
+                                                    document.Sel.Count.value = num;
+                                                } else {
+                                                    return num;
+                                                }
+                                                //alert(num);
+                                            }
+
+                                            function Minus() {
+                                                let num = document.Sel.Count.value;
+                                                if (num > 0) {
+                                                    --num;
+                                                    document.Sel.Count.value = num;
+                                                    // alert(num);
+                                                } else {
+                                                    return num;
+                                                }
+                                            }
+                                        </script>
+                                        </p>
+                                        &nbsp;<a href="?ProdCode=<?=$ProdInfo[0]->product_code?>"
+                                                 class="jet-button">Додати у кошик</a>&nbsp;
+
+                                        <p style="font-size: 16px; line-height: 1.3; text-align: justify;"><?=strip_tags($ProdInfo[0]->description)?></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <?php
-                        }
-                        ?>
-                        <h4 class="jet-postheader"><span
-                                class="jet-postheadericon"><?=$CatIdParents->name_group?></span>
-                        </h4>
-                        <?php
-                        for ($m = 1; $m < 5; $m++){   //кількість рядків
-                        ?>
-                        <div class="jet-postcontent jet-postcontent-0 clearfix">
-                            <div class="jet-content-layout-wrapper layout-item-0">
-                                <div class="jet-content-layout layout-item-1">
-                                    <div class="jet-content-layout-row">
-                                        <?php
-                                        $res = array_slice($allProductsOfCat->toArray(), ($m - 1) * 3, 3);
-                                        foreach ($res as $key=>$value) {
-                                        $image_array = explode(',', $value->image_link);
-                                        $imageLink = $image_array[array_rand($image_array, 1)];
-                                        ?>
-                                        <div class="jet-layout-cell layout-item-4" style="width: 33%">
-                                            <p style="text-align: center;">
-                                                <a href="?IdCatGroup=<?=$CatIdParents->id_group?>&ProdCode=<?=$value->product_code?>"
-                                                   title="<?=$value->item_name?>">
-                                                    <img width="250" height="250" alt=""
-                                                         class="jet-lightbox"
-                                                         src="<?=$imageLink?>">
-                                                </a>
-                                                <br></p>
-                                            <p style="text-align: justify;"><span
-                                                    style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
-                                            </p>
-                                            Артикул: <?=$value->product_code?><br><br><span
-                                                style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
-                                            <span
-                                                style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
+                    </div>
+                    <br>
+                    <?php
+                    }
+                    ?>
+                    <h4 class="jet-postheader"><span
+                            class="jet-postheadericon"><?=$CatIdParents->name_group?></span>
+                    </h4>
+                    <?php
+                    for ($m = 1; $m < 5; $m++){   //кількість рядків
+                    ?>
+                    <div class="jet-postcontent jet-postcontent-0 clearfix">
+                        <div class="jet-content-layout-wrapper layout-item-0">
+                            <div class="jet-content-layout layout-item-1">
+                                <div class="jet-content-layout-row">
+                                    <?php
+                                    $res = array_slice($allProductsOfCat->toArray(), ($m - 1) * 3, 3);
+                                    foreach ($res as $key=>$value) {
+                                    $image_array = explode(',', $value->image_link);
+                                    $imageLink = $image_array[array_rand($image_array, 1)];
+                                    ?>
+                                    <div class="jet-layout-cell layout-item-4" style="width: 33%">
+                                        <p style="text-align: center;">
+                                            <a href="?IdCatGroup=<?=$CatIdParents->id_group?>&ProdCode=<?=$value->product_code?>"
+                                               title="<?=$value->item_name?>">
+                                                <img width="250" height="250" alt=""
+                                                     class="jet-lightbox"
+                                                     src="<?=$imageLink?>">
+                                            </a>
+                                            <br></p>
+                                        <p style="text-align: justify;"><span
+                                                style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
+                                        </p>
+                                        Артикул: <?=$value->product_code?><br><br><span
+                                            style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
+                                        <span
+                                            style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
                                             <a href="?IdCatGroup=<?=$CatIdParents->id_group?>&ProdCode=<?=$value->product_code?>"
                                                class="jet-button">Детальніше</a>&nbsp;
                                         </span><br>
-                                        </div>
-                                        <?php
-                                        }
-                                        $kol = 3 - count($res);
-                                        if ($kol > 0) {   // пустая ячейка если нет категории
-                                        for ($n = 1; $n <= $kol; $n++){
-                                        ?>
-                                        <div style="width: 33%">
-                                            <p style="text-align: center;"></p>
-                                            <p style="text-align: center;"><a href="#" target="_self"
-                                                                              title="Перейти у розділ"></a>
-                                            </p>
-                                        </div>
-                                        <?php
-                                        }
-                                        }
-                                        ?>
                                     </div>
+                                    <?php
+                                    }
+                                    $kol = 3 - count($res);
+                                    if ($kol > 0) {   // пустая ячейка если нет категории
+                                    for ($n = 1; $n <= $kol; $n++){
+                                    ?>
+                                    <div style="width: 33%">
+                                        <p style="text-align: center;"></p>
+                                        <p style="text-align: center;"><a href="#" target="_self"
+                                                                          title="Перейти у розділ"></a>
+                                        </p>
+                                    </div>
+                                    <?php
+                                    }
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
+                    </div>
             <?php
             }
             }else {
-                    header('Location: '.'/login');
-                }
+                header('Location: ' . '/login');
+            }
             ?>
 
         </article>
