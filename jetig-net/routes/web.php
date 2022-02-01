@@ -23,9 +23,10 @@ Route::get('basket', [MenuController::class, 'basket'])->name('basket');
 Route::get('categories', [MenuController::class, 'categories'])->name('categories');
 Route::get('subcategories', [MenuController::class, 'subcategories'])->name('subcategories');
 Route::get('products', [MenuController::class, 'products'])->name('products');
+Route::get('home', [MenuController::class, 'home'])->name('home');
 
 Route::middleware('guest')->group(static function () {
-    Route::get('register', fn() => view('guest.register'));
+    Route::get('register', fn() => view('guest.register'))->name('register');
     Route::get('login', fn() => view('guest.login'))->name('login');
 
 
@@ -37,7 +38,7 @@ Route::middleware('guest')->group(static function () {
 
 Route::middleware('auth')->group(static function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
-    Route::get('/', fn() => view('welcome'))->name('home');
+    Route::get('/', fn() => view('welcome'))->name('welcome');
 
     Route::get('excel/view', [ExcelController::class, 'index'])->name('index');
     Route::get('excel/export', [ExcelController::class, 'export'])->name('export');

@@ -2,7 +2,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;class NavActive
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+class NavActive
 {
     public function navigation()
     {
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\DB;class NavActive
 
 $nav = new NavActive;
 $action = $nav->navigation();
-
+$user = Auth::user();
 ?>
 @section('nav')
     <nav class="jet-nav">
@@ -21,7 +23,7 @@ $action = $nav->navigation();
             $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
 
             //var_dump($CatParent);exit;
-            if($action == '/' || $action == '/excel/view' || $action == '/login' || $action == '/register'){?>
+            if($action == '/' || $action == '/excel/view' || $action == '/home'){?>
             <li><a href="{{route('home')}}" class="active">Домівка</a></li>
             <?php }else{?>
             <li><a href="{{route('home')}}">Домівка</a></li><?php }?>
@@ -60,6 +62,23 @@ $action = $nav->navigation();
             <li><a href="{{route('basket')}}" class="active">Кошик</a></li>
             <?php }else{?>
             <li><a href="{{route('basket')}}">Кошик</a></li><?php }?>
+
+            <?php
+                if (!isset($user)){
+                if($action == '/login' || $action == '/register') {?>
+            <li><a href="{{route('login')}}" class="active">Авторизація</a>
+            <ul>
+                <li><a href="{{route('login')}}">Вхід</a></li>
+                <li><a href="{{route('register')}}">Реєстрація</a></li>
+            </ul>
+            </li>
+            <?php }else{?>
+            <li><a href="{{route('login')}}">Авторизація</a>
+                <ul>
+                    <li><a href="{{route('login')}}">Вхід</a></li>
+                    <li><a href="{{route('register')}}">Реєстрація</a></li>
+                </ul>
+            </li><?php } }?>
 
         </ul>
     </nav>

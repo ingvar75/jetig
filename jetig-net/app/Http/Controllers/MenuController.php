@@ -29,4 +29,8 @@ class MenuController extends Controller
     {
         return view('products');
     }
+    public function home(Request $request)
+    {
+        return view('home');
+    }
 }

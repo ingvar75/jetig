@@ -92,3 +92,66 @@ for ($i = 0; $i < count($CatIdParents); $i++) {
 }
 //exit();
 ?>
+<div class="jet-blockcontent">
+    <div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li style="color: #800000; /* Цвет текста */
+                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        <br>
+        @endif
+
+        {{ Form::open(['url' => 'login', 'method' => 'post']) }}
+        {{ Form::label('email', 'Email') }}
+        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
+
+        {{ Form::label('password', 'Password') }}
+        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+
+        <p><br>{{ Form::submit('Вхід', ['class' => 'jet-button']) }}</p>
+
+        {{ Form::close() }}
+
+        <p><a href="/register">Реєстрація</a></p>
+    </div>
+</div>
+
+<div class="jet-blockcontent">
+    <div>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                <li style="color: #800000; /* Цвет текста */
+                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        <br>
+        @endif
+        {{ Form::open(['url' => 'register', 'method' => 'post']) }}
+
+        {{ Form::label('name', 'Name') }}
+        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Name']) }}
+
+        {{ Form::label('email', 'Email') }}
+        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
+
+        {{ Form::label('password', 'Password') }}
+        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
+
+        {{ Form::label('repeatPassword', 'Repeat Password') }}
+        {{ Form::password('repeatPassword', ['class' => 'form-control', 'placeholder' => 'Repeat Password']) }}
+
+        <p><br> {{ Form::submit('Реєстрація', ['class' => 'jet-button']) }}</p>
+
+        {{ Form::close() }}
+
+        <p><a href="/login">Вхід</a></p>
+    </div>
+</div>

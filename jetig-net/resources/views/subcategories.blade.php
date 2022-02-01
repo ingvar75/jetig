@@ -272,12 +272,16 @@
                     }elseif (isset($_GET['IdCatGroup'])) {
                     ///////////////////////////відобразимо товари групи підкатегорії//////////////////////////
                     if (DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->doesntExist() == true) {
-                        header('location: ' . '/login');
+                        header('location: ' . '/home');
                         exit();
                     }//якщо товарів у категорії немає, або переданий помилковий запрос
                     $CatIdParents = DB::table('categories')->where('id_group', $_GET['IdCatGroup'])->first();
                     $allProductsOfCat = DB::table('products')->where('id_group', $CatIdParents->id_group)->limit(12)->get();
                     if (isset($_GET['ProdCode'])){
+                        if (DB::table('products')->where('product_code', $_GET['ProdCode'])->doesntExist() == true) {
+                            header('location: ' . '/home');
+                            exit();
+                        }
                     $ProdInfo = DB::table('products')->where('product_code', $_GET['ProdCode'])->get();
                     ?>
                     <h2 class="jet-postheader"><span class="jet-postheadericon"><?=$ProdInfo[0]->item_name?></span></h2>
@@ -305,13 +309,22 @@
                                         <p style="font-size: 14px; color: #EB9705;"><?=$ProdInfo[0]->price?> <?=$ProdInfo[0]->currency?>
                                         </p>
                                         <p>
-                                        <form action="" name="Sel">
+                                        <?php
+                                        if (!isset($_GET['Count'])){$Count=0;}else{$Count=$_GET['Count'];}
+                                        ?>
+                                        <form action="" method="GET" name="Sel">
                                             <input type="button" value="+" onclick="Plus()">
                                             <label>
-                                                <input type="text" style="width: 5%; text-align: center;" name="Count"
-                                                       value="0">
+                                                <input type="text" style="width: 5%; height: 5px; text-align: center;" name="Count" value="<?=$Count?>">
+                                                <input type="hidden" name="IdCatGroup" value="<?=$_GET['IdCatGroup']?>">
+                                                <input type="hidden" name="ProdCode" value="<?=$ProdInfo[0]->product_code?>">
                                             </label>
                                             <input type="button" value="-" onclick="Minus()">
+                                            <p>
+                                            &nbsp;<label>
+                                                    <input type="submit" class="jet-button" value="Додати у кошик">
+                                                </label>
+                                            </p>
                                         </form>
                                         <script>
                                             function Plus() {
@@ -322,23 +335,18 @@
                                                 } else {
                                                     return num;
                                                 }
-                                                //alert(num);
                                             }
-
                                             function Minus() {
                                                 let num = document.Sel.Count.value;
                                                 if (num > 0) {
                                                     --num;
                                                     document.Sel.Count.value = num;
-                                                    // alert(num);
                                                 } else {
                                                     return num;
                                                 }
                                             }
                                         </script>
                                         </p>
-                                        &nbsp;<a href="?ProdCode=<?=$ProdInfo[0]->product_code?>"
-                                                 class="jet-button">Додати у кошик</a>&nbsp;
 
                                         <p style="font-size: 16px; line-height: 1.3; text-align: justify;"><?=strip_tags($ProdInfo[0]->description)?></p>
                                     </div>
@@ -409,14 +417,13 @@
             <?php
             }
             }else {
-                header('Location: ' . '/login');
+                header('Location: ' . '/home');
             }
             ?>
 
         </article>
     </div>
 @stop
-
 <?php
 use Illuminate\Support\Facades\Auth;
 
@@ -424,100 +431,62 @@ $user = Auth::user();
 if (isset($user)){
 ?>
 @section('content_login')
-
-    <div class="jet-layout-cell jet-sidebar1">
-        <div class="jet-block clearfix">
-            <div class="jet-blockheader">
-                <h3 class="t">Кабінет</h3>
-            </div>
-            <div class="jet-blockcontent">
-                <div>
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach($errors->all() as $error)
-                                    <li style="color: #800000; /* Цвет текста */
+    <div class="jet-block clearfix">
+        <div class="jet-blockheader">
+            <h3 class="t">Кабінет</h3>
+        </div>
+        <div class="jet-blockcontent">
+            <div>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li style="color: #800000; /* Цвет текста */
                                                padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <br>
-                    @endif
-
-                    <?php
-                    if ($user['name'] == 'admin'){ ?>
-                    <div class="jet-blockcontent">
-                        <div>
-                            <p>Вітаю, <?=$user['name']?></p>
-                            <p>Імпорт товарів excel</p>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
-                                </li>
-                            </ul>
-                        </div>
+                            @endforeach
+                        </ul>
                     </div>
-                    <?php }else{ ?>
-                    <div class="jet-blockcontent">
-                        <div>
-                            <p style="color: #cbae57">Вітаю, <?=$user['name']?> !</p>
-                            <ul>
-                                <li>
-                                    <a href="{{ route('home') }}" title="Ваш кошик">Кошик</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('home') }}" title="Ваші замовлення">Історія замовлень</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('home') }}" title="Ваші дані">Керувати даними</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <?php } ?>
                     <br>
-                    <p><a href="/logout" class="jet-button">Вийти</a></p>
-                    @stop
-                    <?php
-                    }else {
-                    ?>
-                    @section('content_login')
+                @endif
 
-                        <div class="jet-layout-cell jet-sidebar1">
-                            <div class="jet-block clearfix">
-                                <div class="jet-blockheader">
-                                    <h3 class="t">Авторизація</h3>
-                                </div>
-                                <div class="jet-blockcontent">
-                                    <div>
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach($errors->all() as $error)
-                                                        <li style="color: #800000; /* Цвет текста */
-                                                               padding: 2px; /* Поля вокруг текста */">{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            <br>
-                                        @endif
+                <?php
+                if ($user['name'] == 'admin'){ ?>
+                <div class="jet-blockcontent">
+                    <div>
+                        <p>Вітаю, <?=$user['name']?></p>
+                        <p>Імпорт товарів excel</p>
+                        <ul>
+                            <li>
+                                <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <?php }else{ ?>
+                <div class="jet-blockcontent">
+                    <div>
+                        <p style="color: #cbae57">Вітаю, <?=$user['name']?> !</p>
+                        <ul>
+                            <li>
+                                <a href="{{ route('home') }}" title="Ваш кошик">Кошик</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home') }}" title="Ваші замовлення">Історія замовлень</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('home') }}" title="Ваші дані">Керувати даними</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <?php } ?>
+                <br>
+                <p><a href="/logout" class="jet-button">Вийти</a></p>
+            </div>
+        </div>
+    </div>
 
-                                        {{ Form::open(['url' => 'login', 'method' => 'post']) }}
-                                        {{ Form::label('email', 'Email') }}
-                                        {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Email']) }}
-
-                                        {{ Form::label('password', 'Password') }}
-                                        {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
-
-                                        <p><br>{{ Form::submit('Вхід', ['class' => 'jet-button']) }}</p>
-
-                                        {{ Form::close() }}
-
-                                        <p><a href="/register">Реєстрація</a></p>
 @stop
-
 <?php
 }
-
-
 ?>
