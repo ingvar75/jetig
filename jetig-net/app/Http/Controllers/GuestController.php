@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class GuestController extends Controller
 {
@@ -22,8 +23,8 @@ class GuestController extends Controller
         $user->email = $validated['email'];
         $user->password = Hash::make($validated['password']);
         $user->save();
-
-        return redirect('login');
+        Session::flash('status', 'Task was successful!');
+        return redirect('register');
     }
 
     public function login(Request $request)

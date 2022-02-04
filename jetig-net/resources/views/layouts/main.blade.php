@@ -95,11 +95,13 @@
         @yield('nav')
 
     </header>
+
+    @yield('login')
+
     <div class="jet-sheet clearfix">
         <div class="jet-layout-wrapper">
             <div class="jet-content-layout">
                 <div class="jet-content-layout-row">
-
                     @yield('content')
 
                     <div class="jet-layout-cell jet-sidebar1">

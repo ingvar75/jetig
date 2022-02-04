@@ -1,20 +1,17 @@
-@extends('layouts.main')
+@extends('guest.login')
 <?php
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-class NavActive
-{
-    public function navigation()
-    {
-        return $_SERVER['REQUEST_URI'];
-    }
-}
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 $nav = new NavActive;
 $action = $nav->navigation();
 $user = Auth::user();
+
 ?>
 @section('nav')
     <nav class="jet-nav">
@@ -66,20 +63,19 @@ $user = Auth::user();
             <?php
                 if (!isset($user)){
                 if($action == '/login' || $action == '/register') {?>
-            <li><a href="{{route('login')}}" class="active">Авторизація</a>
+            <li><a id="myBtnEnter" class="active">Вхід</a>
             <ul>
-                <li><a href="{{route('login')}}">Вхід</a></li>
-                <li><a href="{{route('register')}}">Реєстрація</a></li>
+                <li><a id="myBtnReg">Реєстрація</a></li>
             </ul>
             </li>
             <?php }else{?>
-            <li><a href="{{route('login')}}">Авторизація</a>
+            <li><a id="myBtnEnter">Вхід</a>
                 <ul>
-                    <li><a href="{{route('login')}}">Вхід</a></li>
-                    <li><a href="{{route('register')}}">Реєстрація</a></li>
+                    <li><a id="myBtnReg">Реєстрація</a></li>
                 </ul>
             </li><?php } }?>
 
         </ul>
     </nav>
+
 @stop
