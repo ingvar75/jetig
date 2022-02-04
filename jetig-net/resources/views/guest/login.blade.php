@@ -36,7 +36,7 @@ if ($action == '/login') header('Location: /register');
          style="width: 33%; display: <?=$aModal?>; position: fixed; z-index: 305;top: 25%; left: 33%;">
         <div class="jet-blockheader">
 
-            <h3 class="t">Авторизація
+            <h3 class="t">Вхід
                 <span class="close" title="Закрити"
                       style=" color: silver;float: right;font-size: 28px;font-weight: bold;cursor: pointer;">&times;
                                         </span>
