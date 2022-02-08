@@ -12,6 +12,8 @@ $nav = new NavActive;
 $action = $nav->navigation();
 $user = Auth::user();
 $sess = Session::all();
+
+
 if (isset($_GET['Count']) && $_GET['Count'] > 0) {
 
     if (!isset($user)) {
@@ -80,7 +82,7 @@ if (!isset($user)) {
     foreach ($basket as $item => $value) {
         $b_count = $b_count + $value->count;
     }
-} else {
+}else {
     $b_count = null;
     $basket = DB::table('basket_user')
         ->where('user_id', $user['id'])
