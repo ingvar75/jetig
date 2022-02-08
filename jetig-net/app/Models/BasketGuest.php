@@ -17,18 +17,15 @@ class BasketGuest extends Model
     //
     public $table = "basket_guest";
     protected array $basket_guest= [
+        'user_id',
+        'user_email',
+        'mob_tel',
         'ses_token',
-        'item_name',
-        'description',
-        'price',
-        'currency',
-        'unit_of_measurement',
-        'image_link',
-        'availability',
-        'manufacturer_tramp',
-        'unique_identifier',
+        'xsrf_token',
+        'b_status',
+        'product_code',
         'id_group',
-        'images_home',
+        'count',
     ];
     protected $casts = [
         'created_at' => 'datetime',
