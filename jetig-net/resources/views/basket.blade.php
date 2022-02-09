@@ -1,5 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
+
+$user = Auth::user();
+$sess = Session::all();
+
 ?>
 <style>
     .overlay {
@@ -15,24 +22,106 @@
         display: block; /* в обычном состоянии скрыта */
     }
 </style>
-
+<link rel="stylesheet" href="/css/style.css" media="screen">
 <div id="over" class="overlay"></div>
-<div id="bModal" class="jet-postcontent jet-postcontent-0 clearfix"
-     style="width: 33%; display: block; position: fixed; z-index: 305;top: 25%; left: 33%;">
-    <div class="jet-content-layout">
-        <div class="jet-content-layout-row">
-            <div class="jet-layout-cell layout-item-1" style="width: 100%">
-                <h3 style="border-bottom: 1px solid #776D50; padding-bottom: 5px">Кошик</h3>
-                <p><span style="font-weight: bold; color: #0a53be;">Пн-Пт 10:00-18:00:</span></p>
-                <p>+380679185706</p>
-                <p>+380733059806</p>
-                <p><span style="font-weight: bold; color: #0a53be">Email:</span></p>
-                <p>mail@jetig.net</p>
-                <p><a href="#" class="jet-button">Відправити повідомлення</a></p>
-            </div>
-        </div>
+<div id="bModal" class="jet-block clearfix"
+     style="width: 50%; display: block; position: fixed; z-index: 305;top: 10%; left: 25%;">
+
+    <div class="jet-blockheader">
+        <h3 class="t">Ваш кошик
+            <a href="/categories" class="close" title="Закрити"
+               style=" color: silver;float: right;font-size: 28px;font-weight: bold;cursor: pointer; text-decoration: inherit">&times;
+            </a>
+        </h3>
+    </div>
+    <hr>
+
+    <div class="jet-blockcontent">
+        <?php
+        if (!isset($user)) {
+
+        if (DB::table('basket_guest')->where('ses_token', $sess['_token'])->doesntExist() == false) {
+                    if (isset($_GET['DelProd'])){
+                        DB::table('basket_guest')
+                            ->where('ses_token', $sess['_token'])
+                            ->where('product_code', $_GET['ProdCode'])
+                            ->delete();
+                    }
+        $basket = DB::table('basket_guest')->where('ses_token', $sess['_token'])->get();
+        $total = 0;
+        foreach ($basket as $point => $key){
+        $goods = DB::table('products')
+            ->where('product_code', $key->product_code)
+            ->where('id_group', $key->id_group)
+            ->get();
+        $image_link = explode(',', $goods[0]->image_link);
+        ?>
+
+        <form method="get" action="">
+            <p>
+            <span>
+            <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>">
+                <img width="70" height="70" class="jet-lightbox" src="<?=$image_link[0]?>">
+            </a>
+            </span>
+                <span style="float: right;">
+                    <input type="hidden" name="DelProd" value="del">
+                    <input type="hidden" name="ProdCode" value="<?=$goods[0]->product_code?>">
+                    <input type="submit" style="background: #ef3344; cursor: pointer;" value="Вилучити">
+                </span>
+            </p>
+        </form>
+
+        <p>
+            <span style="text-decoration: underline; font-weight: bold; color: #6b9be2;">Артикул:</span>
+            <span><?=$goods[0]->product_code?></span></p>
+        <p style="padding-top: 5px;">
+            <span style="padding-top: 5px;">Ціна: </span>
+            <span><?=$goods[0]->price?></span>
+            <span><?=$goods[0]->currency?></span>
+        </p>
+
+        <p>
+            <span>Кількість: </span>
+            <span><?=$key->count?></span>
+
+        </p>
+        <p>
+                <span style="font-weight: bold; color: #eeb95d;">
+                    <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>"
+                       style="text-decoration: initial;" title="Перейти до товару"><?=$goods[0]->item_name?>
+                    </a>
+                </span>
+        </p>
+        <br>
+
+        <?php
+        $total = $total + $key->count * $goods[0]->price;
+        }
+
+        }else {
+            ?>
+            <p>
+                 <span>Ваш кошик порожній</span>
+            </p>
+            <?php
+            exit;
+        }
+        }
+        ?>
+        <hr>
+        <p>
+            <span>
+            <a href="#" class="jet-button" style="background: #C37D04;">Оформити замовлення</a>
+            </span>
+            <span style="float: right;">
+                Сума:  <?=$total?> <?=$goods[0]->currency?>
+            </span>
+        </p>
+
     </div>
 </div>
+
 
 <script>
     // Get the modal

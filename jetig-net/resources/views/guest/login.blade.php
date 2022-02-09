@@ -55,8 +55,6 @@ if ($action == '/login') header('Location: /register');
                         </ul>
                     </div>
                     <br>
-
-
                 @endif
 
                 {{ Form::open(['url' => 'login', 'method' => 'post']) }}
@@ -65,12 +63,10 @@ if ($action == '/login') header('Location: /register');
 
                 {{ Form::label('password', 'Password') }}
                 {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
-
                 <p>
-                    <br>{{ Form::submit('Увійти', ['class' => 'jet-button', 'style' => 'width: 100px; background: #C37D04;']) }}
+                    <br>{{ Form::submit('Увійти', ['class' => 'jet-button', 'style' => 'background: #C37D04;']) }}
                     <a class="activeReg" style="cursor: pointer;">Реєстрація</a>
                 </p>
-
                 {{ Form::close() }}
 
             </div>
@@ -113,9 +109,8 @@ if ($action == '/login') header('Location: /register');
 
                 {{ Form::label('repeatPassword', 'Repeat Password') }}
                 {{ Form::password('repeatPassword', ['class' => 'form-control', 'placeholder' => 'Repeat Password']) }}
-
                 <p>
-                    <br> {{ Form::submit('Реєстрація', ['class' => 'jet-button', 'style'=>'width: 100px; background: #AE8612;']) }}
+                    <br> {{ Form::submit('Реєстрація', ['class' => 'jet-button', 'style'=>'background: #AE8612;']) }}
                     <span><a class="activeEnter" style="cursor: pointer;">Вхід</a></span></p>
 
                 {{ Form::close() }}
