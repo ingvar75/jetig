@@ -23,6 +23,9 @@ $sess = Session::all();
     }
 </style>
 <link rel="stylesheet" href="/css/style.css" media="screen">
+<script src="/js/jquery-3.6.min.js"></script>
+<script src="/js/jquery.js"></script>
+<script src="/js/maskinput.js"></script>
 <div id="over" class="overlay"></div>
 <div id="bModal" class="jet-block clearfix"
      style="width: 50%; display: block; position: fixed; z-index: 305;top: 10%; left: 25%;">
@@ -205,19 +208,46 @@ $sess = Session::all();
         ?>
         <hr>
         <p>
+        <form name="zakaz" method="POST" action="#" onsubmit="return Zakaz();">
+            <br>
+            <p><span>Ваш телефон:</span><span style="color:#dc2121;">*</span></p>
+            <label for="tel"></label>
+            <input style="width: 20%; padding: 2;" type="text" name="usertel" id="tel" placeholder="+38(___) ___-____" value="">
+            <br>
+            <br>
+            <script>
+                function Zakaz() {
+                    if (document.zakaz.usertel.value == "") {
+                        alert('Вкажіть номер мобільного телефону.');
+                        document.zakaz.usertel.focus();
+                        return false;
+                    } else
+                        document.zakaz.submit();
+                    return true;
+                }
+
+                jQuery(function ($) {
+                    $("#tel").mask("+38(999) 999-9999");
+                    $("#date").mask("99/99/2020");
+                });
+            </script>
+            </p>
+            <p>
             <span>
-            <a href="#" class="jet-button" style="background: #C37D04;">Оформити замовлення</a>
+            <input type="submit" class="jet-button" name="obrobka" style="background: #C37D04;"
+                   value="Оформити замовлення">
             </span>
-            <span>
+                <span>
             <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>"
                class="jet-button" style="background: #0480c3;">
                 Продовжити покупки
             </a>
             </span>
-            <span style="float: right;">
+                <span style="float: right;">
                 Сума:  <?=$total?> <?=$goods[0]->currency?>
             </span>
-        </p>
+            </p>
+        </form>
 
     </div>
 </div>
