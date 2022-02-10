@@ -86,6 +86,7 @@ if (!isset($user)) {
     $b_count = null;
     $basket = DB::table('basket_user')
         ->where('user_id', $user['id'])
+        ->where('ses_token', $sess['_token'])
         ->where('b_status', 'addition')
         ->get();
     foreach ($basket as $item => $value) {

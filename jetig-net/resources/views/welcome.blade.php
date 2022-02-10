@@ -205,7 +205,7 @@ if (isset($user)){
                         <p style="color: #cbae57">Вітаю, <?=$user['name']?> !</p>
                         <ul>
                             <li>
-                                <a href="{{ route('home') }}" title="Ваш кошик">Кошик</a>
+                                <a href="{{ route('basket') }}" title="Ваш кошик">Кошик</a>
                             </li>
                             <li>
                                 <a href="{{ route('home') }}" title="Ваші замовлення">Історія замовлень</a>

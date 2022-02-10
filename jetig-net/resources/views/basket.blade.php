@@ -36,17 +36,17 @@ $sess = Session::all();
     </div>
     <hr>
 
-    <div class="jet-blockcontent">
+    <div class="jet-blockcontent" style="overflow: auto; max-height: 400px;">
         <?php
         if (!isset($user)) {
-
+        //////////////////////////////////////////Якщо неавторизований//////////////////////////////////////////////
+        if (isset($_GET['DelProd'])) {
+            DB::table('basket_guest')
+                ->where('ses_token', $sess['_token'])
+                ->where('product_code', $_GET['ProdCode'])
+                ->delete();
+        }
         if (DB::table('basket_guest')->where('ses_token', $sess['_token'])->doesntExist() == false) {
-                    if (isset($_GET['DelProd'])){
-                        DB::table('basket_guest')
-                            ->where('ses_token', $sess['_token'])
-                            ->where('product_code', $_GET['ProdCode'])
-                            ->delete();
-                    }
         $basket = DB::table('basket_guest')->where('ses_token', $sess['_token'])->get();
         $total = 0;
         foreach ($basket as $point => $key){
@@ -93,6 +93,7 @@ $sess = Session::all();
                     </a>
                 </span>
         </p>
+        <hr style="border-color: #5C543D;">
         <br>
 
         <?php
@@ -100,19 +101,118 @@ $sess = Session::all();
         }
 
         }else {
-            ?>
-            <p>
-                 <span>Ваш кошик порожній</span>
-            </p>
-            <?php
-            exit;
+        ?>
+        <p style="padding-bottom: 10px;">
+            <span style="color: #bb2d3b; font-size: medium;">Ваш кошик порожній</span>
+            <a href="/categories" class="jet-button"
+               style="background: #dead1b;
+                      color: #184943;
+                      float: right;
+                      margin-bottom: 5px;">Перейти до покупок
+            </a>
+        </p>
+        <?php
+        exit;
         }
+        }else{
+        ///////////////////////////////////////Якщо користувач авторизований///////////////////////////////////////////////////
+        if (isset($_GET['DelProd'])) {
+            DB::table('basket_user')
+                ->where('user_id', $user['id'])
+                ->where('ses_token', $sess['_token'])
+                ->where('product_code', $_GET['ProdCode'])
+                ->where('b_status', 'addition')
+                ->delete();
+        }
+        if (DB::table('basket_user')
+            ->where('user_id', $user['id'])
+            ->where('ses_token', $sess['_token'])
+            ->where('b_status', 'addition')
+            ->doesntExist() == false) {
+        $basket = DB::table('basket_user')
+            ->where('user_id', $user['id'])
+            ->where('ses_token', $sess['_token'])
+            ->where('b_status', 'addition')
+            ->get();
+        $total = 0;
+        foreach ($basket as $point => $key){
+        $goods = DB::table('products')
+            ->where('product_code', $key->product_code)
+            ->where('id_group', $key->id_group)
+            ->get();
+        $image_link = explode(',', $goods[0]->image_link);
+        ?>
+
+        <form method="get" action="">
+            <p>
+            <span>
+            <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>">
+                <img width="70" height="70" class="jet-lightbox" src="<?=$image_link[0]?>">
+            </a>
+            </span>
+                <span style="float: right;">
+                    <input type="hidden" name="DelProd" value="del">
+                    <input type="hidden" name="ProdCode" value="<?=$goods[0]->product_code?>">
+                    <input type="submit" style="background: #ef3344; cursor: pointer;" value="Вилучити">
+                </span>
+            </p>
+        </form>
+
+        <p>
+            <span style="text-decoration: underline; font-weight: bold; color: #6b9be2;">Артикул:</span>
+            <span><?=$goods[0]->product_code?></span></p>
+        <p style="padding-top: 5px;">
+            <span style="padding-top: 5px;">Ціна: </span>
+            <span><?=$goods[0]->price?></span>
+            <span><?=$goods[0]->currency?></span>
+        </p>
+
+        <p>
+            <span>Кількість: </span>
+            <span><?=$key->count?></span>
+
+        </p>
+        <p>
+                <span style="font-weight: bold; color: #eeb95d;">
+                    <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>"
+                       style="text-decoration: initial;" title="Перейти до товару"><?=$goods[0]->item_name?>
+                    </a>
+                </span>
+        </p>
+        <hr style="border-color: #5C543D;">
+        <br>
+
+        <?php
+        $total = $total + $key->count * $goods[0]->price;
+        }
+
+        }else {
+        ?>
+        <p style="padding-bottom: 10px;">
+            <span style="color: #bb2d3b; font-size: medium;">Ваш кошик порожній</span>
+            <a href="/categories" class="jet-button"
+               style="background: #dead1b;
+                      color: #184943;
+                      float: right;
+                      margin-bottom: 5px;">Перейти до покупок
+            </a>
+        </p>
+        <?php
+        exit;
+        }
+
         }
         ?>
         <hr>
         <p>
             <span>
             <a href="#" class="jet-button" style="background: #C37D04;">Оформити замовлення</a>
+            </span>
+            <span>
+            <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>"
+               class="jet-button" style="background: #0480c3;">
+                Продовжити покупки
+            </a>
             </span>
             <span style="float: right;">
                 Сума:  <?=$total?> <?=$goods[0]->currency?>
