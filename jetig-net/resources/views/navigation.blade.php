@@ -39,6 +39,7 @@ if (isset($_GET['Count']) && $_GET['Count'] > 0) {
                 'product_code' => $_GET['ProdCode'],
                 'id_group' => $_GET['IdCatGroup'],
                 'count' => $_GET['Count'],
+                'created_at' => date("Y-m-d H:i:s"),
             ];
             BasketGuest::query()->insertOrIgnore($in_guest_basket);
         }
@@ -66,6 +67,7 @@ if (isset($_GET['Count']) && $_GET['Count'] > 0) {
                 'product_code' => $_GET['ProdCode'],
                 'id_group' => $_GET['IdCatGroup'],
                 'count' => $_GET['Count'],
+                'created_at' => date("Y-m-d H:i:s"),
             ];
             BasketUser::query()->insertOrIgnore($in_user_basket);
         }

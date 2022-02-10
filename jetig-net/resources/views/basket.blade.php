@@ -49,7 +49,10 @@ $sess = Session::all();
                 ->where('product_code', $_GET['ProdCode'])
                 ->delete();
         }
-        if (DB::table('basket_guest')->where('ses_token', $sess['_token'])->doesntExist() == false) {
+        if (DB::table('basket_guest')
+            ->where('ses_token', $sess['_token'])
+            ->where('b_status', 'addition')
+            ->doesntExist() == false) {
         $basket = DB::table('basket_guest')->where('ses_token', $sess['_token'])->get();
         $total = 0;
         foreach ($basket as $point => $key){
@@ -59,7 +62,6 @@ $sess = Session::all();
             ->get();
         $image_link = explode(',', $goods[0]->image_link);
         ?>
-
         <form method="get" action="">
             <p>
             <span>
@@ -149,7 +151,8 @@ $sess = Session::all();
         <form method="get" action="">
             <p>
             <span>
-            <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>">
+            <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>"
+               title="Перейти до товару">
                 <img width="70" height="70" class="jet-lightbox" src="<?=$image_link[0]?>">
             </a>
             </span>
@@ -207,13 +210,37 @@ $sess = Session::all();
         }
         ?>
         <hr>
+        <?php
+        if (isset($_GET['zakaz'])) {
+            if (!isset($user)) {
+                DB::table('basket_guest')
+                    ->where('ses_token', $sess['_token'])
+                    ->update(['mob_tel' => $_GET['usertel'],
+                        'b_status' => 'ordered',
+                        'updated_at' => date("Y-m-d H:i:s")]);
+            }
+            ?>
+            <p><span>Замовлення успішно відправлено!</span></p>
+            <p><span>Очікуйте, найближчим часом наш оператор зв'яжеться з вами.</span></p>
+            <p><span>Дякуємо, що обрали наш сервіс</span></p>
+            <p><span>Ваш телефон: <?=$_GET['usertel']?></span></p>
+            <?php
+            echo "</div></div>";exit;
+        }
+        ?>
         <p>
-        <form name="zakaz" method="POST" action="#" onsubmit="return Zakaz();">
-            <br>
-            <p><span>Ваш телефон:</span><span style="color:#dc2121;">*</span></p>
-            <label for="tel"></label>
-            <input style="width: 20%; padding: 2;" type="text" name="usertel" id="tel" placeholder="+38(___) ___-____" value="">
-            <br>
+        <form name="zakaz" method="get" action="#" onsubmit="return Zakaz();">
+            <p>
+                <span>Ваш телефон:</span>
+                <span title="Поле обов'язкове для оформлення замовлення."
+                      style="color:#dc2121; font-size: 16px; cursor: progress;">
+                    *
+                </span>
+            </p>
+            <p><label for="tel"></label>
+                <input style="width: 20%; padding: 2px;" type="text" name="usertel" id="tel"
+                       placeholder="+38(___) ___-____" value="">
+            </p>
             <br>
             <script>
                 function Zakaz() {
@@ -234,6 +261,7 @@ $sess = Session::all();
             </p>
             <p>
             <span>
+            <input type="hidden" name="zakaz" value="ok">
             <input type="submit" class="jet-button" name="obrobka" style="background: #C37D04;"
                    value="Оформити замовлення">
             </span>
