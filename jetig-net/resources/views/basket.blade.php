@@ -159,7 +159,7 @@ $sess = Session::all();
                 <span style="float: right;">
                     <input type="hidden" name="DelProd" value="del">
                     <input type="hidden" name="ProdCode" value="<?=$goods[0]->product_code?>">
-                    <input type="submit" style="background: #ef3344; cursor: pointer;" value="Вилучити">
+                    <input type="submit" class="jet-button" style="cursor: pointer; background: #931c27" value="Вилучити">
                 </span>
             </p>
         </form>
@@ -228,10 +228,24 @@ $sess = Session::all();
                     'updated_at' => date("Y-m-d H:i:s")]);
         }
         ?>
-        <p><span>Замовлення успішно відправлено!</span></p>
-        <p><span>Очікуйте, найближчим часом наш оператор зв'яжеться з вами.</span></p>
-        <p><span>Дякуємо, що обрали наш сервіс</span></p>
-        <p><span>Ваш телефон: <?=$_GET['usertel']?></span></p>
+        <p><span
+                style="color: #D1AF29;font-size: large; font-style: italic;">Замовлення успішно відправлено!</span>
+        </p>
+        <p><span>Чекайте, найближчим часом наш оператор зв'яжеться з вами.</span></p>
+        <p>
+            <span>Зв'язок буде встановлено за телефоном: </span>
+            <span style="color: #74b2e2;"><?=$_GET['usertel']?></span>
+        </p>
+
+        <br>
+        <p>
+            <span>
+            <a href="/subcategories?Count=<?=$key->count?>&IdCatGroup=<?=$goods[0]->id_group?>&ProdCode=<?=$goods[0]->product_code?>"
+               class="jet-button" style="background: #0480c3;">
+                Продовжити покупки
+            </a>
+            </span>
+        </p>
         <?php
         echo "</div></div>";exit;
         }

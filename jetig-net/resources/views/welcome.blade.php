@@ -208,7 +208,7 @@ if (isset($user)){
                                 <a href="{{ route('basket') }}" title="Ваш кошик">Кошик</a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}" title="Ваші замовлення">Історія замовлень</a>
+                                <a href="{{ route('history') }}" title="Ваші замовлення">Історія замовлень</a>
                             </li>
                             <li>
                                 <a href="{{ route('home') }}" title="Ваші дані">Керувати даними</a>

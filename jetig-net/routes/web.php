@@ -40,4 +40,5 @@ Route::middleware('auth')->group(static function () {
     Route::get('excel/view', [ExcelController::class, 'index'])->name('index');
     Route::get('excel/export', [ExcelController::class, 'export'])->name('export');
     Route::post('excel/import', [ExcelController::class, 'import'])->name('import');
+    Route::get('history', [MenuController::class, 'history'])->name('history');
 });

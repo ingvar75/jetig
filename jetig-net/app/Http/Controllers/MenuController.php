@@ -33,4 +33,8 @@ class MenuController extends Controller
     {
         return view('home');
     }
+    public function history(Request $request)
+    {
+        return view('history');
+    }
 }
