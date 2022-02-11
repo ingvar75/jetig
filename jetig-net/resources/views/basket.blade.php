@@ -212,20 +212,28 @@ $sess = Session::all();
         <hr>
         <?php
         if (isset($_GET['zakaz'])) {
-            if (!isset($user)) {
-                DB::table('basket_guest')
-                    ->where('ses_token', $sess['_token'])
-                    ->update(['mob_tel' => $_GET['usertel'],
-                        'b_status' => 'ordered',
-                        'updated_at' => date("Y-m-d H:i:s")]);
-            }
-            ?>
-            <p><span>Замовлення успішно відправлено!</span></p>
-            <p><span>Очікуйте, найближчим часом наш оператор зв'яжеться з вами.</span></p>
-            <p><span>Дякуємо, що обрали наш сервіс</span></p>
-            <p><span>Ваш телефон: <?=$_GET['usertel']?></span></p>
-            <?php
-            echo "</div></div>";exit;
+        if (!isset($user)) {
+            DB::table('basket_guest')
+                ->where('ses_token', $sess['_token'])
+                ->update(['mob_tel' => $_GET['usertel'],
+                    'b_status' => 'ordered',
+                    'updated_at' => date("Y-m-d H:i:s")]);
+        } else {
+            DB::table('basket_user')
+                ->where('user_id', $user['id'])
+                ->where('user_email', $user['email'])
+                ->where('ses_token', $sess['_token'])
+                ->update(['mob_tel' => $_GET['usertel'],
+                    'b_status' => 'ordered',
+                    'updated_at' => date("Y-m-d H:i:s")]);
+        }
+        ?>
+        <p><span>Замовлення успішно відправлено!</span></p>
+        <p><span>Очікуйте, найближчим часом наш оператор зв'яжеться з вами.</span></p>
+        <p><span>Дякуємо, що обрали наш сервіс</span></p>
+        <p><span>Ваш телефон: <?=$_GET['usertel']?></span></p>
+        <?php
+        echo "</div></div>";exit;
         }
         ?>
         <p>
@@ -245,7 +253,7 @@ $sess = Session::all();
             <script>
                 function Zakaz() {
                     if (document.zakaz.usertel.value == "") {
-                        alert('Вкажіть номер мобільного телефону.');
+                        alert('Вкажіть правильно номер мобільного телефону.');
                         document.zakaz.usertel.focus();
                         return false;
                     } else
