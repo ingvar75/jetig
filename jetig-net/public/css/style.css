@@ -30,8 +30,8 @@ h1, h2, h3, h4, h5, h6, p, a, ul, ol, li
    padding: 0;
 }
 
-/* Reset buttons border. It's important for input and button tags. 
- * border-collapse should be separate for shadow in IE. 
+/* Reset buttons border. It's important for input and button tags.
+ * border-collapse should be separate for shadow in IE.
  */
 .jet-button
 {
@@ -53,7 +53,7 @@ h1, h2, h3, h4, h5, h6, p, a, ul, ol, li
 .jet-postheadericons,
 .jet-postfootericons,
 .jet-blockcontent,
-ul.jet-vmenu a 
+ul.jet-vmenu a
 {
    text-align: left;
 }
@@ -131,7 +131,7 @@ ul.jet-vmenu a
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-postcontent h1 a, .jet-postcontent h1 a:link, .jet-postcontent h1 a:hover, .jet-postcontent h1 a:visited, .jet-blockcontent h1 a, .jet-blockcontent h1 a:link, .jet-blockcontent h1 a:hover, .jet-blockcontent h1 a:visited 
+.jet-postcontent h1 a, .jet-postcontent h1 a:link, .jet-postcontent h1 a:hover, .jet-postcontent h1 a:visited, .jet-blockcontent h1 a, .jet-blockcontent h1 a:link, .jet-blockcontent h1 a:hover, .jet-blockcontent h1 a:visited
 {
    font-size: 26px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -152,7 +152,7 @@ ul.jet-vmenu a
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-postcontent h2 a, .jet-postcontent h2 a:link, .jet-postcontent h2 a:hover, .jet-postcontent h2 a:visited, .jet-blockcontent h2 a, .jet-blockcontent h2 a:link, .jet-blockcontent h2 a:hover, .jet-blockcontent h2 a:visited 
+.jet-postcontent h2 a, .jet-postcontent h2 a:link, .jet-postcontent h2 a:hover, .jet-postcontent h2 a:visited, .jet-blockcontent h2 a, .jet-blockcontent h2 a:link, .jet-blockcontent h2 a:hover, .jet-blockcontent h2 a:visited
 {
    font-size: 22px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -173,7 +173,7 @@ ul.jet-vmenu a
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-postcontent h3 a, .jet-postcontent h3 a:link, .jet-postcontent h3 a:hover, .jet-postcontent h3 a:visited, .jet-blockcontent h3 a, .jet-blockcontent h3 a:link, .jet-blockcontent h3 a:hover, .jet-blockcontent h3 a:visited 
+.jet-postcontent h3 a, .jet-postcontent h3 a:link, .jet-postcontent h3 a:hover, .jet-postcontent h3 a:visited, .jet-blockcontent h3 a, .jet-blockcontent h3 a:link, .jet-blockcontent h3 a:hover, .jet-blockcontent h3 a:visited
 {
    font-size: 20px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -194,7 +194,7 @@ ul.jet-vmenu a
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-postcontent h4 a, .jet-postcontent h4 a:link, .jet-postcontent h4 a:hover, .jet-postcontent h4 a:visited, .jet-blockcontent h4 a, .jet-blockcontent h4 a:link, .jet-blockcontent h4 a:hover, .jet-blockcontent h4 a:visited 
+.jet-postcontent h4 a, .jet-postcontent h4 a:link, .jet-postcontent h4 a:hover, .jet-postcontent h4 a:visited, .jet-blockcontent h4 a, .jet-blockcontent h4 a:link, .jet-blockcontent h4 a:hover, .jet-blockcontent h4 a:visited
 {
    font-size: 16px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -215,7 +215,7 @@ ul.jet-vmenu a
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-postcontent h5 a, .jet-postcontent h5 a:link, .jet-postcontent h5 a:hover, .jet-postcontent h5 a:visited, .jet-blockcontent h5 a, .jet-blockcontent h5 a:link, .jet-blockcontent h5 a:hover, .jet-blockcontent h5 a:visited 
+.jet-postcontent h5 a, .jet-postcontent h5 a:link, .jet-postcontent h5 a:hover, .jet-postcontent h5 a:visited, .jet-blockcontent h5 a, .jet-blockcontent h5 a:link, .jet-blockcontent h5 a:hover, .jet-blockcontent h5 a:visited
 {
    font-size: 14px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -236,7 +236,7 @@ ul.jet-vmenu a
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-postcontent h6 a, .jet-postcontent h6 a:link, .jet-postcontent h6 a:hover, .jet-postcontent h6 a:visited, .jet-blockcontent h6 a, .jet-blockcontent h6 a:link, .jet-blockcontent h6 a:hover, .jet-blockcontent h6 a:visited 
+.jet-postcontent h6 a, .jet-postcontent h6 a:link, .jet-postcontent h6 a:hover, .jet-postcontent h6 a:visited, .jet-blockcontent h6 a, .jet-blockcontent h6 a:link, .jet-blockcontent h6 a:hover, .jet-blockcontent h6 a:visited
 {
    font-size: 13px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -292,14 +292,14 @@ body
    color: #A99E7E;
 }
 
-.jet-header:before, 
-#jet-header-bg:before, 
-.jet-layout-cell:before, 
-.jet-layout-wrapper:before, 
-.jet-footer:before, 
-.jet-nav:before, 
-#jet-hmenu-bg:before, 
-.jet-sheet:before 
+.jet-header:before,
+#jet-header-bg:before,
+.jet-layout-cell:before,
+.jet-layout-wrapper:before,
+.jet-footer:before,
+.jet-nav:before,
+#jet-hmenu-bg:before,
+.jet-sheet:before
 {
    width: 100%;
    content: " ";
@@ -308,15 +308,15 @@ body
    border-spacing: 0;
 }
 
-.jet-header:after, 
-#jet-header-bg:after, 
-.jet-layout-cell:after, 
-.jet-layout-wrapper:after, 
-.jet-footer:after, 
-.jet-nav:after, 
-#jet-hmenu-bg:after, 
+.jet-header:after,
+#jet-header-bg:after,
+.jet-layout-cell:after,
+.jet-layout-wrapper:after,
+.jet-footer:after,
+.jet-nav:after,
+#jet-hmenu-bg:after,
 .jet-sheet:after,
-.cleared, .clearfix:after 
+.cleared, .clearfix:after
 {
    clear: both;
    font: 0/0 serif;
@@ -337,31 +337,31 @@ table.position
    table-layout: fixed;
 }
 
-li h1, .jet-postcontent li h1, .jet-blockcontent li h1 
+li h1, .jet-postcontent li h1, .jet-blockcontent li h1
 {
    margin:1px;
-} 
-li h2, .jet-postcontent li h2, .jet-blockcontent li h2 
+}
+li h2, .jet-postcontent li h2, .jet-blockcontent li h2
 {
    margin:1px;
-} 
-li h3, .jet-postcontent li h3, .jet-blockcontent li h3 
+}
+li h3, .jet-postcontent li h3, .jet-blockcontent li h3
 {
    margin:1px;
-} 
-li h4, .jet-postcontent li h4, .jet-blockcontent li h4 
+}
+li h4, .jet-postcontent li h4, .jet-blockcontent li h4
 {
    margin:1px;
-} 
-li h5, .jet-postcontent li h5, .jet-blockcontent li h5 
+}
+li h5, .jet-postcontent li h5, .jet-blockcontent li h5
 {
    margin:1px;
-} 
-li h6, .jet-postcontent li h6, .jet-blockcontent li h6 
+}
+li h6, .jet-postcontent li h6, .jet-blockcontent li h6
 {
    margin:1px;
-} 
-li p, .jet-postcontent li p, .jet-blockcontent li p 
+}
+li p, .jet-postcontent li p, .jet-blockcontent li p
 {
    margin:1px;
 }
@@ -413,10 +413,10 @@ li p, .jet-postcontent li p, .jet-blockcontent li p
   z-index: 101;
 }
 
-.jet-headline, 
-.jet-headline a, 
-.jet-headline a:link, 
-.jet-headline a:visited, 
+.jet-headline,
+.jet-headline a,
+.jet-headline a:link,
+.jet-headline a:visited,
 .jet-headline a:hover
 {
 font-size: 36px;
@@ -449,10 +449,10 @@ text-shadow: 0.7px 0.7px 0px rgba(153, 153, 153, 0.8), 1.4px 1.4px 0px rgba(140,
   white-space: nowrap;
 }
 
-.jet-slogan, 
-.jet-slogan a, 
-.jet-slogan a:link, 
-.jet-slogan a:visited, 
+.jet-slogan,
+.jet-slogan a,
+.jet-slogan a:link,
+.jet-slogan a:visited,
 .jet-slogan a:hover
 {
 font-size: 11px;
@@ -502,7 +502,7 @@ text-shadow: 0px 1px 0px rgba(23, 23, 23, 0.82);
    background-size: cover;
 }
 
-.jet-header>.widget 
+.jet-header>.widget
 {
    position:absolute;
    z-index:101;
@@ -530,7 +530,7 @@ text-shadow: 0px 1px 0px rgba(23, 23, 23, 0.82);
    text-align: right;
 }
 
-ul.jet-hmenu a, ul.jet-hmenu a:link, ul.jet-hmenu a:visited, ul.jet-hmenu a:hover 
+ul.jet-hmenu a, ul.jet-hmenu a:link, ul.jet-hmenu a:visited, ul.jet-hmenu a:hover
 {
    outline: none;
    position: relative;
@@ -574,12 +574,12 @@ ul.jet-hmenu:after, ul.jet-hmenu ul:after
    clear: both;
 }
 
-ul.jet-hmenu, ul.jet-hmenu ul 
+ul.jet-hmenu, ul.jet-hmenu ul
 {
    min-height: 0;
 }
 
-ul.jet-hmenu 
+ul.jet-hmenu
 {
    display: inline-block;
    vertical-align: middle;
@@ -590,7 +590,7 @@ ul.jet-hmenu
    box-sizing: border-box;
 }
 
-.jet-nav:before 
+.jet-nav:before
 {
    content:' ';
 }
@@ -657,10 +657,10 @@ ul.jet-hmenu>li>a
    text-align: center;
 }
 
-.jet-hmenu>li>a, 
-.jet-hmenu>li>a:link, 
-.jet-hmenu>li>a:visited, 
-.jet-hmenu>li>a.active, 
+.jet-hmenu>li>a,
+.jet-hmenu>li>a:link,
+.jet-hmenu>li>a:visited,
+.jet-hmenu>li>a.active,
 .jet-hmenu>li>a:hover
 {
    font-size: 14px;
@@ -683,8 +683,8 @@ ul.jet-hmenu>li>a.active
    text-decoration: none;
 }
 
-ul.jet-hmenu>li>a:visited, 
-ul.jet-hmenu>li>a:hover, 
+ul.jet-hmenu>li>a:visited,
+ul.jet-hmenu>li>a:hover,
 ul.jet-hmenu>li:hover>a {
    text-decoration: none;
 }
@@ -698,7 +698,7 @@ ul.jet-hmenu>li>a:hover, .desktop ul.jet-hmenu>li:hover>a
    padding:0 25px;
    margin:0 auto;
 }
-ul.jet-hmenu>li>a:hover, 
+ul.jet-hmenu>li>a:hover,
 .desktop ul.jet-hmenu>li:hover>a {
    color: #312D21;
    text-decoration: none;
@@ -729,7 +729,7 @@ ul.jet-hmenu li li a
    padding:0 25px;
    margin:0 auto;
 }
-ul.jet-hmenu li li 
+ul.jet-hmenu li li
 {
    float: none;
    width: auto;
@@ -737,12 +737,12 @@ ul.jet-hmenu li li
    margin-bottom: 5px;
 }
 
-.desktop ul.jet-hmenu li li ul>li:first-child 
+.desktop ul.jet-hmenu li li ul>li:first-child
 {
    margin-top: 0;
 }
 
-ul.jet-hmenu li li ul>li:last-child 
+ul.jet-hmenu li li ul>li:last-child
 {
    margin-bottom: 0;
 }
@@ -763,9 +763,9 @@ ul.jet-hmenu li li ul>li:last-child
    margin:0;
 }
 
-.jet-hmenu ul a:link, 
-.jet-hmenu ul a:visited, 
-.jet-hmenu ul a.active, 
+.jet-hmenu ul a:link,
+.jet-hmenu ul a:visited,
+.jet-hmenu ul a.active,
 .jet-hmenu ul a:hover
 {
    text-align: left;
@@ -790,11 +790,11 @@ ul.jet-hmenu li li:after
    border-bottom: 1px solid #433D2D;
 }
 
-.desktop ul.jet-hmenu li li:first-child:before, 
-.desktop ul.jet-hmenu li li:first-child:after 
+.desktop ul.jet-hmenu li li:first-child:before,
+.desktop ul.jet-hmenu li li:first-child:after
 {
    display: none;
-} 
+}
 
 ul.jet-hmenu ul li a:hover, .desktop ul.jet-hmenu ul li:hover>a
 {
@@ -861,14 +861,14 @@ ul.jet-hmenu ul
    margin: -36px 0 0 -5px;
 }
 
-.desktop ul.jet-hmenu ul.jet-hmenu-left-to-right 
+.desktop ul.jet-hmenu ul.jet-hmenu-left-to-right
 {
    right: auto;
    left: 0;
    margin: -10px 0 0 -30px;
 }
 
-.desktop ul.jet-hmenu ul.jet-hmenu-right-to-left 
+.desktop ul.jet-hmenu ul.jet-hmenu-right-to-left
 {
    left: auto;
    right: 0;
@@ -948,7 +948,7 @@ ul.jet-hmenu ul
 
 .desktop ul.jet-hmenu>li.ext>a:hover,
 .desktop ul.jet-hmenu>li.ext:hover>a,
-.desktop ul.jet-hmenu>li.ext:hover>a.active  
+.desktop ul.jet-hmenu>li.ext:hover>a.active
 {
    background: none;
    /* default padding + border size */
@@ -965,7 +965,7 @@ ul.jet-hmenu ul
 
 .desktop ul.jet-hmenu>li.ext>a:hover:before,
 .desktop ul.jet-hmenu>li.ext:hover>a:before,
-.desktop ul.jet-hmenu>li.ext:hover>a.active:before  
+.desktop ul.jet-hmenu>li.ext:hover>a.active:before
 {
    position: absolute;
    content: ' ';
@@ -983,14 +983,14 @@ ul.jet-hmenu ul
    z-index: -1;
 }
 
-.desktop ul.jet-hmenu>li.ext:hover>ul 
+.desktop ul.jet-hmenu>li.ext:hover>ul
 {
    padding-top: 5px;
    /* menu bar padding */
   margin-top: 0;
 }
 
-.desktop ul.jet-hmenu>li.ext:hover>ul:before 
+.desktop ul.jet-hmenu>li.ext:hover>ul:before
 {
    /* border + shadow */
   top: -1px;
@@ -1012,7 +1012,7 @@ ul.jet-hmenu>li.ext>.ext-off
    box-sizing: border-box;
 }
 
-.desktop ul.jet-hmenu>li.ext>ul 
+.desktop ul.jet-hmenu>li.ext>ul
 {
    z-index: 13;
 }
@@ -1023,8 +1023,8 @@ ul.jet-hmenu>li.ext>.ext-off
    position: absolute;
    display: block;
    overflow: hidden;
-   /* size of radius 
-   * if size if 0 we should now generate script 
+   /* size of radius
+   * if size if 0 we should now generate script
    * that adds ext-r and ext-m divs
    */
   height: 16px;
@@ -1082,8 +1082,8 @@ ul.jet-hmenu>li.ext>.ext-off
    border-top-left-radius: 0;
 }
 
-.desktop ul.jet-hmenu>li.ext:hover>.ext-m, 
-.desktop ul.jet-hmenu>li.ext:hover>.ext-off 
+.desktop ul.jet-hmenu>li.ext:hover>.ext-m,
+.desktop ul.jet-hmenu>li.ext:hover>.ext-off
 {
    position: absolute;
    display: block;
@@ -1092,7 +1092,7 @@ ul.jet-hmenu>li.ext>.ext-off
    top: 100%;
 }
 
-.desktop ul.jet-hmenu>li.ext.ext-r:hover>.ext-m 
+.desktop ul.jet-hmenu>li.ext.ext-r:hover>.ext-m
 {
    /* shadow offset */
   left: -0;
@@ -1102,7 +1102,7 @@ ul.jet-hmenu>li.ext>.ext-off
    padding-left: 0;
 }
 
-.desktop ul.jet-hmenu>li.ext:hover>.ext-off 
+.desktop ul.jet-hmenu>li.ext:hover>.ext-off
 {
    /* shadow offset */
   left: -0;
@@ -1132,8 +1132,8 @@ ul.jet-hmenu>li.ext>.ext-off
    padding-right: 0;
 }
 
-.desktop ul.jet-hmenu>li.ext:hover>.ext-m:before, 
-.desktop ul.jet-hmenu>li.ext:hover>.ext-off:before 
+.desktop ul.jet-hmenu>li.ext:hover>.ext-m:before,
+.desktop ul.jet-hmenu>li.ext:hover>.ext-off:before
 {
    position: absolute;
    content: ' ';
@@ -1198,7 +1198,7 @@ ul.jet-hmenu>li.ext>.ext-off
    table-layout: fixed;
 }
 
-.jet-content-layout-row 
+.jet-content-layout-row
 {
    display: table-row;
 }
@@ -1212,7 +1212,7 @@ ul.jet-hmenu>li.ext>.ext-off
    vertical-align: top;
 }
 
-/* need only for content layout in post content */ 
+/* need only for content layout in post content */
 .jet-postcontent .jet-content-layout
 {
    border-collapse: collapse;
@@ -1274,7 +1274,7 @@ input, select, textarea, a.jet-search-button span
    font-style: normal;
 }
 
-.jet-block select 
+.jet-block select
 {
    width:96%;
 }
@@ -1324,8 +1324,8 @@ input[type="text"], input[type="password"], input[type="email"], input[type="url
 }
 input[type="text"], input[type="password"], input[type="email"], input[type="url"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="month"], input[type="number"], input[type="range"], input[type="tel"], input[type="time"], input[type="week"], textarea
 {
-   width: 100%;
-   padding: 10px 0;
+   width: 95%;
+   padding: 10px 10px;
    color: #B8AE94 !important;
    font-size: 13px;
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
@@ -1371,7 +1371,7 @@ form.jet-search input[type="text"]
    font-weight: normal;
    font-style: normal;
 }
-form.jet-search 
+form.jet-search
 {
    background-image: none;
    border: 0;
@@ -1605,7 +1605,7 @@ label.jet-radiobutton.hovered:before
    margin:0 auto;
    margin-top: 6px;
 }
-.jet-comment-avatar 
+.jet-comment-avatar
 {
    float:left;
    width:80px;
@@ -1644,8 +1644,8 @@ label.jet-radiobutton.hovered:before
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-comment-header a, 
-.jet-comment-header a:link, 
+.jet-comment-header a,
+.jet-comment-header a:link,
 .jet-comment-header a:visited,
 .jet-comment-header a.visited,
 .jet-comment-header a:hover,
@@ -1672,8 +1672,8 @@ label.jet-radiobutton.hovered:before
    color: #E2CA6A;
 }
 
-.jet-comment-content a, 
-.jet-comment-content a:link, 
+.jet-comment-content a,
+.jet-comment-content a:link,
 .jet-comment-content a:visited,
 .jet-comment-content a.visited,
 .jet-comment-content a:hover,
@@ -1852,7 +1852,7 @@ div.jet-block img
 .jet-blockheader .t,
 .jet-blockheader .t a,
 .jet-blockheader .t a:link,
-.jet-blockheader .t a:visited, 
+.jet-blockheader .t a:visited,
 .jet-blockheader .t a:hover
 {
    color: #FCC05A;
@@ -1890,7 +1890,7 @@ div.jet-block img
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 .jet-blockcontent table,
-.jet-blockcontent li, 
+.jet-blockcontent li,
 .jet-blockcontent a,
 .jet-blockcontent a:link,
 .jet-blockcontent a:visited,
@@ -2088,8 +2088,8 @@ pre
    font-style: normal;
 }
 
-.jet-postheader a, 
-.jet-postheader a:link, 
+.jet-postheader a,
+.jet-postheader a:link,
 .jet-postheader a:visited,
 .jet-postheader a.visited,
 .jet-postheader a:hover,
@@ -2493,7 +2493,7 @@ blockquote p,
 .jet-footer a:link,
 .jet-footer a:visited,
 .jet-footer a:hover,
-.jet-footer td, 
+.jet-footer td,
 .jet-footer th,
 .jet-footer caption
 {
@@ -2501,7 +2501,7 @@ blockquote p,
    font-family: Ubuntu, Arial, 'Arial Unicode MS', Helvetica, Sans-Serif;
 }
 
-.jet-footer p 
+.jet-footer p
 {
    padding:0;
    text-align: center;
@@ -2707,7 +2707,7 @@ blockquote p,
    padding-left: 12px;
 }
 
-.jet-page-footer, 
+.jet-page-footer,
 .jet-page-footer a,
 .jet-page-footer a:link,
 .jet-page-footer a:visited,
@@ -2733,7 +2733,7 @@ blockquote p,
    color: #C8C1AC;
 }
 
-.jet-lightbox-wrapper 
+.jet-lightbox-wrapper
 {
    background: #333;
    background: rgba(0, 0, 0, .8);
@@ -2822,12 +2822,12 @@ blockquote p,
    filter: alpha(opacity=100);
 }
 
-.jet-lightbox-wrapper .arrow.disabled 
+.jet-lightbox-wrapper .arrow.disabled
 {
    display: none;
 }
 
-.jet-lightbox-wrapper .arrow-t, 
+.jet-lightbox-wrapper .arrow-t,
 .jet-lightbox-wrapper .arrow-b
 {
    background-color: #fff;
@@ -2861,13 +2861,13 @@ blockquote p,
    z-index: 10003;
 }
 
-.jet-lightbox-wrapper .close:hover 
+.jet-lightbox-wrapper .close:hover
 {
    opacity: 1;
    filter: alpha(opacity=100);
 }
 
-.jet-lightbox-wrapper .close .cw, 
+.jet-lightbox-wrapper .close .cw,
 .jet-lightbox-wrapper .close .ccw
 {
    background-color: #fff;
@@ -2903,9 +2903,9 @@ blockquote p,
     -moz-transform: rotate(-45deg);
 /* Firefox */}
 
-.jet-lightbox-wrapper .close-alt, 
-.jet-lightbox-wrapper .arrow-right-alt, 
-.jet-lightbox-wrapper .arrow-left-alt 
+.jet-lightbox-wrapper .close-alt,
+.jet-lightbox-wrapper .arrow-right-alt,
+.jet-lightbox-wrapper .arrow-left-alt
 {
    color: #fff;
    display: none;
@@ -2913,15 +2913,15 @@ blockquote p,
    line-height: 100%;
 }
 
-.ie8 .jet-lightbox-wrapper .close-alt, 
-.ie8 .jet-lightbox-wrapper .arrow-right-alt, 
-.ie8 .jet-lightbox-wrapper .arrow-left-alt 
+.ie8 .jet-lightbox-wrapper .close-alt,
+.ie8 .jet-lightbox-wrapper .arrow-right-alt,
+.ie8 .jet-lightbox-wrapper .arrow-left-alt
 {
    display: block;
 }
 
-.ie8 .jet-lightbox-wrapper .cw, 
-.ie8 .jet-lightbox-wrapper .ccw 
+.ie8 .jet-lightbox-wrapper .cw,
+.ie8 .jet-lightbox-wrapper .ccw
 {
    display: none;
 }

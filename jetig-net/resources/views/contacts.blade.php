@@ -1,9 +1,16 @@
 @extends('navigation')
+<?php
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
-
+$user = Auth::user();
+$sess = Session::all();
+?>
+@csrf
 @section('content')
     <div class="jet-layout-cell jet-content">
         <article class="jet-post jet-article">
+
             <div class="jet-postcontent jet-postcontent-0 clearfix">
                 <div class="jet-content-layout">
                     <div class="jet-content-layout-row">
@@ -14,20 +21,47 @@
                             <p>+380733059806</p>
                             <p><span style="font-weight: bold; color: #0a53be">Email:</span></p>
                             <p>mail@jetig.net</p>
-                            <p><a href="#" class="jet-button">Відправити повідомлення</a></p>
+                            <form action="" method="post">
+                            <?php
+                                if (isset($user)) {
+                                    ?>
+                                <p>
+                                    <label>
+                                        <input type="email" style="width: 25%;" name="email" value="<?=$user['email']?>">
+                                    </label>
+                                <p><input type="hidden" name="key" value="<?=$sess['_token']?>"></p>
+                                </p>
+                                <?php
+                                }else {
+                                ?>
+                                <p>
+                                    <label>
+                                        <input type="email" style="width: 25%;" placeholder="Ваш Email">
+                                    </label>
+                                </p>
+                                <p><input type="hidden" name="key" value="<?=$sess['_token']?>"></p>
+                                <?php
+                                }
+                                ?>
+                                <p>
+                                    <label>
+                                        <textarea style="width: 50%;" name="comment" cols="40" rows="10"
+                                                  placeholder="Текст повідомлення"></textarea>
+                                    </label>
+                                </p>
+                                @csrf
+                                <p><input type="submit" class="jet-button" value="Відправити повідомлення"></p>
+                            </form>
                         </div>
                     </div>
                 </div>
-
-
             </div>
+
         </article>
     </div>
 @stop
 <?php
-use Illuminate\Support\Facades\Auth;
 
-$user = Auth::user();
 if (isset($user)){
 ?>
 @section('content_login')

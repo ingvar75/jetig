@@ -19,6 +19,7 @@ class Mail extends Model
     protected array $basket_user = [
         'user_id',
         'user_email',
+        'ses_token',
         'text_mail',
     ];
     protected $casts = [
