@@ -74,7 +74,7 @@ if (isset($user)){
                                 <a href="{{ route('history') }}" title="Ваші замовлення">Історія замовлень</a>
                             </li>
                             <li>
-                                <a href="{{ route('home') }}" title="Ваші дані">Керувати даними</a>
+                                <a href="{{ route('passreset') }}" title="Замінити пароль">Заміна пароля</a>
                             </li>
                         </ul>
                     </div>

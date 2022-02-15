@@ -59,6 +59,7 @@ $sess = Session::all();
             ->where('user_id', $user['id'])
             ->where('user_email', $user['email'])
             ->where('b_status', 'ordered')
+            ->orwhere('b_status', 'addition')
             ->get();
         $total = 0;
         foreach ($basket as $point => $key){
@@ -81,7 +82,8 @@ $sess = Session::all();
                     <input type="hidden" name="DelProd" value="del">
                     <input type="hidden" name="ProdCode" value="<?=$goods[0]->product_code?>">
                     <input type="hidden" name="SesToken" value="<?=$key->ses_token?>">
-                    <input type="submit" class="jet-button" style="cursor: pointer; background: #931c27" value="Вилучити">
+                    <input type="submit" class="jet-button" style="cursor: pointer; background: #931c27"
+                           value="Вилучити">
                 </span>
             </p>
         </form>
@@ -106,6 +108,19 @@ $sess = Session::all();
                        style="text-decoration: initial;" title="Перейти до товару"><?=$goods[0]->item_name?>
                     </a>
                 </span>
+        </p>
+        <br>
+        <p>
+            <span style="color: #0a53be;">Статус замовлення: </span>
+        </p>
+        <p>
+            <?php
+            if ($key->b_status == 'ordered'){
+            ?><span>Замовлення зареєстровано <?=$key->updated_at?></span><?php
+            }elseif($key->b_status == 'addition'){
+            ?><span>Товар додано у кошик <?=$key->created_at?></span><?php
+            }
+            ?>
         </p>
         <hr style="border-color: #5C543D;">
         <br>
@@ -170,9 +185,9 @@ $sess = Session::all();
         echo "</div></div>";exit;
         }
         ?>
-            <br>
-            </p>
-            <p>
+        <br>
+        </p>
+        <p>
             <span>
                 <span>
             <a href="/categories"
@@ -183,7 +198,7 @@ $sess = Session::all();
                 <span style="float: right; font-size: larger;">
                 Сума:  <?=$total?> <?=$goods[0]->currency?>
             </span>
-            </p>
+        </p>
 
     </div>
 </div>

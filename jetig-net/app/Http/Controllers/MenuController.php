@@ -37,4 +37,8 @@ class MenuController extends Controller
     {
         return view('history');
     }
+    public function passreset(Request $request)
+    {
+        return view('passreset');
+    }
 }

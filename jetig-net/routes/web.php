@@ -36,6 +36,8 @@ Route::middleware('guest')->group(static function () {
 Route::middleware('auth')->group(static function () {
     Route::get('logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/', fn() => view('welcome'))->name('welcome');
+    Route::post('passreset', fn() => view('passreset'))->name('passreset');
+    Route::get('passreset', fn() => view('passreset'))->name('passreset');
 
     Route::get('excel/view', [ExcelController::class, 'index'])->name('index');
     Route::get('excel/export', [ExcelController::class, 'export'])->name('export');
