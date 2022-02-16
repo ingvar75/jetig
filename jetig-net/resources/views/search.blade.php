@@ -20,26 +20,70 @@ $sess = Session::all();
                             <h3 style="border-bottom: 1px solid #776D50; padding-bottom: 5px">Результати пошуку</h3>
                             <?php
                             $products = DB::table('products')
-                                ->select('product_code', 'item_name', 'image_link', 'id_group', 'price')
+                                ->select('product_code', 'item_name', 'image_link', 'id_group', 'price', 'currency')
                                 ->get();
-                            if (isset($_GET['s'])){$pulya = $_GET['s'];}else{$pulya = '';}
-                            foreach ($products as $value) {
-                                $compare = similar_text($pulya, $value->product_code, $perc);
-                                if ($perc >= 87){
-                                    var_dump($compare, $value->product_code, $perc);
-                                }else{
-                                    $compare = similar_text($pulya, $value->item_name, $perc);
-                                    if ($perc >= 60){
-                                        var_dump($compare, $value->item_name, $perc);
-                                    }
-                                }
-
+                            if (isset($_GET['s'])) {
+                                $pulya = $_GET['s'];
+                            } else {
+                                $pulya = '';
                             }
-                            exit;
+                            $mayak = false;
+                            foreach ($products as $value) {
+                            $compare = similar_text($pulya, $value->product_code, $perc);
+                            $image_array = explode(',', $value->image_link);
+                            $imageLink = $image_array[array_rand($image_array, 1)];
+                            if ($perc >= 87){
+                                $mayak = true;
                             ?>
-                            <p><span style="font-weight: bold; color: #0a53be;">Пн-Пт 10:00-18:00:</span></p>
-                            <p>+380679185706</p>
-                            <p>+380733059806</p>
+                            <p style="text-align: left;">
+                                <a href="/subcategories?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>"
+                                   title="<?=$value->item_name?>">
+                                    <img width="70" height="70" alt=""
+                                         class="jet-lightbox"
+                                         src="<?=$imageLink?>">
+                                </a>
+                                <br></p>
+                            <p style="text-align: justify;"><span
+                                    style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
+                            </p>
+                            Артикул: <?=$value->product_code?><br><span
+                                style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
+                            <span
+                                style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
+                                            <a href="subcategories?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>"
+                                               class="jet-button">Детальніше</a>&nbsp;
+                                        </span><br>
+                            <?php
+                            }else {
+                                $compare = similar_text($pulya, $value->item_name, $perc);
+                                if ($perc >= 60) {
+                                    $mayak = true;
+                            ?>
+                            <p style="text-align: left;">
+                                <a href="/subcategories?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>"
+                                   title="<?=$value->item_name?>">
+                                    <img width="70" height="70" alt=""
+                                         class="jet-lightbox"
+                                         src="<?=$imageLink?>">
+                                </a>
+                                <br></p>
+                            <p style="text-align: justify;"><span
+                                    style="font-size: 14px; color: #D4CEBF;"><?=$value->item_name?></span><br>
+                            </p>
+                            Артикул: <?=$value->product_code?><br><span
+                                style="font-size: 11px; color: #69BDBF;">В наявності</span><br>
+                            <span
+                                style="color: #EB9705;"><?=$value->price?> <?=$value->currency?><br><br>
+                                            <a href="subcategories?IdCatGroup=<?=$value->id_group?>&ProdCode=<?=$value->product_code?>"
+                                               class="jet-button">Детальніше</a>&nbsp;
+                                        </span><br><hr style="color: #2f2a1c;">
+                            <?php
+                                }
+                            }
+                            }
+                            if ($mayak !== true) echo "<p><span style='color: #842029; font-style: italic; font-size: 16px;'>За даним запитом результатів не знайдено !</span></p>";
+                            ?>
+
                         </div>
                     </div>
                 </div>
