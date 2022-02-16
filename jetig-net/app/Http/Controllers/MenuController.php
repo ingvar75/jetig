@@ -41,4 +41,8 @@ class MenuController extends Controller
     {
         return view('passreset');
     }
+    public function search(Request $request)
+    {
+        return view('search');
+    }
 }

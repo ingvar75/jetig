@@ -19,6 +19,7 @@ use App\Http\Controllers\ExcelController;
 
 
 Route::get('contacts', [MenuController::class, 'contacts'])->name('contacts');
+Route::get('search', [MenuController::class, 'search'])->name('search');
 Route::post('contacts', [MenuController::class, 'contacts'])->name('contacts');
 Route::get('basket', [MenuController::class, 'basket'])->name('basket');
 Route::get('categories', [MenuController::class, 'categories'])->name('categories');

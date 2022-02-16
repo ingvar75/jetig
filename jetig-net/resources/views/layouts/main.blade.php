@@ -113,9 +113,9 @@
                             </div>
                             <div class="jet-blockcontent">
                                 <div>
-                                    <form action="#" class="jet-search" method="get" name="searchform">
-                                        <input type="text" value="" name="s"/>
-                                        <input type="submit" value="Search" name="search" class="jet-search-button"
+                                    <form action="/search" class="jet-search" method="get" name="searchform">
+                                        <input type="text" value="" name="s" maxlength="25"/>
+                                        <input type="submit" class="jet-search-button"
                                                style="color: #B8AE94;"/>
                                     </form>
                                 </div>
