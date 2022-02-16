@@ -127,7 +127,22 @@
                             </div>
                             <div class="jet-blockcontent">
                                 <div>
-                                    <p>Lorem ipsum dolor sit amet. Nam sit amet sem. Mauris a ante.</p>
+                                    <?php
+                                    use Illuminate\Support\Facades\DB;
+                                    $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
+                                    foreach ($CatParent as $value) {
+                                        echo "<ul>";
+                                        echo "<li><a href='/subcategories?IdParent=$value->id_group' title='Перейти на сторінку'>$value->name_group</a>";
+                                        $CatIdParents = DB::table('categories')->where('id_group_parent', $value->id_group)->get();
+                                        echo "<ul>";
+                                        foreach ($CatIdParents as $obj) {
+                                            echo "<li><a href='/subcategories?IdCat=$obj->id_group' target='_self' title='Перейти у розділ'>$obj->name_group</a>";
+                                        }
+                                        echo "</ul></li>";
+                                        echo "</ul>";
+                                    }
+
+                                    ?>
                                     <ul>
                                         <li>
                                             <a href="#" title="All News">All News</a> (50)
