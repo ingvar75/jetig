@@ -26,6 +26,7 @@ Route::get('categories', [MenuController::class, 'categories'])->name('categorie
 Route::get('subcategories', [MenuController::class, 'subcategories'])->name('subcategories');
 Route::get('products', [MenuController::class, 'products'])->name('products');
 Route::get('home', [MenuController::class, 'home'])->name('home');
+Route::get('maint', [MenuController::class, 'maint'])->name('maint');
 
 Route::middleware('guest')->group(static function () {
     Route::get('register', fn() => view('guest.register'))->name('register');

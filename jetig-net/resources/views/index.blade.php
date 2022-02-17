@@ -34,8 +34,14 @@
 @stop
 <?php
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 $user = Auth::user();
+if (isset($_GET['to']) && $_GET['to'] === 'maint') {
+    DB::table('site')->where('id', 1)->update(['site_status' => 1,
+        'created_at'=>date("Y-m-d H:i:s")]);
+    header('Location: ' . '/maint');
+}
 if (isset($user)){
 ?>
 @section('content_login')
@@ -66,6 +72,9 @@ if (isset($user)){
                         <ul>
                             <li>
                                 <a href="{{ route('index') }}" title="Імпорт товарів">Завантажити контент</a>
+                            </li>
+                            <li>
+                                <a href="?to=maint" title="Сайт на ТО">Сайт на ТО</a>
                             </li>
                         </ul>
                     </div>

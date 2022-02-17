@@ -13,6 +13,10 @@ $action = $nav->navigation();
 $user = Auth::user();
 $sess = Session::all();
 
+if (DB::table('site')
+        ->where('id', 1)
+        ->where('site_status', 1)
+        ->exists() == true) header('Location:'.'/maint');
 
 if (isset($_GET['Count']) && $_GET['Count'] > 0) {
 

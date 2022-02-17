@@ -45,4 +45,8 @@ class MenuController extends Controller
     {
         return view('search');
     }
+    public function maint(Request $request)
+    {
+        return view('maint');
+    }
 }
