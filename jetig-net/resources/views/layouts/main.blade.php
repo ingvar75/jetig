@@ -130,80 +130,100 @@
                                     <?php
                                     use Illuminate\Support\Facades\DB;
                                     $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
-                                    foreach ($CatParent as $value) {
+                                    $k = [];
+                                    foreach ($CatParent as $key => $value) {
                                         echo "<ul>";
                                         echo "<li><a href='/subcategories?IdParent=$value->id_group' title='Перейти на сторінку'>$value->name_group</a>";
                                         $CatIdParents = DB::table('categories')->where('id_group_parent', $value->id_group)->get();
                                         echo "<ul>";
+                                        $arr = [];
                                         foreach ($CatIdParents as $obj) {
+                                            $randPodCat = DB::table('categories')->where('id_group_parent', $obj->id_group)->inRandomOrder()->first();
+                                            $randProdImage = DB::table('products')->where('id_group', $randPodCat->id_group)->inRandomOrder()->first();
+                                            $image_array = explode(',', $randProdImage->image_link);
+                                            $rmdImg = array_rand($image_array, 1);//index array
+
+                                            $var = [
+                                                'NameCat' => $randPodCat->name_group,
+                                                'IdCatGroup' => $randProdImage->id_group,
+                                                'ProdCode' => $randProdImage->product_code,
+                                                'image_link' => $image_array[$rmdImg],
+                                            ];
+                                            $arr[] = $var;
                                             echo "<li><a href='/subcategories?IdCat=$obj->id_group' target='_self' title='Перейти у розділ'>$obj->name_group</a>";
                                         }
                                         echo "</ul></li>";
                                         echo "</ul>";
+                                        $r = array_rand($arr, 1);
+                                        $k[] = $arr[$r];
                                     }
-
                                     ?>
-                                    <ul>
-                                        <li>
-                                            <a href="#" title="All News">All News</a> (50)
-                                        </li>
-                                        <li>
-                                            <a href="#" title="Best of the Year">Best of the Year</a> (4)
-                                        </li>
-                                        <li>
-                                            <a href="#" title="Hyperlink">Hyperlink</a> (24)
-                                        </li>
-                                        <li>
-                                            <a href="#" title="Visited link" class="visited">Visited link</a> (17)
-                                        </li>
-                                        <li>
-                                            <a href="#" title="Hovered link" class="hover">Hovered link</a> (6)
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
                         <div class="jet-block clearfix">
+
+
+                            <?php
+                            foreach ($k as $item) {
+                            $pieces = explode(" ", $item['NameCat']);
+                            ?>
+
                             <div class="jet-blockheader">
-                                <h3 class="t">TODAY's Best</h3>
+                                <h3 class="t" style="font-size: 13px; cursor: progress;" title="<?=$item['NameCat']?>"><?=$pieces[0]."..."?>
                             </div>
-                            <div class="jet-blockcontent"><p><img width="184" height="210" alt=""
-                                                                  src="images/blockimage4.jpg" class="">
+
+                                <div class="jet-blockcontent">
+
+                                <p>
+                                    <a href="/subcategories?IdCatGroup=<?=$item['IdCatGroup']?>&ProdCode=<?=$item['ProdCode']?>">
+                                    <img width="184" height="210" alt=""
+                                                                  src="<?=$item['image_link']?>" class="">
+                                    </a>
                                 </p>
-                                <p style="text-align: center;"><a href="#">Read more »</a></p></div>
-                        </div>
-                        <div class="jet-block clearfix">
-                            <div class="jet-blockheader">
-                                <h3 class="t">Hottest Trends</h3>
+                                <p style="text-align: center;">
+                                    <a href="/subcategories?IdCatGroup=<?=$item['IdCatGroup']?>&ProdCode=<?=$item['ProdCode']?>" style="font-size: 10px;">
+                                        Детальніше »
+                                    </a>
+                                </p>
                             </div>
-                            <div class="jet-blockcontent"><p style="text-align:center;"><img width="181" height="181"
-                                                                                             alt=""
-                                                                                             src="images/blockimage1.jpg"
-                                                                                             class=""></p>
-                                <p style="text-align: center;"><a href="#">Read more »</a></p></div>
+                            <?php
+                            }
+                            ?>
                         </div>
-                        <div class="jet-block clearfix">
-                            <div class="jet-blockheader">
-                                <h3 class="t">Поділитись</h3>
-                            </div>
-                            <div class="jet-blockcontent"><p><img width="51" height="51" alt=""
-                                                                  src="images/1308560868_rss.png"
-                                                                  class=""><img width="51" height="51" alt=""
-                                                                                src="images/1308647898_facebook-2.png"
-                                                                                class=""><img
-                                        width="51" height="51" alt="" src="images/1308560877_flickr-2.png" class=""></p>
-                            </div>
-                        </div>
+{{--                        <div class="jet-block clearfix">--}}
+{{--                            <div class="jet-blockheader">--}}
+{{--                                <h3 class="t">Hottest Trends</h3>--}}
+{{--                            </div>--}}
+{{--                            <div class="jet-blockcontent"><p style="text-align:center;"><img width="181" height="181"--}}
+{{--                                                                                             alt=""--}}
+{{--                                                                                             src="/css/images/blockimage1.jpg"--}}
+{{--                                                                                             class=""></p>--}}
+{{--                                <p style="text-align: center;"><a href="#">Read more »</a></p></div>--}}
+{{--                        </div>--}}
+                        {{--                        <div class="jet-block clearfix">--}}
+                        {{--                            <div class="jet-blockheader">--}}
+                        {{--                                <h3 class="t">Поділитись</h3>--}}
+                        {{--                            </div>--}}
+                        {{--                            <div class="jet-blockcontent"><p><img width="51" height="51" alt=""--}}
+                        {{--                                                                  src="/css/images/1308560868_rss.png"--}}
+                        {{--                                                                  class=""><img width="51" height="51" alt=""--}}
+                        {{--                                                                                src="/css/images/1308647898_facebook-2.png"--}}
+                        {{--                                                                                class=""><img--}}
+                        {{--                                        width="51" height="51" alt="" src="/css/images/1308560877_flickr-2.png" class=""></p>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                     </div>
                 </div>
             </div>
         </div>
         <footer class="jet-footer">
-            <div style="position:relative;text-align:center;"><a title="RSS" class="jet-rss-tag-icon"
-                                                                 style="position: absolute; bottom: -10px; left: -6px; line-height: 32px;"
-                                                                 href="#"></a>
-                <p><a href="#">Новини</a>|<a href="#">Галерея</a>|<a href="{{route('contacts')}}">Контакти</a>|<a
-                        href="http://www.iconfinder.com/search/?q=iconset:web2badges">Icon set</a> A. <a href="#">IG</a>
+            <div style="position:relative;text-align:center;">
+                {{--                <a title="RSS" class="jet-rss-tag-icon"--}}
+                {{--                   style="position: absolute; bottom: -10px; left: -6px; line-height: 32px;"--}}
+                {{--                   href="#"></a>--}}
+                <p><a href="{{route('contacts')}}">A.IG</a> |
+                    <a href="http://www.iconfinder.com/search/?q=iconset:web2badges">Icon set</a>
                 </p>
                 <p>Авторське право © 2021. Всі права захищені.</p></div>
         </footer>
