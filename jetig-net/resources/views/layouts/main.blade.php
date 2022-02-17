@@ -90,8 +90,7 @@
         <h1 class="jet-headline">
             <a href="{{route('home')}}">JetIG.net</a>
         </h1>
-        <h2 class="jet-slogan">Товари для активного відпочинку</h2>
-
+{{--        <h2 class="jet-slogan">Товари для активного відпочинку</h2>--}}
         @yield('nav')
 
     </header>

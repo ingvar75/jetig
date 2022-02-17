@@ -427,7 +427,7 @@ text-decoration: none;
 text-align: left;
 text-shadow: 0.7px 0.7px 0px rgba(153, 153, 153, 0.8), 1.4px 1.4px 0px rgba(140, 140, 140, 0.8), 2.1px 2.1px 1px rgba(122, 122, 122, 0.5), 2.8px 2.8px 0px rgba(107, 107, 107, 0.5), 3.5px 3.5px 0px rgba(92, 92, 92, 0.48);
   padding: 0;
-  margin: 0;
+  margin-top: 10px;
   color: #DCD8CB !important;
   white-space: nowrap;
 }
