@@ -207,9 +207,9 @@
                     ///////////////////////////відобразимо товари випадкової підкатегорії//////////////////////////
                     $CatIdParents = DB::table('categories')->inRandomOrder()->where('id_group_parent', $_GET['IdCat'])->first();
                     $allProductsOfCat = [];
-                    while (count($allProductsOfCat) < 6) {  //шукаємо товари не меньше 6
+//                    while (count($allProductsOfCat) < 6) {  //шукаємо товари не меньше 6
                         $allProductsOfCat = DB::table('products')->where('id_group', $CatIdParents->id_group)->limit(12)->get();
-                    }
+//                    }
                     ?>
                     <h4 class="jet-postheader"><span class="jet-postheadericon"><?=$CatIdParents->name_group?></span>
                     </h4>
