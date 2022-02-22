@@ -133,7 +133,7 @@ class ExcelController extends Controller
                 }
                 foreach ($underCat as $m=>$prod){
                     $products = DB::table('products')->where('id_group', $prod->id_group)->get();
-                    if (count($products) <= 0) {
+                    if (count($products) <= 6) {
                         echo "<br>$prod->name_group".":". count($products);
                         DB::table('categories')->where('id_group', $prod->id_group)->delete();
                     }

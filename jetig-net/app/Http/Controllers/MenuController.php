@@ -49,4 +49,8 @@ class MenuController extends Controller
     {
         return view('maint');
     }
+    public function translator(Request $request)
+    {
+        return view('translator');
+    }
 }

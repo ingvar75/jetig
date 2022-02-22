@@ -64,7 +64,12 @@ if (isset($user)){
                 @endif
 
                 <?php
-                if ($user['name'] == 'admin'){ ?>
+                if ($user['name'] == 'admin'){
+                    if (isset($_GET['delDB']) && $_GET['delDB'] == 'del'){
+                    DB::table('products')->truncate();//очистить базу товаров
+                    DB::table('categories')->truncate();//очистить базу категорий
+                    }
+                    ?>
                 <div class="jet-blockcontent">
                     <div>
                         <p>Вітаю, <?=$user['name']?></p>
@@ -75,6 +80,12 @@ if (isset($user)){
                             </li>
                             <li>
                                 <a href="?to=maint" title="Сайт на ТО">Сайт на ТО</a>
+                            </li>
+                            <li>
+                                <a href="?delDB=del" title="Видалити товари БД">Видалити товари БД</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('translator') }}" title="Переклад">Перекласти українською</a>
                             </li>
                         </ul>
                     </div>
