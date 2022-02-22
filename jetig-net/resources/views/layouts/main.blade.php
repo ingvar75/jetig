@@ -2,7 +2,7 @@
 <html dir="ltr" lang="en-US">
 <head><!-- Created by IG-->
     <meta charset="utf-8">
-    <title>JetIG - Товари для активного відпочинку</title>
+    <title>JetIG - Товари для побуту та активного відпочинку.</title>
     <meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
 
     <!--[if lt IE 9]>
