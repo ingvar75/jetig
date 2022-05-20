@@ -97,20 +97,25 @@ class ExcelController extends Controller
                     $in_db_product = [
                         'product_code' => $page[$i][0],
                         'item_name' => $page[$i][1],
-                        'description' =>$page[$i][3],
-                        'price' =>$page[$i][5],
-                        'currency' =>$page[$i][6],
-                        'unit_of_measurement' =>$page[$i][7],
-                        'image_link' =>$page[$i][11],
-                        'availability' =>$page[$i][12],
-                        'manufacturer_tramp' =>$page[$i][14],
-                        'unique_identifier' =>$page[$i][22],
-                        'id_group'=>$page[$i][24],
+                        'description' => $page[$i][3],
+                        'price' => $page[$i][5],
+                        'currency' => $page[$i][6],
+                        'unit_of_measurement' => $page[$i][7],
+                        'image_link' => $page[$i][11],
+                        'availability' => $page[$i][12],
+                        'manufacturer_tramp' => $page[$i][14],
+                        'unique_identifier' => $page[$i][22],
+                        'id_group' => $page[$i][24],
                         'created_at' => date("Y-m-d H:i:s"),
                         'updated_at' => date("Y-m-d H:i:s"),
-                        ];
-                    Products::query()->insertOrIgnore($in_db_product);// вставка с игнорированием дубликата или ошибки вставки
-                    var_dump($in_db_product);
+                    ];
+                    if (DB::table('categories')
+                        ->where('id_group', $page[$i][24])
+                        ->doesntExist() == true) {
+                        Products::query()->insertOrIgnore($in_db_product);// вставка с игнорированием дубликата или ошибки вставки
+                        var_dump($in_db_product);
+                    }
+
                 }
             }
         }
@@ -119,22 +124,22 @@ class ExcelController extends Controller
         $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
         //суперкатегорія random
         var_dump($CatParent);
-        foreach ($CatParent as $k => $superCat){
-            echo '//////////////////////////////////////////////'.$superCat->name_group;
+        foreach ($CatParent as $k => $superCat) {
+            echo '//////////////////////////////////////////////' . $superCat->name_group;
             $categories = DB::table('categories')->where('id_group_parent', $superCat->id_group)->get();
             var_dump($categories);
 
-            foreach ($categories as $key=>$obj){
-                echo '///////////////////////////////'.$obj->name_group;
+            foreach ($categories as $key => $obj) {
+                echo '///////////////////////////////' . $obj->name_group;
                 $underCat = DB::table('categories')->where('id_group_parent', $obj->id_group)->get();
                 if (count($underCat) <= 0) {
-                    echo "<br>"."<p style='color: red;'>Deleted!!! Empty undercategory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>";
+                    echo "<br>" . "<p style='color: red;'>Deleted!!! Empty undercategory!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>";
                     DB::table('categories')->where('id_group', $obj->id_group)->delete();
                 }
-                foreach ($underCat as $m=>$prod){
+                foreach ($underCat as $m => $prod) {
                     $products = DB::table('products')->where('id_group', $prod->id_group)->get();
                     if (count($products) <= 6) {
-                        echo "<br>$prod->name_group".":". count($products);
+                        echo "<br>$prod->name_group" . ":" . count($products);
                         DB::table('categories')->where('id_group', $prod->id_group)->delete();
                     }
                 }

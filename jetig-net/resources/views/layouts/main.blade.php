@@ -137,6 +137,8 @@
                                         echo "<ul>";
                                         $arr = [];
                                         foreach ($CatIdParents as $obj) {
+                                            if (DB::table('categories')->where('id_group_parent', $obj->id_group)->exists() == false) continue;
+
                                             $randPodCat = DB::table('categories')->where('id_group_parent', $obj->id_group)->inRandomOrder()->first();
                                             $randProdImage = DB::table('products')->where('id_group', $randPodCat->id_group)->inRandomOrder()->first();
                                             $image_array = explode(',', $randProdImage->image_link);
