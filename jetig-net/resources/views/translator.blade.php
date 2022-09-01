@@ -3,40 +3,71 @@
 use Illuminate\Support\Facades\DB;
 
 if (isset($_GET['choose']) && $_GET['choose'] == 'category') {
-    $fh = fopen("jetCat.txt", 'w') or die("Failed to create file");
-    $dataCat = DB::table('categories')->select('id', 'name_group')->get();
-    foreach ($dataCat as $item) {
-        echo $item->id;
-        echo "<br>";
-        echo $item->name_group;
-        echo "<br>";
+$fh = fopen("jetCat.txt", 'w') or die("Failed to create file");
+$dataCat = DB::table('categories')->select('id', 'name_group')->get();
+foreach ($dataCat as $item) {
+
+           echo strip_tags(($item->id))."<hr>";
+           echo strip_tags(($item->name_group))."<hr>";
+
+//        echo $item->id;
+//        echo "<br>";
+//        echo $item->name_group;
+//        echo "<br>";
 //        fwrite($fh, strip_tags(($item->id))."\r\n") or die("Could not write to file");
 //        fwrite($fh, strip_tags(($item->name_group))."\r\n") or die("Could not write to file");
-    }
-    fclose($fh);
+}
+fclose($fh);
 //    echo "File 'jetCat.txt' written successfully!";
-    exit;
+exit;
 }
 if (isset($_GET['choose']) && $_GET['choose'] == 'nameProducts') {
-    $fh = fopen("jetProdDescr.txt", 'w') or die("Failed to create file");
-    $dataProd = DB::table('products')->select('id', 'item_name')->get();
-    foreach ($dataProd as $item) {
-        echo strip_tags(($item->id)) . "<br>";
-        echo strip_tags(($item->item_name)) . "<br>";
+$fh = fopen("jetProdDescr.txt", 'w') or die("Failed to create file");
+$dataProd = DB::table('products')
+    ->select('id', 'item_name')
+    ->where('images_home', '<>', 'ua')
+    ->get();
+foreach ($dataProd as $item) {
+
+    echo strip_tags(($item->id))."<hr>";
+    echo strip_tags(($item->item_name))."<hr>";
+
+//      echo strip_tags(($item->id)) . "<br>";
+//    echo strip_tags(($item->item_name)) . "<br>";
 //        fwrite($fh, strip_tags(($item->id))."\r\n") or die("Could not write to file");
 //        fwrite($fh, strip_tags(htmlentities($item->item_name))."\r\n") or die("Could not write to file");
-    }
-    fclose($fh);
-    exit;
+}
+fclose($fh);
+exit;
 }
 if (isset($_GET['choose']) && $_GET['choose'] == 'descrProducts') {
     $fh = fopen("jetProdDescr.txt", 'w') or die("Failed to create file");
-    $dataProd = DB::table('products')->select('id', 'description')->get();
+    $dataProd = DB::table('products')
+        ->select('id', 'description')
+        ->where('images_home', '<>', 'ua+Discr')
+        ->get();
     foreach ($dataProd as $item) {
-        echo strip_tags(($item->id)) . "<br>";
-        echo strip_tags(($item->description)) . "<br>";
-        fwrite($fh, strip_tags(($item->id)) . "\r\n") or die("Could not write to file");
-        fwrite($fh, strip_tags(htmlentities($item->description)) . "\r\n") or die("Could not write to file");
+        $id = strip_tags(($item->id));
+//        $pos1 = stripos($item->description, 'h2>');
+        $desc = strip_tags(($item->description));
+        $desc = str_replace('&nbsp;', '', $desc);
+        $desc = trim($desc);
+        $pos1 = stripos($desc, '>');
+        if ($pos1 !='') {
+                $desc = substr($desc, $pos1 + 1);
+            }
+        if ($desc == "" || $desc == " ") {
+            DB::table('products')->where('id', $id)->delete();
+        }
+
+
+        echo $id . "<hr>";
+        echo $desc ."<hr>";
+
+//        echo strip_tags(($item->id)) . "<br>";
+//        echo strip_tags(($item->description)) . "<br>";
+//        fwrite($fh, strip_tags(($item->id)) . "\r\n") or die("Could not write to file");
+//        fwrite($fh, strip_tags(htmlentities($item->description)) . "\r\n") or die("Could not write to file");
     }
     fclose($fh);
     exit;
@@ -54,8 +85,8 @@ if (isset($_GET['choose']) && $_GET['choose'] == "insertCat") {
             //$query="UPDATE wp_posts SET post_content='$discription', post_title='$title' WHERE id='$id'";
             //$result=$conn->query($query);
             //if (!$result) die ("Ошибка подключения к БД.");
-            DB::table('categories')->where('id', $id)->update(['name_group' => $title]);
-            echo strtoupper($title) . "<br>";
+            DB::table('categories')->where('id', $id)->update(['name_group' => $title, 'images_home' => 'ua']);
+            echo $id . "<br>" . strtoupper($title) . "<br>";
         }
         if ($k == 0) {
             $id = $line;
@@ -153,8 +184,8 @@ if (isset($_GET['choose']) && $_GET['choose'] == "insertNameProd") {
             //$query="UPDATE wp_posts SET post_content='$discription', post_title='$title' WHERE id='$id'";
             //$result=$conn->query($query);
             //if (!$result) die ("Ошибка подключения к БД.");
-            DB::table('categories')->where('id', $id)->update(['name_group' => $title]);
-            echo strtoupper($title) . "<br>";
+            DB::table('products')->where('id', $id)->update(['item_name' => $title, 'images_home' => 'ua']);
+            echo $id . "<br>" . strtoupper($title) . "<br>";
         }
         if ($k == 0) {
             $id = $line;
@@ -240,92 +271,98 @@ if (isset($_GET['choose']) && $_GET['choose'] == "insertNameProd") {
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////Втавка продуктів////////////////////////////////////////////////
-if (isset($_GET['choose']) && $_GET['choose'] == "insertProd") {
-    $cont = file("jetProd_ru_ua.txt") or die("Файл отсутствует, создайте файл и повторите запрос.");
-    $k = "id";
+if (isset($_GET['choose']) && $_GET['choose'] == "insertDescrProd") {
+    $cont = file("jetProdDescr.txt") or die("Файл отсутствует, создайте файл и повторите запрос.");
+    $k = 0;
+    $id = 0;
     foreach ($cont as $line) {
-        if ($k == "id") $id = $line;
-        $id = str_replace('+', '', $id);
-        $id = str_replace('-', ' ', $id);
-        if (strlen($id) > 6) {
-            echo "Внимание id cодержит неверный формат:<br>";
-            echo $id;
-            $id_asoc = array(
-                'тисяча' => 1000,
-                'тисячу' => 1000,
-                "тисячі" => 1000,
-                "одна тисяча" => 1000,
-                'дві тисячі' => 2000,
-
-                'сто' => 100,
-                'двісті' => 200,
-                'триста' => 300,
-                'чотириста' => 400,
-                "п'ятьсот" => 500,
-                "п'ятсот" => 500,
-                "шістьсот" => 600,
-                "шістсот" => 600,
-                "сімсот" => 700,
-                "вісімсот" => 800,
-                "дев'ятсот" => 900,
-
-                "десять" => 10,
-                "двадцять" => 20,
-                "тридцять" => 30,
-                "сорок" => 40,
-                "п'ятьдесят" => 50,
-                "шістьдесят" => 60,
-                "шістдесят" => 60,
-                "сімдесят" => 70,
-                "вісімдесят" => 80,
-                "дев'яносто" => 90,
-
-                "один" => 1,
-                "одна" => 1,
-                "два" => 2,
-                "дві" => 2,
-                "три" => 3,
-                "чотири" => 4,
-                "п'ять" => 5,
-                "шість" => 6,
-                "сім" => 7,
-                "вісім" => 8,
-                "дев'ять" => 9
-            );
-            $str = explode(' ', $id);
-            print_r($str);
-            foreach ($str as $elm_num => $elm) {
-                $elm = trim($elm);
-                echo $elm_num . "<br>";
-                if ($id_asoc[$elm]) {
-                    if ($elm_num == 0 && $elm == "одна") $pogr = 1; //если "одна" стоит перед "тисяча"
-                    if ($elm_num == 0 && $elm == "дві") $pogr = 2;
-                    $ids = $ids + $id_asoc[$elm];
-                } else {
-                    $ids = $ids . $elm;
-                };
-                echo $ids . "<br>";
-                echo $elm . "<br>";
-                $id = str_replace(' ', '', $ids);
-                $id = $id - $pogr;
-            }
-            echo "Правильный id:" . $id . "<br>";
-            echo $pogr . "<br>";
-            $ids = null;
-            $pogr = null;
-            //exit;
-        }
-        if ($k == "name_cat") {
-            $title = str_replace("'", "\'", $line);
+        $line = trim($line);
+        if ($k == 1) {
+            //$title = str_replace("'", "\'", $line);
+            $title = $line;
             //$query="UPDATE wp_posts SET post_content='$discription', post_title='$title' WHERE id='$id'";
             //$result=$conn->query($query);
             //if (!$result) die ("Ошибка подключения к БД.");
-            echo $id . "<br>";
-            echo $title . "<br>";
-            $k = "id";
+            DB::table('products')->where('id', $id)->update(['description' => $title, 'images_home' => 'ua+Discr']);
+            echo $id . "<br>" . strtoupper($title) . "<br>";
         }
-        //echo $line."<br>";
-        ++$k;
+        if ($k == 0) {
+            $id = $line;
+            $id = str_replace('+', '', $id);
+            $id = str_replace('-', ' ', $id);
+            if (strlen($id) > 6) {
+                echo "Внимание id cодержит неверный формат:<br>";
+                echo $id;
+                $id_asoc = array(
+                    'тисяча' => 1000,
+                    'тисячу' => 1000,
+                    "тисячі" => 1000,
+                    "одна тисяча" => 1000,
+                    'дві тисячі' => 2000,
+
+                    'сто' => 100,
+                    'двісті' => 200,
+                    'триста' => 300,
+                    'чотириста' => 400,
+                    "п'ятьсот" => 500,
+                    "п'ятсот" => 500,
+                    "шістьсот" => 600,
+                    "шістсот" => 600,
+                    "сімсот" => 700,
+                    "вісімсот" => 800,
+                    "дев'ятсот" => 900,
+
+                    "десять" => 10,
+                    "двадцять" => 20,
+                    "тридцять" => 30,
+                    "сорок" => 40,
+                    "п'ятьдесят" => 50,
+                    "шістьдесят" => 60,
+                    "шістдесят" => 60,
+                    "сімдесят" => 70,
+                    "вісімдесят" => 80,
+                    "дев'яносто" => 90,
+
+                    "один" => 1,
+                    "одна" => 1,
+                    "два" => 2,
+                    "дві" => 2,
+                    "три" => 3,
+                    "чотири" => 4,
+                    "п'ять" => 5,
+                    "шість" => 6,
+                    "сім" => 7,
+                    "вісім" => 8,
+                    "дев'ять" => 9
+                );
+                $str = explode(' ', $id);
+                print_r($str);
+                exit;
+                foreach ($str as $elm_num => $elm) {
+                    $elm = trim($elm);
+                    echo $elm_num . "<br>";
+                    if ($id_asoc[$elm]) {
+                        if ($elm_num == 0 && $elm == "одна") $pogr = 1; //если "одна" стоит перед "тисяча"
+                        if ($elm_num == 0 && $elm == "дві") $pogr = 2;
+                        $ids = $ids + $id_asoc[$elm];
+                    } else {
+                        $ids = $ids . $elm;
+                    };
+                    echo $ids . "<br>";
+                    echo $elm . "<br>";
+                    $id = str_replace(' ', '', $ids);
+                    $id = $id - $pogr;
+                }
+                echo "Правильный id:" . $id . "<br>";
+                echo $pogr . "<br>";
+                $ids = null;
+                $pogr = null;
+                //exit;
+            }
+            $k++;
+            continue;
+        }
+        $k--;
     }
 
     // fclose ($f_uk);

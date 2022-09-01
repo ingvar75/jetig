@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Storage;
 class ExcelController extends Controller
 {
     /**
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -94,10 +94,19 @@ class ExcelController extends Controller
                 $pageCount = count($page);
                 for ($i = 1; $i < $pageCount; $i++) {
                     if ($page[$i][12] == "+") $page[$i][12] = 1; //є в наявності
+                    $desc = $page[$i][3];// відкорегуємо опис
+                    $desc = str_replace('&nbsp;', ' ', $desc);
+                    $pos1 = strpos($desc, 'h2>') +3;
+                    $desc = substr($desc, $pos1);
+                    $pos2 = strpos($desc, 'Характер');
+                    $desc2 = substr($desc, $pos2);
+                    $desc = str_replace($desc2, '', $desc);
+                    $desc = strip_tags($desc);
+                    echo $pos2, '-', $desc;
                     $in_db_product = [
                         'product_code' => $page[$i][0],
                         'item_name' => $page[$i][1],
-                        'description' => $page[$i][3],
+                        'description' => $desc,
                         'price' => $page[$i][5],
                         'currency' => $page[$i][6],
                         'unit_of_measurement' => $page[$i][7],
