@@ -23,7 +23,7 @@
                         <div class="jet-layout-cell layout-item-4" style="width: 30%">
                             <p style="text-align: left;">
                                 <a href="/subcategories?IdParent=<?=$CatParent[$k]->id_group?>" title="Перейти на сторінку">
-                                <img width="250" height="250" alt="" class="jet-lightbox"
+                                <img width="200" height="200" alt="" class="jet-lightbox"
                                                                 src="<?=$CatParent[$k]->images_pars?>">
                                 </a>
                                 <br>

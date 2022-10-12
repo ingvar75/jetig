@@ -57,7 +57,9 @@ if (isset($_GET['choose']) && $_GET['choose'] == 'descrProducts') {
                 $desc = substr($desc, $pos1 + 1);
             }
         if ($desc == "" || $desc == " ") {
-            DB::table('products')->where('id', $id)->delete();
+            DB::table('products')
+                ->where('id', $id)
+                ->update(['description' => 'Немає опису до даного товару.']);
         }
 
 

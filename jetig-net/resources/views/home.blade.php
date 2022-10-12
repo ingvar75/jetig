@@ -9,6 +9,7 @@
             use Illuminate\Support\Facades\DB;
 
             $CatParent = DB::table('categories')->where('id_group_parent', 0)->get();
+//            var_dump($CatParent);exit;
             if (count($CatParent) > 0){
 
             ?>
@@ -18,12 +19,63 @@
                     <div class="jet-content-layout layout-item-1">
                         <div class="jet-content-layout-row">
                             <?php
-                            for ($k = 0; $k < count($CatParent); $k++){
+                            for ($k = 0; $k < 3; $k++){
                             ?>
                             <div class="jet-layout-cell layout-item-4" style="width: 30%">
                                 <p style="text-align: left;">
                                     <a href="/subcategories?IdParent=<?=$CatParent[$k]->id_group?>" title="Перейти на сторінку">
-                                        <img width="250" height="250" alt="" class="jet-lightbox"
+                                        <img width="200" height="200" alt="" class="jet-lightbox"
+                                             src="<?=$CatParent[$k]->images_pars?>">
+                                    </a>
+                                    <br>
+                                </p>
+                                <p style="text-align: justify;">
+                                    <select style="font-size: 14px;">
+                                        <option><?=$CatParent[$k]->name_group?></option>
+
+                                <?php
+                                $CatIdParents = DB::table('categories')->where('id_group_parent', $CatParent[$k]->id_group)->get();
+                                foreach ($CatIdParents as $key => $obj){
+                                ?>
+                                        <a href="/subcategories?IdCat=<?=$obj->id_group?>" target="_self" title="Перейти у розділ">
+                                <option style="text-align: left;">
+
+                                        <?=$obj->name_group?></option></a>
+                                <?php
+                                }
+                                ?>
+
+                                    </select><br>
+                                </p>
+
+                            </div>
+                            <?php
+
+                            $kol = 3 - count($CatParent);
+                            if ($kol > 0) {   // пустая ячейка если нет категории
+                            for ($n = 1; $n <= $kol; $n++){
+                            ?>
+                            <div style="width: 30%">
+                                <p style="text-align: center;"></p>
+                                <p style="text-align: center;"><a href="#" target="_self" title="Перейти у розділ"></a>
+                                </p>
+                            </div>
+                            <?php
+                            }
+                            }
+                            } ?>
+                        </div>
+                        <?php
+                        if ($k > 2){
+                        ?>
+                        <div class="jet-content-layout-row">
+                            <?php
+                            for ($k = 3; $k < count($CatParent); $k++){
+                            ?>
+                            <div class="jet-layout-cell layout-item-4" style="width: 30%">
+                                <p style="text-align: left;">
+                                    <a href="/subcategories?IdParent=<?=$CatParent[$k]->id_group?>" title="Перейти на сторінку">
+                                        <img width="200" height="200" alt="" class="jet-lightbox"
                                              src="<?=$CatParent[$k]->images_pars?>">
                                     </a>
                                     <br>
@@ -58,6 +110,9 @@
                             }
                             } ?>
                         </div>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
